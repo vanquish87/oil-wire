@@ -1,0 +1,382 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webform</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\common.css' %}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\webform.css' %}">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\ataglance.css' %}">
+  </head>
+  <body>
+    <header class="top">
+      <div class="logo-details">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img
+            src="{% static 'Assets\Logo.png' %}"
+            alt="logo"
+            height="80px"
+            width="80px"
+            style="margin: 8px"
+          />
+        </a>
+
+        <h6 id="tagline">
+          Oil and Natural Gas Corporation Limited
+          <p style="font-size: 12px; color: black">A Maharatna Company</p>
+        </h6>
+      </div>
+
+      <form>
+        <input type="text" placeholder="ElasticSearch" id="elastic-search" />
+        <label for="search"></label>
+      </form>
+    </header>
+    <section>
+      <div class="body-container">
+        <hr />
+        <h3 style="font-family: Verdana">Drilling Fluid Properties</h3>
+        <!-- Webform -->
+        <form class="prop">
+          <hr />
+          <h5 style="font-family: Verdana">Sample Details</h5>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Fluid Set</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                aria-describedby="emailHelp"
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Source</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Time</label>
+              <input
+                type="datetime-local"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Depth(MD/TVD)</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+
+          <hr />
+          <h5 style="font-family: Verdana">Physical Properties</h5>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">FL Temp</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Density @ &#8457;</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">FV @ &#8457;</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">PV @ &#8457;</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">YP</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">GELS</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">600/300</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">200/100</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">6/3</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Filtrate (API)</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">HTHP @ &#8457;</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Cake (API/HTHP)</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Corr Solid</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Sand</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+          <hr />
+          <h5 style="font-family: Verdana">Chemical Properties</h5>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">NAP / Water Ratio</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">NAP / Water</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">MBT</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">pH @ &#8457;</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">ALK Mud (Pm)</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">ALK Filt (Pf/Mf)</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Chlorides</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">Total Hardness</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+          <div class="flex">
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">LGS / HGS</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">LGS / HGS</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+            <div class="form-group" style="font-family: comic sans">
+              <label for="">ASG</label>
+              <input
+                type="text"
+                size="50"
+                class="form-control"
+                id=""
+                placeholder="Enter Text"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <footer class="bottom">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary">Sitemap</button>
+        <button type="button" class="btn btn-primary">Privacy Policy</button>
+        <button type="button" class="btn btn-primary">Terms of Use</button>
+        <button type="button" class="btn btn-primary">Disclaimer</button>
+      </div>
+
+      <p>
+        Copyright © Oil and Natural Gas Corporation Limited, All Rights
+        Reserved.
+      </p>
+    </footer>
+  </body>
+</html>

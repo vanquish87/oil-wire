@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'index.apps.IndexConfig',
     'webLog.apps.WeblogConfig',
     'mechanical.apps.MechanicalConfig',
 
@@ -59,7 +58,10 @@ ROOT_URLCONF = 'appONGC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            # os.path.join(BASE_DIR, 'templates')
+            BASE_DIR /  'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,6 +127,14 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+# It will show django where static files are located in 'production' environment
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# to tell django where to store user uploaded files
+MEDIA_ROOT = BASE_DIR / 'static/data'
+# to access images
+MEDIA_URL = 'data/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

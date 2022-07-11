@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>LAS</title>
+{% endblock %}
+
+{% block content %}
+    <h1>LAS LAS LAS</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <!-- Input:Text -->
+        <div class="form__field">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <input type="submit">
+    </form>
+
+{% endblock %}

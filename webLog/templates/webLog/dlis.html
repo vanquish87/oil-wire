@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>DLIS</title>
+{% endblock %}
+
+{% block content %}
+    <h1>DLIS DLIS</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="file" id="myfile" name="myfile">
+        <input type="submit">
+    </form>
+
+{% endblock %}

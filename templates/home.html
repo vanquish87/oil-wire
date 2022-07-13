@@ -7,112 +7,191 @@
 
 {% block content %}
 
-      <section>
-        <img
-            src="{% static 'Assets\Oil_Rig.png' %}"
-            alt="OilRig"
-            height="450px"
-            width="100%"
-        />
-        <nav class="navbar navbar-expand-sm bg-light justify-content-center">
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-                href="#"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >About Us</a
-              >
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="intro_ongc.html">ONGC</a>
-                <a class="dropdown-item" href="aboutinspira.html">INSPIRA</a>
-                <a class="dropdown-item" href="aboutsas.html">SAS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Help</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
-            </li>
-          </ul>
-        </nav>
 
-        <div class="middle">
-          <div class="left-container">
-            <img
-                src="{% static 'Assets\SAS Logo.png' %}"
-                class="just"
-            />
-            <button
-              type="button"
-              class="btn btn-dark just"
-            >
-                Data Management
-            </button>
-
-            <button type="button" class="btn btn-dark just">
-              Event Stream Processing
-            </button>
-            <button type="button" class="btn btn-dark just">
-              Visual Data Mining & Machine Learning
-            </button>
-            <button type="button" class="btn btn-dark just">
-              Visual Analytics
-            </button>
-          </div>
-
-          <div class="center-container">
-            <div>
-              <img
-                src="{% static 'Assets\int_img.png' %}"
-                alt="intro_image"
-                height="50%"
-                width="70%"
-              />
-            </div>
-            <br />
-            <b
-              >An umbrella platform on top of existing domain specific
-              analytical tools and interface with various data sources and
-              applications across ONGC to provide a cross domain integrated data
-              repository available for different aspects of analytics right from
-              ML to descriptive to diagnostic to predictive to prescriptive
-              analytics built-in.
-            </b>
-          </div>
-
-          <div class="right-container">
-            <form action=""></form>
-            <button type="button" class="btn btn-danger just2 right-child">
-              Web Analytics
-            </button>
-
-            <button type="button" class="btn btn-danger just2 right-child">
-                <a href="{% url 'equipment-log' %}" class="text-decoration-none">Web Forms</a>
-            </button>
-
-            <div class="dropdown just2">
-              <button
-                class="btn btn-danger dropdown-toggle"
-                type="button"
-                id="dropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Web-Log Viewer
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdown">
-                <li><a class="dropdown-item" href="{% url 'view-DLIS' %}">DLIS</a></li>
-                <li><a class="dropdown-item" href="{% url 'create-LAS' %}">LAS</a></li>
-                <li><a class="dropdown-item" href="#">SEGY</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+<!-- Showcase -->
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="1800">
+      <img src="{% static 'Assets\OilRig.png' %}" class="d-block w-100" alt="..." />
     </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="{% static 'Assets\OilRig.png' %}" class="d-block w-100" alt="..." />
+    </div>
+  </div>
+</div>
+
+<!-- Boxes -->
+<section class="p-5">
+  <h3 style="text-align: center">Common Analytics Platform</h3>
+  <hr />
+  <strong>
+    An umbrella platform on top of existing domain specific analytical tools
+    and interface with various data sources and applications across ONGC to
+    provide a cross domain integrated data repository available for
+    different aspects of analytics right from ML to descriptive to
+    diagnostic to predictive to prescriptive analytics built-in.
+  </strong>
+  <hr />
+  <div class="card-group">
+    <div
+      class="card align-items-center"
+      style="background-color: lemonchiffon"
+    >
+      <img
+        src="{% static 'Assets\analysis.png' %}"
+        class="card-img-fluid"
+        alt="..."
+        style="height: 100px"
+        width="100
+      "
+      />
+      <div class="card-body">
+        <p class="card-text">
+          Common enterprise analytics framework for the functional and cross
+          functional areas.
+        </p>
+      </div>
+    </div>
+    <div
+      class="card align-items-center"
+      style="background-color: lemonchiffon"
+    >
+      <img
+        src="{% static 'Assets\database.png' %}"
+        class="card-img-fluid"
+        alt="..."
+        style="height: 100px"
+        width="100
+    "
+      />
+      <div class="card-body">
+        <p class="card-text">
+          Data Integration, Data Transformation, Data Storage, Data Quality
+          and Data Visualization. AI & ML model implementation capability.
+        </p>
+      </div>
+    </div>
+    <div
+      class="card align-items-center"
+      style="background-color: lemonchiffon"
+    >
+      <img
+        src="{% static 'Assets\driller.png' %}"
+        class="card-img-fluid"
+        alt="..."
+        style="height: 100px"
+        width="100
+"
+      />
+
+      <div class="card-body">
+        <p class="card-text">
+          Use Case I: Data-Driven Top Down Modeling(TDM) of a reservoir
+          <br /><br />
+          Use Case II: Drilling Data Analytics for optimization of Pan-India
+          Drilling operations of ONGC
+        </p>
+      </div>
+    </div>
+    <div
+      class="card align-items-center"
+      style="background-color: lemonchiffon"
+    >
+      <img
+        src="{% static 'Assets\calendar.png' %}"
+        class="card-img-fluid"
+        alt="..."
+        style="height: 100px"
+        width="100
+    "
+      />
+      <div class="card-body">
+        <p class="card-text">
+          Post warranty OEM support for 6 years, with more use cases.
+        </p>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <div class="card-group">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5>TOOLS</h5>
+
+        <img
+          src="{% static 'Assets\SAS Logo.png' %}"
+          class="card-title mb-3 mt-3 img-fluid"
+          alt="SAS"
+        />
+        <br />
+        <div class="d-grid gap-2">
+          <button class="btn btn-danger" type="button">
+            Data Management
+          </button>
+        </div>
+        <br />
+
+        <div class="d-grid gap-2">
+          <button class="btn btn-danger" type="button">
+            Event Stream Processing
+          </button>
+        </div>
+        <br />
+        <div class="d-grid gap-2">
+          <button class="btn btn-danger" type="button">
+            Visual Data Mining & Machine Learning
+          </button>
+        </div>
+        <br />
+        <div class="d-grid gap-2">
+          <button class="btn btn-danger" type="button">
+            Visual Analytics
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <h5>UTILITIES</h5>
+        <img
+          src="{% static 'Assets\wrench.png' %}"
+          class="card-title mb-3 mt-3 img-fluid"
+          alt="SAS"
+          height="60px"
+          width="60px"
+        />
+        <div class="d-grid gap-2">
+          <button class="btn btn-success" type="button">
+            Web Analytics
+          </button>
+        </div>
+        <br />
+        <div class="d-grid gap-2">
+          <button class="btn btn-success" type="button">Web Forms</button>
+        </div>
+        <br />
+
+        <div class="dropdown d-grid gap-2">
+          <button
+            class="btn btn-success dropdown-toggle"
+            type="button"
+            id="dropdownMenu2"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Web-Log Viewer
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a class="dropdown-item" href="{% url 'view-DLIS' %}">DLIS</a></li>
+            <li><a class="dropdown-item" href="{% url 'create-LAS' %}">LAS</a></li>
+            <li><a class="dropdown-item" href="#">SEGY</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 {% endblock %}

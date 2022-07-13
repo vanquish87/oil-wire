@@ -6,17 +6,28 @@
 {% endblock %}
 
 {% block content %}
-    <h1>LAS LAS LAS</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-        <!-- Input:Text -->
-        <div class="form__field">
-            <label>{{ field.label }}</label>
-            {{ field }}
+<!-- showcase -->
+<!-- in bootstrap 5 we can do CSS right into classes n adjust accoordingly -->
+<section id="main" class="bg-light text-dark mt-5 py-5 text-center">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row justify-content-around align-items-center text-center">
+            <div class="col-md-8 pt-5">
+                <h1>LAS LAS LAS</h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <!-- Input:Text -->
+                    <div class="form__field">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <input type="submit">
+                </form>
+            </div>
         </div>
-        {% endfor %}
-        <input type="submit">
-    </form>
+    </div>
+</section>
 
 {% endblock %}

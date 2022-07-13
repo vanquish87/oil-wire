@@ -5,11 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1>DLIS DLIS</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="file" id="myfile" name="myfile">
-        <input type="submit">
-    </form>
+<!-- showcase -->
+<!-- in bootstrap 5 we can do CSS right into classes n adjust accoordingly -->
+<section id="main" class="bg-light text-dark mt-5 py-5 text-center">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row justify-content-around align-items-center text-center">
+            <div class="col-md-8 pt-5">
+                <h1>DLIS DLIS DLIS</h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" id="myfile" name="myfile">
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

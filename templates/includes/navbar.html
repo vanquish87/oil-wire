@@ -1,26 +1,73 @@
 {% load static %}
-<body>
-    <div class="main-container">
-        <header class="top">
-            <div class="logo-details">
-                <a class="navbar-brand" href="{% url 'index' %}">
-                <img
-                    src="{% static 'Assets\Logo.png' %}"
-                    alt="logo"
-                    height="80px"
-                    width="80px"
-                    style="margin: 8px"
-                />
-                </a>
 
-                <h6 id="tagline">
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand" href="{% url 'index' %}"
+                ><img
+                    src="{% static 'Assets\Logo.png' %}"
+                    alt="Logo"
+                    width="80"
+                    height="80"
+                    class="d-inline-block"
+                /></a>
+
+                <h6 class="tagline" style="color: darkred">
                 Oil and Natural Gas Corporation Limited
                 <p style="font-size: 12px; color: black">A Maharatna Company</p>
                 </h6>
             </div>
 
-            <form>
-                <input type="text" placeholder="ElasticSearch" id="elastic-search" />
-                <label for="search"></label>
+            <div>
+                <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                >About Us</a
+                            >
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">ONGC</a></li>
+                                <li><a class="dropdown-item" href="#">INSPIRA</a></li>
+                                <li><a class="dropdown-item" href="#">SAS</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <form class="d-flex">
+                <input
+                class="form-control me-2"
+                type="search"
+                placeholder="ElasticSearch"
+                aria-label="Search"
+                />
             </form>
-        </header>
+        </div>
+    </nav>

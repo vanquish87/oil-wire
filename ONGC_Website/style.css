@@ -1,0 +1,31 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.card {
+  color: midnightblue;
+  font-weight: bold;
+}
+
+.links {
+  text-decoration: none;
+  font-size: medium;
+  color: black;
+}
+.links:hover {
+  color: darkred;
+}
+.footer_links {
+  color: white;
+}
+.footer_links:hover {
+  color: white;
+}
+@media screen and (max-width: 450px) {
+  .tagline {
+    display: none;
+  }
+}
+h3 {
+  color: rosybrown;
+}

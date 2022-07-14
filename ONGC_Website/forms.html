@@ -57,7 +57,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item dropdown">
                 <a
-                  class="nav-link dropdown-toggle"
+                  class="nav-link dropdown-toggle text-primary"
                   href="#"
                   id="navbarDropdown"
                   role="button"
@@ -66,16 +66,22 @@
                   >About Us</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">ONGC</a></li>
-                  <li><a class="dropdown-item" href="#">INSPIRA</a></li>
-                  <li><a class="dropdown-item" href="#">SAS</a></li>
+                  <li>
+                    <a class="dropdown-item text-primary" href="#">ONGC</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-primary" href="#">INSPIRA</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-primary" href="#">SAS</a>
+                  </li>
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link text-primary" href="#">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Reports</a>
+                <a class="nav-link text-primary" href="#">Reports</a>
               </li>
             </ul>
           </div>
@@ -97,14 +103,26 @@
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-12 col-lg-9 col-xl-7">
             <div
-              class="card shadow-2-strong card-registration"
+              class="card shadow-2-strong card-registration bg-light text-dark"
               style="border-radius: 15px"
             >
               <div class="card-body p-4 p-md-5">
                 <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">EQUIPMENT LOG SHEET</h2>
+
                 <form>
                   <div class="row">
-                    <div class="col-md-6 mb-4">
+                    <div class="col col-md-6">
+                      <label class="form-label">RIG / WELL :</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-6">
+                      <label class="form-label">DATE</label>
+                      <input type="date" class="form-control" />
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col col-md-6">
                       <div class="form-check form-check-inline">
                         <input
                           class="form-check-input"
@@ -112,118 +130,244 @@
                           name="inlineRadioOptions"
                           id="firstShift"
                           value="option1"
-                          checked
                         />
                         <label class="form-check-label" for="firstShift"
                           >First Shift</label
                         >
                       </div>
-
+                    </div>
+                    <div class="col col-md-6">
                       <div class="form-check form-check-inline">
                         <input
                           class="form-check-input"
                           type="radio"
                           name="inlineRadioOptions"
-                          id="maleGender"
+                          id="secondShift"
                           value="option2"
                         />
-                        <label class="form-check-label" for="maleGender"
+                        <label class="form-check-label" for="secondShift"
                           >Second Shift</label
                         >
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <select class="select form-control-lg">
-                          <option value="1">Carrier Engine - 1</option>
-                          <option value="2">Carrier Engine - 2</option>
-                          <option value="3">MP Engine - 1</option>
-                          <option value="4">MP Engine - 2</option>
-                          <option value="5">DG SET Engine - 1</option>
-                          <option value="6">DG SET Engine - 2</option>
-                          <option value="7">DG SET Engine - 3</option>
-                          <option value="8">DG SET Engine - 4</option>
-                          <option value="9">Transmission CE - 1</option>
-                          <option value="10">Transmission CE - 2</option>
-                          <option value="11">Compresser (Elect.) - 1</option>
-                          <option value="12">Compresser (Elect.) - 2</option>
-                          <option value="13">Compresser (Mech.) - 1</option>
-                          <option value="14">Compresser (Mech.) - 2</option>
-                          <option value="15">
-                            Diesel Engine Comp. (Mech.) - 1
-                          </option>
-                          <option value="16">
-                            Diesel Engine Comp. (Mech.) - 2
-                          </option>
-                          <option value="17">Mud Pump - 1</option>
-                          <option value="18">Mud Pump - 2</option>
-                          <option value="19">Torque Converter MP1</option>
-                          <option value="20">Torque Converter MP2</option>
-                          <option value="21">Fire Water Pump</option>
-                        </select>
-                        <label class="form-label select-label">Equipment</label>
-                      </div>
-                    </div>
-
-                    <!-- <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input
-                          type="text"
-                          id="firstName"
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="firstName"
-                          >First Name</label
-                        >
-                      </div>
-                    </div> -->
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input
-                          type="text"
-                          id="lastName"
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="lastName"
-                          >Last Name</label
-                        >
-                      </div>
-                    </div>
                   </div>
+                  <hr />
 
                   <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="email"
-                          id="emailAddress"
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="emailAddress"
-                          >Email</label
-                        >
-                      </div>
+                    <div class="col-12">
+                      <label class="form-label select-label">Equipment</label>
+                      <select class="select form-control-md">
+                        <option value="1">Carrier Engine - 1</option>
+                        <option value="2">Carrier Engine - 2</option>
+                        <option value="3">MP Engine - 1</option>
+                        <option value="4">MP Engine - 2</option>
+                        <option value="5">DG SET Engine - 1</option>
+                        <option value="6">DG SET Engine - 2</option>
+                        <option value="7">DG SET Engine - 3</option>
+                        <option value="8">DG SET Engine - 4</option>
+                        <option value="9">Transmission CE - 1</option>
+                        <option value="10">Transmission CE - 2</option>
+                        <option value="11">Compresser (Elect.) - 1</option>
+                        <option value="12">Compresser (Elect.) - 2</option>
+                        <option value="13">Compresser (Mech.) - 1</option>
+                        <option value="14">Compresser (Mech.) - 2</option>
+                        <option value="15">
+                          Diesel Engine Comp. (Mech.) - 1
+                        </option>
+                        <option value="16">
+                          Diesel Engine Comp. (Mech.) - 2
+                        </option>
+                        <option value="17">Mud Pump - 1</option>
+                        <option value="18">Mud Pump - 2</option>
+                        <option value="19">Torque Converter MP1</option>
+                        <option value="20">Torque Converter MP2</option>
+                        <option value="21">Fire Water Pump</option>
+                        <option value="">Others</option>
+                      </select>
                     </div>
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <input
-                          type="tel"
-                          id="phoneNumber"
-                          class="form-control form-control-lg"
-                        />
-                        <label class="form-label" for="phoneNumber"
-                          >Phone Number</label
-                        >
-                      </div>
+                    <!-- </div> -->
+                    <div class="col col-6">
+                      <label class="form-label">Other Equipment</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Others"
+                        placeholder="Enter Equipment"
+                      />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label class="form-label">Water Temp. (&deg;C)</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Water Temperature &deg;"
+                      />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">Oil Temp. (&deg;C)</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Oil Temperature &deg;"
+                      />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label"
+                        >Oil Pressure (kg/cm<sup>3</sup>)</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Oil Pressure"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label class="form-label">Working Hours</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Working Hours"
+                      />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">Equip available Hrs.</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Equip available Hrs."
+                      />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">Oil Used</label>
+                      <input type="text" class="form-control" name="Oil Used" />
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="form-label select-label">Equipment</label>
+                      <select class="select form-control-md">
+                        <option value="22">Power Take - Off - 1</option>
+                        <option value="23">Power Take - Off - 2</option>
+                        <option value="24">Draw Works</option>
+                        <option value="25">Rotary / Bevel Gear Box</option>
+                        <option value="26">C/B T/B - Hook</option>
+                        <option value="27">Swivel</option>
+                        <option value="28">Shale Shaker Bucket - 1</option>
+                        <option value="29">Shale Shaker Bucket - 2</option>
+                        <option value="30">R/T /Rotary Elevator Drive</option>
+                        <option value="31">Hydromatic Brake</option>
+                        <option value="32">Super Charger - 1</option>
+                        <option value="33">Super Charger - 2</option>
+                        <option value="34">Hopper Pump - 1</option>
+                        <option value="35">Hopper Pump - 2</option>
+                        <option value="36">Degasser</option>
+                        <option value="37">Desander</option>
+                        <option value="38">Mud Cleaner</option>
+                        <option value="39">Desander Pump</option>
+                        <option value="40">Desilter Pump</option>
+                        <option value="41">Ezy Torque</option>
+                        <option value="42">Pipe Spinner</option>
+                        <option value="43">Kelly Spinner</option>
+                        <option value="44">Main Water Pump</option>
+                        <option value="45">Second Water Pump</option>
+                        <option value="46">Air Winch</option>
+                        <option value="47">Mud Agitator - 1</option>
+                        <option value="48">Mud Agitator - 2</option>
+                        <option value="49">Mud Agitator - 3</option>
+                        <option value="50">Mud Agitator - 4</option>
+                        <option value="51">Mud Agitator - 5</option>
+                        <option value="52">Mud Agitator - 6</option>
+                        <option value="53">Mud Agitator - 7</option>
+                        <option value="54">Mud Agitator - 8</option>
+                        <option value="55">Mud Agitator - 9</option>
+                        <option value="56">Mud Agitator - 10</option>
+                        v
+                        <option value="57">Mud Agitator - 11</option>
+                        <option value="58">Mud Agitator - 12</option>
+                        <option value="59">Others</option>
+                      </select>
+                    </div>
+                    <div class="col col-6">
+                      <label class="form-label">Other Equipment</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Others"
+                        placeholder="Enter Equipment"
+                      />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label class="form-label">Working Hours</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Working Hours"
+                      />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">Availability Hours</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Availability Hours"
+                      />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">Oil Used</label>
+                      <input type="text" class="form-control" name="Oil Used" />
                     </div>
                   </div>
 
-                  <div class="mt-4 pt-2">
-                    <input
-                      class="btn btn-primary btn-lg"
-                      type="submit"
-                      value="Submit"
-                    />
+                  <!-- <div class="row"> -->
+                  <div class="mb-3 mt-3">
+                    <label for="comment"
+                      >Service/Repairing Instructions & Work Done</label
+                    >
+                    <textarea
+                      class="form-control"
+                      rows="5"
+                      id="comment"
+                      name="text"
+                    ></textarea>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <span>Rig Down Time</span>
+                    <div class="col col-6">
+                      <label for="clock">From (Hours)</label>
+                      <input type="time" />
+                    </div>
+                    <div class="col col-6">
+                      <label for="clock">To (Hours)</label>
+                      <input type="time" />
+                    </div>
+                  </div>
+                  <hr />
+
+                  <div class="mb-3 mt-3">
+                    <label for="comment"
+                      >Requirement & Important Information :</label
+                    >
+                    <textarea
+                      class="form-control"
+                      rows="5"
+                      id="comment"
+                      name="text"
+                    ></textarea>
+                  </div>
+                  <div class="d-grid gap-2 my-4 py-2">
+                    <button class="btn btn-primary" type="button">
+                      Submit
+                    </button>
                   </div>
                 </form>
               </div>

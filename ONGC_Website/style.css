@@ -1,6 +1,43 @@
 body {
   font-family: "Roboto", sans-serif;
 }
+@media screen and (max-width: 724px) {
+  .tagline {
+    display: none;
+  }
+}
+@media screen and (max-width: 991px) {
+  .navbeaut {
+    position: absolute;
+
+    right: 266px;
+
+    top: 59px;
+  }
+}
+@media screen and (max-width: 385px) {
+  .row-modify {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 768px) {
+  .row-modify2 {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 413px) {
+  .row-modify3 {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 450px) {
+  .row-modify4 {
+    width: 10px;
+  }
+}
 
 .card {
   color: midnightblue;
@@ -21,11 +58,7 @@ body {
 .footer_links:hover {
   color: white;
 }
-@media screen and (max-width: 450px) {
-  .tagline {
-    display: none;
-  }
-}
+
 h3 {
   color: rosybrown;
 }

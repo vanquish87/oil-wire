@@ -1,5 +1,4 @@
 {% load static %}
-
 <body>
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -16,10 +15,9 @@
 
                 <h6 class="tagline" style="color: darkred">
                 Oil and Natural Gas Corporation Limited
-                <p style="font-size: 12px; color: black">A Maharatna Company</p>
+                <p style="font-size: 10px; color: black">A Maharatna Company</p>
                 </h6>
             </div>
-
             <div>
                 <button
                 class="navbar-toggler"
@@ -37,7 +35,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a
-                                class="nav-link dropdown-toggle"
+                                class="nav-link dropdown-toggle text-primary"
                                 href="#"
                                 id="navbarDropdown"
                                 role="button"
@@ -46,16 +44,22 @@
                                 >About Us</a
                             >
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">ONGC</a></li>
-                                <li><a class="dropdown-item" href="#">INSPIRA</a></li>
-                                <li><a class="dropdown-item" href="#">SAS</a></li>
+                                <li>
+                                <a class="dropdown-item text-primary" href="#">ONGC</a>
+                                </li>
+                                <li>
+                                <a class="dropdown-item text-primary" href="#">INSPIRA</a>
+                                </li>
+                                <li>
+                                <a class="dropdown-item text-primary" href="#">SAS</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
+                            <a class="nav-link text-primary" href="#">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Reports</a>
+                            <a class="nav-link text-primary" href="#">Reports</a>
                         </li>
                     </ul>
                 </div>
@@ -67,6 +71,7 @@
                 type="search"
                 placeholder="ElasticSearch"
                 aria-label="Search"
+                x
                 />
             </form>
         </div>

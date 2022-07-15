@@ -16,10 +16,10 @@ data-bs-ride="carousel"
 >
 <div class="carousel-inner">
   <div class="carousel-item active" data-bs-interval="1800">
-    <img src="{% static 'Assets\OilRig.png' %}" class="d-block w-100" alt="..." />
+    <img src="{% static 'Assets\oilrig1.png' %}" class="d-block w-100" alt="..." />
   </div>
   <div class="carousel-item" data-bs-interval="2000">
-    <img src="{% static 'Assets\OilRig2.png' %}" class="d-block w-100" alt="..." />
+    <img src="{% static 'Assets\oilrig2.png' %}" class="d-block w-100" alt="..." />
   </div>
 </div>
 </div>
@@ -177,9 +177,30 @@ data-bs-ride="carousel"
         </button>
       </div>
       <br />
-      <div class="d-grid gap-2">
-        <button class="btn btn-success" type="button">
-          <a class="text-decoration-none" href="{% url 'equipment-log' %}">Web Forms</a></button>
+      <div class="dropdown d-grid gap-2">
+        <button
+          class="btn btn-success dropdown-toggle"
+          type="button"
+          id="dropdownMenu2"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          data-bs-auto-close="true"
+        >
+          Web-Forms
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <li>
+            <button class="dropdown-item text-success" type="button">
+              <a class="text-decoration-none" href="{% url 'equipment-log' %}">Equipment Log Sheet</a>
+            </button>
+          </li>
+          <li>
+            <button class="dropdown-item text-success" type="button">
+              <a class="text-decoration-none" href="{% url 'electrical-log' %}">Electrical Log Sheet</a>
+            </button>
+          </li>
+        </ul>
+
       </div>
       <br />
 

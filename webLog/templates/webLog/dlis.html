@@ -12,10 +12,13 @@
     <div class="container-sm">
         <div class="row justify-content-around align-items-center text-center">
             <div class="col-md-8 pt-5">
-                <h1>DLIS DLIS DLIS</h1>
+                <h1 class="py-3" >Upload a DLIS File</h1>
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" id="myfile" name="myfile">
+                    <!-- Input:Text -->
+                    <div class="mb-3">
+                        <input class="form-control" type="file" id="formFile">
+                      </div>
                     <input type="submit">
                 </form>
             </div>

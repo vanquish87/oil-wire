@@ -22,9 +22,11 @@
   </head>
   <body>
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div class="container-fluid d-flex justify-content-between">
-        <div class="d-flex align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-end"
+      >
+        <div class="d-flex align-items-end">
           <a class="navbar-brand" href="#"
             ><img
               src="assets/Logo.png"
@@ -34,13 +36,15 @@
               class="d-inline-block"
           /></a>
 
-          <h6 class="tagline" style="color: darkred">
+          <h6 class="tagline my-0" style="color: darkred">
             Oil and Natural Gas Corporation Limited
-            <p style="font-size: 10px; color: black">A Maharatna Company</p>
+            <p style="font-size: 10px; color: black" class="mb-2">
+              A Maharatna Company
+            </p>
           </h6>
         </div>
 
-        <div>
+        <div class="navbeaut">
           <button
             class="navbar-toggler"
             type="button"
@@ -63,15 +67,13 @@
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >About Us</a
+                  >About Project</a
                 >
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    <a class="dropdown-item text-primary" href="#">ONGC</a>
+                    <a class="dropdown-item text-primary" href="#">CAP</a>
                   </li>
-                  <li>
-                    <a class="dropdown-item text-primary" href="#">INSPIRA</a>
-                  </li>
+
                   <li>
                     <a class="dropdown-item text-primary" href="#">SAS</a>
                   </li>
@@ -87,18 +89,18 @@
           </div>
         </div>
 
-        <form class="d-flex">
+        <form class="d-flex align-self-end">
           <input
             class="form-control me-2"
             type="search"
             placeholder="ElasticSearch"
             aria-label="Search"
-            x
           />
+          <img src="assets/search.png" width="30" height="30" alt="" />
         </form>
       </div>
     </nav>
-
+    <hr class="my-0" style="color: maroon; height: 3px; opacity: 1" />
     <!-- Showcase -->
 
     <div
@@ -108,10 +110,10 @@
     >
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="1800">
-          <img src="assets/OilRig.png" class="d-block w-100" alt="..." />
+          <img src="assets/oilrig1.png" class="d-block w-100" alt="..." />
         </div>
         <div class="carousel-item" data-bs-interval="2000">
-          <img src="assets/OilRig2.png" class="d-block w-100" alt="..." />
+          <img src="assets/oilrig2.png" class="d-block w-100" alt="..." />
         </div>
       </div>
     </div>

@@ -6,16 +6,17 @@
 {% endblock %}
 
 {% block content %}
-<section id="main" class="bg-light text-dark mt-5 py-5 text-center">
+<section id="main" class="bg-white text-dark mt-5 py-5 text-center">
     <!-- for symmetry from top to bottom on page I am using a container -->
     <div class="container-sm">
-        <div class="row justify-content-around align-items-center text-center">
-            <div class="col-md-8 pt-5">
-                <h1>LAS LAS LAS</h1>
-                {% for png in png_files %}
-                <img src="{% static 'data/science/' %}{{ png }}"/>
-                {% endfor %}
+        <div class="row justify-content-around align-items-center text-center py-5">
+            <h1>LAS Charts</h1>
+            {% for png in png_files %}
+            <div class="col-md-4">
+                <img class="img-fluid" src="{% static 'data/science/' %}{{ png }}"/>
             </div>
+            {% endfor %}
+
         </div>
     </div>
 </section>

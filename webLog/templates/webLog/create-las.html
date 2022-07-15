@@ -13,15 +13,14 @@
     <div class="container-sm">
         <div class="row justify-content-around align-items-center text-center">
             <div class="col-md-8 pt-5">
-                <h1>LAS LAS LAS</h1>
+                <h1 class="py-3" >Upload a LAS File</h1>
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                     <!-- Input:Text -->
-                    <div class="form__field">
-                        <label>{{ field.label }}</label>
+                    <div class="mb-3">
                         {{ field }}
-                    </div>
+                      </div>
                     {% endfor %}
                     <input type="submit">
                 </form>

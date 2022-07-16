@@ -135,6 +135,9 @@ MEDIA_ROOT = BASE_DIR / 'static/data'
 # to access images
 MEDIA_URL = 'data/'
 
+# custom directory for storing scientific files
+SCIENCE_DIR = BASE_DIR / 'static\data\science'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

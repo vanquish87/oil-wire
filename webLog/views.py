@@ -1,9 +1,16 @@
+from django.forms import FileField
 from django.shortcuts import render, redirect
+from numpy import absolute
 import pandas as pd
 import matplotlib.pyplot as plt
 import lasio
-from .forms import UploadFileForm
+from .forms import LogFileForm
 import os
+from .models import LogFile, LogColumn
+from django.conf import settings
+
+import base64
+from io import BytesIO
 
 
 # Create your views here.
@@ -15,39 +22,58 @@ def viewDlis(request):
 
 def createLas(request):
     # deleting existing files
-    dir = 'C:\Jimmy\Codeholic\ongc-wire\static\data\science'
-    for f in os.listdir(dir):
-        os.remove(os.path.join(dir, f))
+    file = LogFile.objects.all()
+    file.delete()
+    if os.path.isdir(settings.SCIENCE_DIR):
+        for f in os.listdir(settings.SCIENCE_DIR):
+            os.remove(os.path.join(settings.SCIENCE_DIR, f))
 
     # handling file via ORM
-    form = UploadFileForm()
+    form = LogFileForm()
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
+        form = LogFileForm(request.POST, request.FILES)
         if form.is_valid:
             form.save()
 
-        # creating PNG files out of LAS uploads
+        # reading LAS file n saving its columns
         las_file = str(request.FILES['file'])
-        las = lasio.read(f"C:\Jimmy\Codeholic\ongc-wire\static\data\science\{las_file}")
+
+        las = lasio.read(os.path.join(settings.SCIENCE_DIR, las_file))
         well = las.df()
 
         for i in well.columns:
-            well.plot(y=i)
-            plt.savefig(f"C:\Jimmy\Codeholic\ongc-wire\static\data\science\{i}.png")
+            try:
+                logfile = LogFile.objects.get(file__contains=str(request.FILES['file']))
+                column = LogColumn(logfile=logfile, name=str(i))
+                column.save()
+            except ValueError as e:
+                raise e
 
-        return redirect('view-LAS')
+        return redirect('view-LAS-image', well.columns[0])
 
     context = {'form': form}
     return render(request, 'webLog/create-las.html', context)
 
 
-def viewLas(request):
-    dir = 'C:\Jimmy\Codeholic\ongc-wire\static\data\science'
-    files = os.listdir(dir)
-    png_files = []
-    for file in files:
-        if file.endswith('.png'):
-            png_files.append(file)
+def viewLas(request, logcolumn_name):
+    column = LogColumn.objects.get(name=logcolumn_name)
+    logcolumns = LogColumn.objects.filter(logfile__id__contains=column.logfile_id)
 
-    context = {'png_files': png_files}
+    # creating PNG files out of LAS uploads
+    logfile = LogFile.objects.get(id=column.logfile_id)
+
+    # absolute path of FileField
+    las_file = logfile.file.path
+
+    las = lasio.read(las_file)
+    well = las.df()
+    well.plot(y=logcolumn_name)
+    # import pdb; pdb.set_trace()
+    # saving png in tmp file style
+    tmpfile = BytesIO()
+    plt.savefig(tmpfile, format='png')
+    png_file = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
+
+    context = {'png_file': png_file, 'logcolumns': logcolumns, 'column': column}
+
     return render(request, 'webLog/view-las.html', context)

@@ -14,269 +14,142 @@
             style="border-radius: 15px"
           >
             <div class="card-body p-4 p-md-5">
-              <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">EQUIPMENT LOG SHEET</h2>
+              <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Mechanical Daily DPR</h2>
 
-              <form>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label class="form-label">RIG / WELL :</label>
-                    <input type="text" class="form-control" />
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row pb-3">
+
+                  <div class="col col-md-6 py-2">
+                    <label class="form-label">{{ form.name.label }}</label>
+                    {{ form.name }}
                   </div>
-                  <div class="col col-md-6">
-                    <label class="form-label">DATE</label>
-                    <input type="date" class="form-control" />
+
+                  <div class="col col-md-6 py-2">
+                    <label class="form-label">{{ form.well.label }}</label>
+                    {{ form.well }}
                   </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="firstShift"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="firstShift"
-                        >First Shift</label
-                      >
-                    </div>
+
+                  <div class="col col-md-6 py-2">
+                    <label class="form-label">{{ form.date.label }}</label>
+                    {{ form.date }}
                   </div>
-                  <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="secondShift"
-                        value="option2"
-                      />
-                      <label class="form-check-label" for="secondShift"
-                        >Second Shift</label
-                      >
-                    </div>
+
+                  <div class="col col-md-6 py-2">
+                    <label class="form-label">{{ form.shift.label }}</label>
+                    {{ form.shift }}
                   </div>
+
                 </div>
                 <hr />
 
-                <div class="row">
+                <h4 class="pt-2 text-center">EQUIPMENT LOG SHEET</h4>
+
+                <div class="row py-3">
                   <div class="col-12">
-                    <label class="form-label select-label">Equipment</label>
-                    <select class="select form-control-md">
-                      <option value="1">Carrier Engine - 1</option>
-                      <option value="2">Carrier Engine - 2</option>
-                      <option value="3">MP Engine - 1</option>
-                      <option value="4">MP Engine - 2</option>
-                      <option value="5">DG SET Engine - 1</option>
-                      <option value="6">DG SET Engine - 2</option>
-                      <option value="7">DG SET Engine - 3</option>
-                      <option value="8">DG SET Engine - 4</option>
-                      <option value="9">Transmission CE - 1</option>
-                      <option value="10">Transmission CE - 2</option>
-                      <option value="11">Compresser (Elect.) - 1</option>
-                      <option value="12">Compresser (Elect.) - 2</option>
-                      <option value="13">Compresser (Mech.) - 1</option>
-                      <option value="14">Compresser (Mech.) - 2</option>
-                      <option value="15">
-                        Diesel Engine Comp. (Mech.) - 1
-                      </option>
-                      <option value="16">
-                        Diesel Engine Comp. (Mech.) - 2
-                      </option>
-                      <option value="17">Mud Pump - 1</option>
-                      <option value="18">Mud Pump - 2</option>
-                      <option value="19">Torque Converter MP1</option>
-                      <option value="20">Torque Converter MP2</option>
-                      <option value="21">Fire Water Pump</option>
-                      <option value="">Others</option>
-                    </select>
+                    <label class="form-label select-label">{{ equip_form.name.label }}</label>
+                    {{ equip_form.name }}
                   </div>
-                  <!-- </div> -->
-                  <div class="col col-6">
-                    <label class="form-label">Other Equipment</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Others"
-                      placeholder="Enter Equipment"
-                    />
-                  </div>
+
                 </div>
                 <br />
-                <div class="row">
+                <div class="row py-3">
+
                   <div class="col col-md-4">
-                    <label class="form-label">Water Temp. (&deg;C)</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Water Temperature &deg;"
-                    />
+                    <label class="form-label">{{ equip_form.water_temp.label }}</label>
+                    {{ equip_form.water_temp }}
                   </div>
+
                   <div class="col col-md-4">
-                    <label class="form-label">Oil Temp. (&deg;C)</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Oil Temperature &deg;"
-                    />
+                    <label class="form-label">{{ equip_form.oil_temp.label }}</label>
+                    {{ equip_form.oil_temp }}
                   </div>
+
                   <div class="col col-md-4">
-                    <label class="form-label"
-                      >Oil Pressure (kg/cm<sup>3</sup>)</label
+                    <label class="form-label">{{ equip_form.oil_pressure.label }}</label
                     >
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Oil Pressure"
-                    />
+                    {{ equip_form.oil_pressure }}
                   </div>
                 </div>
-                <div class="row">
+
+                <div class="row py-3 ">
+
                   <div class="col col-md-4">
-                    <label class="form-label">Working Hours</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Working Hours"
-                    />
+                    <label class="form-label">{{ equip_form.working_hour.label }}</label>
+                    {{ equip_form.working_hour }}
                   </div>
+
                   <div class="col col-md-4">
-                    <label class="form-label">Equip available Hrs.</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Equip available Hrs."
-                    />
+                    <label class="form-label">{{ equip_form.equi_avail_hour.label }}</label>
+                    {{ equip_form.equi_avail_hour }}
                   </div>
+
                   <div class="col col-md-4">
-                    <label class="form-label">Oil Used</label>
-                    <input type="text" class="form-control" name="Oil Used" />
+                    <label class="form-label">{{ equip_form.oil_used.label }}</label>
+                    {{ equip_form.oil_used }}
                   </div>
                 </div>
                 <hr />
-                <div class="row">
+
+
+                <h4 class="pt-2 text-center">REPAIRING LOG SHEET</h4>
+
+                <div class="row py-3">
                   <div class="col-12">
-                    <label class="form-label select-label">Equipment</label>
-                    <select class="select form-control-md">
-                      <option value="22">Power Take - Off - 1</option>
-                      <option value="23">Power Take - Off - 2</option>
-                      <option value="24">Draw Works</option>
-                      <option value="25">Rotary / Bevel Gear Box</option>
-                      <option value="26">C/B T/B - Hook</option>
-                      <option value="27">Swivel</option>
-                      <option value="28">Shale Shaker Bucket - 1</option>
-                      <option value="29">Shale Shaker Bucket - 2</option>
-                      <option value="30">R/T /Rotary Elevator Drive</option>
-                      <option value="31">Hydromatic Brake</option>
-                      <option value="32">Super Charger - 1</option>
-                      <option value="33">Super Charger - 2</option>
-                      <option value="34">Hopper Pump - 1</option>
-                      <option value="35">Hopper Pump - 2</option>
-                      <option value="36">Degasser</option>
-                      <option value="37">Desander</option>
-                      <option value="38">Mud Cleaner</option>
-                      <option value="39">Desander Pump</option>
-                      <option value="40">Desilter Pump</option>
-                      <option value="41">Ezy Torque</option>
-                      <option value="42">Pipe Spinner</option>
-                      <option value="43">Kelly Spinner</option>
-                      <option value="44">Main Water Pump</option>
-                      <option value="45">Second Water Pump</option>
-                      <option value="46">Air Winch</option>
-                      <option value="47">Mud Agitator - 1</option>
-                      <option value="48">Mud Agitator - 2</option>
-                      <option value="49">Mud Agitator - 3</option>
-                      <option value="50">Mud Agitator - 4</option>
-                      <option value="51">Mud Agitator - 5</option>
-                      <option value="52">Mud Agitator - 6</option>
-                      <option value="53">Mud Agitator - 7</option>
-                      <option value="54">Mud Agitator - 8</option>
-                      <option value="55">Mud Agitator - 9</option>
-                      <option value="56">Mud Agitator - 10</option>
-                      v
-                      <option value="57">Mud Agitator - 11</option>
-                      <option value="58">Mud Agitator - 12</option>
-                      <option value="59">Others</option>
-                    </select>
+                    <label class="form-label select-label">{{ equip_serv_form.name.label }}</label>
+                    {{ equip_serv_form.name }}
                   </div>
-                  <div class="col col-6">
-                    <label class="form-label">Other Equipment</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Others"
-                      placeholder="Enter Equipment"
-                    />
-                  </div>
+
                 </div>
                 <br />
-                <div class="row">
+                <div class="row py-3">
                   <div class="col col-md-4">
-                    <label class="form-label">Working Hours</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Working Hours"
-                    />
+                    <label class="form-label">{{ equip_serv_form.working_hour.label }}</label>
+                    {{ equip_serv_form.working_hour }}
                   </div>
                   <div class="col col-md-4">
-                    <label class="form-label">Availability Hours</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Availability Hours"
-                    />
+                    <label class="form-label">{{ equip_serv_form.equi_avail_hour.label }}</label>
+                    {{ equip_serv_form.equi_avail_hour }}
                   </div>
                   <div class="col col-md-4">
-                    <label class="form-label">Oil Used</label>
-                    <input type="text" class="form-control" name="Oil Used" />
+                    <label class="form-label">{{ equip_serv_form.oil_used.label }}</label>
+                    {{ equip_serv_form.oil_used }}
                   </div>
                 </div>
 
                 <!-- <div class="row"> -->
                 <div class="mb-3 mt-3">
-                  <label for="comment"
-                    >Service/Repairing Instructions & Work Done</label
-                  >
-                  <textarea
-                    class="form-control"
-                    rows="5"
-                    id="comment"
-                    name="text"
-                  ></textarea>
+                  <label for="comment">{{ equip_serv_form.intstructions.label }}</label>
+                  {{ equip_serv_form.intstructions }}
                 </div>
                 <hr />
-                <div class="row">
-                  <span>Rig Down Time</span>
+                <div class="row py-3">
+                  <p class="pt-2 text-center">Rig Down Time</p>
                   <div class="col col-6">
-                    <label for="clock">From (Hours)</label>
-                    <input type="time" />
+                    <label for="form-label">{{ equip_serv_form.rig_downtime_from.label }}</label>
+                    {{ equip_serv_form.rig_downtime_from }}
                   </div>
                   <div class="col col-6">
-                    <label for="clock">To (Hours)</label>
-                    <input type="time" />
+                    <label for="form-label">{{ equip_serv_form.rig_downtime_to.label }}</label>
+                    {{ equip_serv_form.rig_downtime_to }}
                   </div>
                 </div>
                 <hr />
 
                 <div class="mb-3 mt-3">
-                  <label for="comment"
-                    >Requirement & Important Information :</label
-                  >
-                  <textarea
-                    class="form-control"
-                    rows="5"
-                    id="comment"
-                    name="text"
-                  ></textarea>
+                  <label for="comment">{{ equip_serv_form.requirements.label }}</label>
+                  {{ equip_serv_form.requirements }}
                 </div>
+
+
+
                 <div class="d-grid gap-2 my-4 py-2">
-                  <button class="btn btn-primary" type="button">
-                    Submit
+                  <input class="btn btn-primary" type="submit" value="Submit" />
                   </button>
                 </div>
               </form>
+
             </div>
           </div>
         </div>

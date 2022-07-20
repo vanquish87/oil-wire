@@ -27,7 +27,7 @@
         class="container-fluid d-flex justify-content-between align-items-end"
       >
         <div class="d-flex align-items-end">
-          <a class="navbar-brand" href="#"
+          <a class="navbar-brand" href="index.html"
             ><img
               src="assets/Logo.png"
               alt="Logo"
@@ -75,7 +75,9 @@
                   </li>
 
                   <li>
-                    <a class="dropdown-item text-primary" href="#">SAS</a>
+                    <a class="dropdown-item text-primary" href="aboutsas.html"
+                      >SAS</a
+                    >
                   </li>
                 </ul>
               </li>
@@ -89,7 +91,7 @@
           </div>
         </div>
 
-        <form class="d-flex align-self-end">
+        <form class="d-flex align-self-end navbeaut-1">
           <input
             class="form-control me-2"
             type="search"
@@ -101,8 +103,8 @@
       </div>
     </nav>
     <hr class="my-0" style="color: maroon; height: 3px; opacity: 1" />
-    <!-- Showcase -->
 
+    <!-- Showcase -->
     <div
       id="carouselExampleControls"
       class="carousel slide"
@@ -272,7 +274,46 @@
             </div>
             <br />
             <div class="d-grid gap-2">
-              <button class="btn btn-success" type="button">Web Forms</button>
+              <button
+                class="btn btn-success dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                data-bs-auto-close="true"
+              >
+                Web Forms
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li>
+                  <a
+                    target="_blank"
+                    href="EquipLOGSheet.html"
+                    class="dropdown-item text-success"
+                    role="button"
+                  >
+                    Equipment Log Sheet</a
+                  >
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="ElectricalLogSheet.HTML"
+                    class="dropdown-item text-success"
+                    role="button"
+                  >
+                    Electrical Log Sheet
+                  </a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="DrillingMudReport.html"
+                    class="dropdown-item text-success"
+                    role="button"
+                    >Drilling Mud Report
+                  </a>
+                </li>
+              </ul>
             </div>
             <br />
 

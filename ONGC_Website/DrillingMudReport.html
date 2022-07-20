@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-end"
+      >
+        <div class="d-flex align-items-end">
+          <a class="navbar-brand" href="index.html"
+            ><img
+              src="assets/Logo.png"
+              alt="Logo"
+              width="80"
+              height="80"
+              class="d-inline-block"
+          /></a>
+
+          <h6 class="tagline my-0" style="color: darkred">
+            Oil and Natural Gas Corporation Limited
+            <p style="font-size: 10px; color: black" class="mb-2">
+              A Maharatna Company
+            </p>
+          </h6>
+        </div>
+
+        <div class="navbeaut-1">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle text-primary"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >About Project</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item text-primary" href="#">CAP</a>
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item text-primary" href="aboutsas.html"
+                      >SAS</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-primary" href="#">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-primary" href="#">Reports</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <form class="d-flex align-self-end navbeaut-2">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="ElasticSearch"
+            aria-label="Search"
+          />
+          <img src="assets/search.png" width="30" height="30" alt="" />
+        </form>
+      </div>
+    </nav>
+    <hr class="my-0" style="color: maroon; height: 3px; opacity: 1" />
+    <!-- SECTION -->
+    <section class="p-5">
+      <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-12 col-lg-9 col-xl-7">
+            <div
+              class="card shadow-2-strong card-registration bg-light text-dark"
+              style="border-radius: 15px"
+            >
+              <div class="card-body p-4 p-md-5">
+                <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">DRILLING MUD REPORT</h2>
+                <hr />
+                <!-- Form Layout -->
+                <form>
+                  <div class="row">
+                    <div class="col col-md-12">
+                      <label class="form-label"
+                        >QHSE | DOC. NO.| QHSE/QF/CHEM-DPR/56
+                      </label>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label class="form-label">RIG</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">WELL NO.</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">ASSET/BASIN</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label class="form-label">DATE:</label>
+                      <input type="date" class="form-control" />
+                    </div>
+                  </div>
+
+                  <!-- Shifts -->
+                  <hr />
+                  <h4>SHIFTS</h4>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="firstShift"
+                          value="option1"
+                        />
+                        <label class="form-check-label" for="firstShift"
+                          >Day Shift</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="secondShift"
+                          value="option2"
+                        />
+                        <label class="form-check-label" for="secondShift"
+                          >Night Shift</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label class="form-label">DRILLED FROM</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-6">
+                      <label class="form-label">TO (MTS.)</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <br />
+                  <span>Time</span>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label class="form-label">From</label>
+                      <input type="time" class="form-control" />
+                    </div>
+                    <div class="col col-md-6">
+                      <label class="form-label">To</label>
+                      <input type="time" class="form-control" />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col">
+                      <label for="comment" class="form-label">Operation</label>
+                      <textarea
+                        class="form-control"
+                        rows="3"
+                        id="comment"
+                        name="text"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">Sp. Gr.</label>
+                      <input type="number" class="form-control" />
+                    </div>
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">Visc(Sec.)</label>
+                      <input type="number" class="form-control" />
+                    </div>
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">Gel 10</label>
+                      <input type="number" class="form-control" />
+                    </div>
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">pH</label>
+                      <input type="number" class="form-control" />
+                    </div>
+                  </div>
+                  <hr />
+
+                  <!-- Lab Data -->
+                  <h4>Laboratory Data</h4>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="firstShift"
+                          value="option1"
+                        />
+                        <label class="form-check-label" for="firstShift"
+                          >Sample-I</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="secondShift"
+                          value="option2"
+                        />
+                        <label class="form-check-label" for="secondShift"
+                          >Sample-II</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Time</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Depth</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >API Filtration Loss(ml)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Cake Thickness(mm)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">pH</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Sand(%v/v)</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Apparent visc.(cp)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Plastic visc.(cp)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Yield Point(Lbs/100ft<sup>2</sup>)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Gel 0(Lbs/100ft<sup>2</sup>)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Gel 10(Lbs/100ft<sup>2</sup>)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Oil Content(%v/v)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Solid Content(%v/v)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Water Content(%v/v)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">MBC</label>
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label for="text" class="form-label"
+                        >Filtrate Salinity(gm/ml)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-6">
+                      <label for="text" class="form-label"
+                        >Flow Line Temp(&deg;C)</label
+                      >
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <hr />
+
+                  <!-- Hydraulic Data -->
+                  <h4>Hydraulic Data Data</h4>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Pump Liner Size</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Stroke Length</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Discharge</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Stroke/min.</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Stand Pipe Pressure</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >DP Size/Length</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >DC Size/Length</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >No. of Stabilizers</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <span>Ann Vel.(m/sec)</span>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">(a) OH-DC</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">(b) OH-DP</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">(c) Cas-DP</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Last Casing Size</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Last csg. Length</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Csg. Vol(m<sup>3</sup></label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Mud in Hole(m<sup>3</sup></label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Sand Trap Vol.(m<sup>3</sup></label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Pit Vol. in circ(m<sup>3</sup></label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Total circ. Vol(m<sup>3</sup></label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Lag Time(min)</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Cycle Time(min)</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">E.C.D.</label>
+                      <input for="text" class="form-control" />
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Ann. Press Losses</label
+                      >
+                      <input for="text" class="form-control" />
+                    </div>
+                  </div>
+                  <hr />
+
+                  <!-- Drilling Data -->
+                  <h4>Drilling Data Data</h4>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="firstShift"
+                          value="option1"
+                        />
+                        <label class="form-check-label" for="firstShift"
+                          >Sample-I</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="secondShift"
+                          value="option2"
+                        />
+                        <label class="form-check-label" for="secondShift"
+                          >Sample-II</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >Bit Size(Inches)</label
+                      >
+                      <input type="number" class="form-control" />
+                    </div>
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >Jet Size(Inches)</label
+                      >
+                      <input type="number" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >Wt. on Bit(MT)</label
+                      >
+                      <input type="number" class="form-control" />
+                    </div>
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label">Rotary RPM</label>
+                      <input type="number" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >BHA Length mts</label
+                      >
+                      <input type="number" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="d-grid gap-2 my-4 py-2">
+                    <button class="btn btn-primary" type="button">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-light text-dark text-center">
+      <ul class="nav nav-tabs" style="background-color: #bc987e">
+        <li class="nav-item">
+          <a class="nav-link footer_links" href="#">Sitemap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link footer_links" href="#">Privacy Policy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link footer_links" href="#">Terms of Use</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link footer_links" href="">Disclaimer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: black" href=""
+            >Copyright © Oil and Natural Gas Corporation Limited, All Rights
+            Reserved.</a
+          >
+        </li>
+      </ul>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+      ></script>
+    </footer>
+  </body>
+</html>

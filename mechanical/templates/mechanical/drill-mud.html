@@ -1,0 +1,499 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Drill Mud Log - ONGC</title>
+{% endblock %}
+
+{% block content %}
+
+<!-- SECTION -->
+<section class="p-5">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div
+            class="card shadow-2-strong card-registration bg-light text-dark"
+            style="border-radius: 15px"
+          >
+            <div class="card-body p-4 p-md-5">
+              <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">DRILLING MUD REPORT</h2>
+              <hr />
+              <!-- Form Layout -->
+              <form>
+                <div class="row">
+                  <div class="col col-md-12">
+                    <label class="form-label"
+                      >QHSE | DOC. NO.| QHSE/QF/CHEM-DPR/56
+                    </label>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label class="form-label">RIG</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label class="form-label">WELL NO.</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label class="form-label">ASSET/BASIN</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label class="form-label">DATE:</label>
+                    <input type="date" class="form-control" />
+                  </div>
+                </div>
+
+                <!-- Shifts -->
+                <hr />
+                <h4>SHIFTS</h4>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="firstShift"
+                        value="option1"
+                      />
+                      <label class="form-check-label" for="firstShift"
+                        >Day Shift</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="secondShift"
+                        value="option2"
+                      />
+                      <label class="form-check-label" for="secondShift"
+                        >Night Shift</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label class="form-label">DRILLED FROM</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-6">
+                    <label class="form-label">TO (MTS.)</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <br />
+                <span>Time</span>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label class="form-label">From</label>
+                    <input type="time" class="form-control" />
+                  </div>
+                  <div class="col col-md-6">
+                    <label class="form-label">To</label>
+                    <input type="time" class="form-control" />
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col">
+                    <label for="comment" class="form-label">Operation</label>
+                    <textarea
+                      class="form-control"
+                      rows="3"
+                      id="comment"
+                      name="text"
+                    ></textarea>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col col-md-3">
+                    <label for="text" class="form-label">Sp. Gr.</label>
+                    <input type="number" class="form-control" />
+                  </div>
+                  <div class="col col-md-3">
+                    <label for="text" class="form-label">Visc(Sec.)</label>
+                    <input type="number" class="form-control" />
+                  </div>
+                  <div class="col col-md-3">
+                    <label for="text" class="form-label">Gel 10</label>
+                    <input type="number" class="form-control" />
+                  </div>
+                  <div class="col col-md-3">
+                    <label for="text" class="form-label">pH</label>
+                    <input type="number" class="form-control" />
+                  </div>
+                </div>
+                <hr />
+
+                <!-- Lab Data -->
+                <h4>Laboratory Data</h4>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="firstShift"
+                        value="option1"
+                      />
+                      <label class="form-check-label" for="firstShift"
+                        >Sample-I</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="secondShift"
+                        value="option2"
+                      />
+                      <label class="form-check-label" for="secondShift"
+                        >Sample-II</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">Time</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">Depth</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >API Filtration Loss(ml)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Cake Thickness(mm)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">pH</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">Sand(%v/v)</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Apparent visc.(cp)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Plastic visc.(cp)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Yield Point(Lbs/100ft<sup>2</sup>)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Gel 0(Lbs/100ft<sup>2</sup>)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Gel 10(Lbs/100ft<sup>2</sup>)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Oil Content(%v/v)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Solid Content(%v/v)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Water Content(%v/v)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">MBC</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label for="text" class="form-label"
+                      >Filtrate Salinity(gm/ml)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-6">
+                    <label for="text" class="form-label"
+                      >Flow Line Temp(&deg;C)</label
+                    >
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <hr />
+
+                <!-- Hydraulic Data -->
+                <h4>Hydraulic Data Data</h4>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Pump Liner Size</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">Stroke Length</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">Discharge</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">Stroke/min.</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Stand Pipe Pressure</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >DP Size/Length</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >DC Size/Length</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >No. of Stabilizers</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <span>Ann Vel.(m/sec)</span>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">(a) OH-DC</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">(b) OH-DP</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">(c) Cas-DP</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Last Casing Size</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Last csg. Length</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Csg. Vol(m<sup>3</sup></label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Mud in Hole(m<sup>3</sup></label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Sand Trap Vol.(m<sup>3</sup></label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Pit Vol. in circ(m<sup>3</sup></label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Total circ. Vol(m<sup>3</sup></label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">Lag Time(min)</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Cycle Time(min)</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label">E.C.D.</label>
+                    <input for="text" class="form-control" />
+                  </div>
+                  <div class="col col-md-4">
+                    <label for="text" class="form-label"
+                      >Ann. Press Losses</label
+                    >
+                    <input for="text" class="form-control" />
+                  </div>
+                </div>
+                <hr />
+
+                <!-- Drilling Data -->
+                <h4>Drilling Data Data</h4>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="firstShift"
+                        value="option1"
+                      />
+                      <label class="form-check-label" for="firstShift"
+                        >Sample-I</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="secondShift"
+                        value="option2"
+                      />
+                      <label class="form-check-label" for="secondShift"
+                        >Sample-II</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label type="text" class="form=label"
+                      >Bit Size(Inches)</label
+                    >
+                    <input type="number" class="form-control" />
+                  </div>
+                  <div class="col col-md-6">
+                    <label type="text" class="form=label"
+                      >Jet Size(Inches)</label
+                    >
+                    <input type="number" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label type="text" class="form=label"
+                      >Wt. on Bit(MT)</label
+                    >
+                    <input type="number" class="form-control" />
+                  </div>
+                  <div class="col col-md-6">
+                    <label type="text" class="form=label">Rotary RPM</label>
+                    <input type="number" class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label type="text" class="form=label"
+                      >BHA Length mts</label
+                    >
+                    <input type="number" class="form-control" />
+                  </div>
+                </div>
+                <div class="d-grid gap-2 my-4 py-2">
+                  <button class="btn btn-primary" type="button">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}

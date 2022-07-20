@@ -22,8 +22,8 @@
                 <div class="row pb-3">
 
                   <div class="col col-md-6 py-2">
-                    <label class="form-label">{{ form.name.label }}</label>
-                    {{ form.name }}
+                    <label class="form-label">{{ form.rig_name.label }}</label>
+                    {{ form.rig_name }}
                   </div>
 
                   <div class="col col-md-6 py-2">
@@ -48,8 +48,8 @@
 
                 <div class="row py-3">
                   <div class="col-12">
-                    <label class="form-label select-label">{{ equip_form.name.label }}</label>
-                    {{ equip_form.name }}
+                    <label class="form-label select-label">{{ equip_form.equip_name.label }}</label>
+                    {{ equip_form.equip_name }}
                   </div>
 
                 </div>
@@ -76,18 +76,18 @@
                 <div class="row py-3 ">
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.working_hour.label }}</label>
-                    {{ equip_form.working_hour }}
+                    <label class="form-label">{{ equip_form.equip_working_hour.label }}</label>
+                    {{ equip_form.equip_working_hour }}
                   </div>
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.equi_avail_hour.label }}</label>
-                    {{ equip_form.equi_avail_hour }}
+                    <label class="form-label">{{ equip_form.equip_avail_hour.label }}</label>
+                    {{ equip_form.equip_avail_hour }}
                   </div>
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.oil_used.label }}</label>
-                    {{ equip_form.oil_used }}
+                    <label class="form-label">{{ equip_form.equip_oil_used.label }}</label>
+                    {{ equip_form.equip_oil_used }}
                   </div>
                 </div>
                 <hr />
@@ -97,25 +97,27 @@
 
                 <div class="row py-3">
                   <div class="col-12">
-                    <label class="form-label select-label">{{ equip_serv_form.name.label }}</label>
-                    {{ equip_serv_form.name }}
+                    <label class="form-label select-label">{{ equip_serv_form.equip_serv_name.label }}</label>
+                    {{ equip_serv_form.equip_serv_name }}
                   </div>
 
                 </div>
                 <br />
                 <div class="row py-3">
+
                   <div class="col col-md-4">
                     <label class="form-label">{{ equip_serv_form.working_hour.label }}</label>
                     {{ equip_serv_form.working_hour }}
                   </div>
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_serv_form.equi_avail_hour.label }}</label>
-                    {{ equip_serv_form.equi_avail_hour }}
+                    <label class="form-label">{{ equip_serv_form.avail_hour.label }}</label>
+                    {{ equip_serv_form.avail_hour }}
                   </div>
                   <div class="col col-md-4">
                     <label class="form-label">{{ equip_serv_form.oil_used.label }}</label>
                     {{ equip_serv_form.oil_used }}
                   </div>
+
                 </div>
 
                 <!-- <div class="row"> -->
@@ -124,30 +126,42 @@
                   {{ equip_serv_form.intstructions }}
                 </div>
                 <hr />
+
+
+                <h4 class="pt-2 text-center">Rig Down Time</h4>
+
                 <div class="row py-3">
-                  <p class="pt-2 text-center">Rig Down Time</p>
                   <div class="col col-6">
-                    <label for="form-label">{{ equip_serv_form.rig_downtime_from.label }}</label>
-                    {{ equip_serv_form.rig_downtime_from }}
+                    <label for="form-label">{{ down_form.from_hr.label }}</label>
+                    {{ down_form.from_hr }}
                   </div>
                   <div class="col col-6">
-                    <label for="form-label">{{ equip_serv_form.rig_downtime_to.label }}</label>
-                    {{ equip_serv_form.rig_downtime_to }}
+                    <label for="form-label">{{ down_form.to_hr.label }}</label>
+                    {{ down_form.to_hr }}
                   </div>
+
                 </div>
                 <hr />
 
-                <div class="mb-3 mt-3">
-                  <label for="comment">{{ equip_serv_form.requirements.label }}</label>
-                  {{ equip_serv_form.requirements }}
+                <div class="row py-3">
+                  <div class="col-12">
+                    <label class="form-label select-label">{{ form.requirements.label }}</label>
+                    {{ form.requirements }}
+                  </div>
                 </div>
 
-
+                <div class="row py-3">
+                  <div class="col-12">
+                    <label class="form-label select-label">{{ form.mech_engineer.label }}</label>
+                    {{ form.mech_engineer }}
+                  </div>
+                </div>
 
                 <div class="d-grid gap-2 my-4 py-2">
                   <input class="btn btn-primary" type="submit" value="Submit" />
                   </button>
                 </div>
+
               </form>
 
             </div>

@@ -55,6 +55,11 @@ def electricalLog(request):
     return render(request, 'mechanical/electric-log.html', context)
 
 
+def drillLog(request):
+    context = {}
+    return render(request, 'mechanical/drill-mud.html', context)
+
+
 def create_book_normal(request):
     template_name = 'mechanical/create_normal.html'
     heading_message = 'Formset Demo'

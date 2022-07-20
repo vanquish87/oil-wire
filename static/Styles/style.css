@@ -1,6 +1,55 @@
 body {
   font-family: "Roboto", sans-serif;
 }
+@media screen and (max-width: 724px) {
+  .tagline {
+    display: none;
+  }
+}
+@media screen and (max-width: 991px) {
+  .navbeaut-1 {
+    position: absolute;
+    right: 266px;
+    top: 59px;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .row-modify {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 768px) {
+  .row-modify2 {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 430px) {
+  .navbeaut-1 {
+    position: absolute;
+    right: 57px;
+    top: 57px;
+  }
+  .navbeaut-2 {
+    position: absolute;
+    right: 19px;
+    top: 9px;
+  }
+}
+/* 
+@media screen and (min-width: 576px) {
+  .col-12 {
+    font-size: x-large;
+    width: 80%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .col-12 {
+    font-size: medium;
+  }
+} */
 
 .card {
   color: midnightblue;
@@ -21,11 +70,20 @@ body {
 .footer_links:hover {
   color: white;
 }
-@media screen and (max-width: 450px) {
-  .tagline {
-    display: none;
-  }
-}
+
 h3 {
   color: rosybrown;
+}
+
+.bgcolor {
+  background-color: lemonchiffon;
+}
+.bgcolor1 {
+  background-color: #4682b4;
+}
+.align {
+  text-align: justify;
+}
+.m0 {
+  margin: 0;
 }

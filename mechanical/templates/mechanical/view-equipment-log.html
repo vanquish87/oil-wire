@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>View - Equipment Daily Log - ONGC</title>
+{% endblock %}
+
+{% block content %}
+<section class="p-5 my-5">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration bg-light text-dark" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Mechanical Daily DPR</h2>
+
+                  <div class="row pb-3">
+                    <div class="col col-md-6 py-2">
+                        rig_name = {{ rig.rig_name }}
+                    </div>
+
+                    <div class="col col-md-6 py-2">
+                        well = {{ rig.well }}
+                    </div>
+
+                    <div class="col col-md-6 py-2">
+                        date = {{ rig.date }}
+                    </div>
+
+                    <div class="col col-md-6 py-2">
+                        shift = {{ rig.shift }}
+                    </div>
+                  </div>
+                  <hr />
+
+                  <h4 class="pt-2 text-center">EQUIPMENT LOG SHEET</h4>
+
+                  {% for equipment in equipments %}
+                  <div class="row py-3">
+                    <div class="col-12">
+                        equip_name = {{ equipment.equip_name }}
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row py-3">
+                    <div class="col col-md-4">
+                        water_temp = {{ equipment.water_temp }}
+                    </div>
+
+                    <div class="col col-md-4">
+                        oil_temp=  {{ equipment.oil_temp }}
+                    </div>
+
+                    <div class="col col-md-4">
+                        oil_pressure=  {{ equipment.oil_pressure }}
+                    </div>
+                  </div>
+
+                  <div class="row py-3">
+                    <div class="col col-md-4">
+                        equip_working_hour= {{ equipment.equip_working_hour }}
+                    </div>
+
+                    <div class="col col-md-4">
+                        equip_avail_hour = {{ equipment.equip_avail_hour }}
+                    </div>
+
+                    <div class="col col-md-4">
+                        equip_oil_used =  {{ equipment.equip_oil_used }}
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <hr />
+
+                  <h4 class="pt-2 text-center">REPAIRING LOG SHEET</h4>
+
+                  {% for service in services %}
+                  <div class="row py-3">
+                    <div class="col-12">
+                        equip_serv_name= {{ service.equip_serv_name }}
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row py-3">
+                    <div class="col col-md-4">
+                        working_hour= {{ service.working_hour }}
+                    </div>
+                    <div class="col col-md-4">
+                        avail_hour= {{ service.avail_hour }}
+                    </div>
+                    <div class="col col-md-4">
+                        oil_used= {{ service.oil_used }}
+                    </div>
+                  </div>
+                  <!-- <div class="row"> -->
+                  <div class="mb-3 mt-3">
+                    intstructions= {{ service.intstructions }}
+                  </div>
+                  {% endfor %}
+                  <hr />
+
+                  <h4 class="pt-2 text-center">Rig Down Time</h4>
+
+                  {% for rigdown in rigdowns %}
+                  <div class="row py-3">
+                    <div class="col col-6">
+                        from_hr= {{ rigdown.from_hr }}
+                    </div>
+                    <div class="col col-6">
+                        to_hr = { rigdown.to_hr }}
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <hr />
+
+                  <div class="row py-3">
+                    <div class="col-12">
+                        requirements = {{ rig.requirements }}
+                    </div>
+                  </div>
+
+                  <div class="row py-3">
+                    <div class="col-12">
+                        mech_engineer sign = {{ rig.mech_engineer }}
+                    </div>
+                  </div>
+
+                  <div class="d-grid gap-2 my-4 py-2">
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}

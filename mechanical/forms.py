@@ -78,7 +78,7 @@ class EquipServiceForm(forms.ModelForm):
             }
 
         labels = {
-            'equip_serv_name': 'Equipments',
+            'equip_serv_name': 'Equipment',
             'working_hour': 'Working Hours',
             'avail_hour': 'Equip Avail Hrs.',
             'oil_used': 'Oil Used',
@@ -116,13 +116,6 @@ class RigDownForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-class BookForm(forms.Form):
-    name = forms.CharField(
-        label='Book Name',
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Enter Book Name'
-        })
-    )
-
-BookFormset = formset_factory(BookForm, extra=2)
+EquipmentFormset = formset_factory(EquipmentForm, extra=3)
+EquipServiceFormset = formset_factory(EquipServiceForm, extra=3)
+RigDownFormset = formset_factory(RigDownForm, extra=3)

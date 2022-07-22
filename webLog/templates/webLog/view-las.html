@@ -21,11 +21,11 @@
             <h1>LAS Links</h1>
             {% for logcolumn in logcolumns %}
             {% if logcolumn.name == column.name %}
-            <div class="col-md-2 py-2">
+            <div class="col-md-2 py-2 d-grid gap-2">
                 <a href="#" class="btn btn-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
             </div>
             {% else %}
-            <div class="col-md-2 py-2">
+            <div class="col-md-2 py-2 d-grid gap-2">
                 <a href="{% url 'view-LAS-image' logcolumn.name %} " class="btn btn-outline-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
             </div>
             {% endif %}

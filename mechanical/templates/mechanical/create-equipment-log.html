@@ -44,12 +44,16 @@
                 </div>
                 <hr />
 
+
+
                 <h4 class="pt-2 text-center">EQUIPMENT LOG SHEET</h4>
 
+                {{ equip_formset.management_form }}
+                {% for form in equip_formset %}
                 <div class="row py-3">
                   <div class="col-12">
-                    <label class="form-label select-label">{{ equip_form.equip_name.label }}</label>
-                    {{ equip_form.equip_name }}
+                    <label class="form-label select-label">{{ form.equip_name.label }}</label>
+                    {{ form.equip_name }}
                   </div>
 
                 </div>
@@ -57,48 +61,52 @@
                 <div class="row py-3">
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.water_temp.label }}</label>
-                    {{ equip_form.water_temp }}
+                    <label class="form-label">{{ form.water_temp.label }}</label>
+                    {{ form.water_temp }}
                   </div>
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.oil_temp.label }}</label>
-                    {{ equip_form.oil_temp }}
+                    <label class="form-label">{{ form.oil_temp.label }}</label>
+                    {{ form.oil_temp }}
                   </div>
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.oil_pressure.label }}</label
+                    <label class="form-label">{{ form.oil_pressure.label }}</label
                     >
-                    {{ equip_form.oil_pressure }}
+                    {{ form.oil_pressure }}
                   </div>
                 </div>
 
                 <div class="row py-3 ">
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.equip_working_hour.label }}</label>
-                    {{ equip_form.equip_working_hour }}
+                    <label class="form-label">{{ form.equip_working_hour.label }}</label>
+                    {{ form.equip_working_hour }}
                   </div>
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.equip_avail_hour.label }}</label>
-                    {{ equip_form.equip_avail_hour }}
+                    <label class="form-label">{{ form.equip_avail_hour.label }}</label>
+                    {{ form.equip_avail_hour }}
                   </div>
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_form.equip_oil_used.label }}</label>
-                    {{ equip_form.equip_oil_used }}
+                    <label class="form-label">{{ form.equip_oil_used.label }}</label>
+                    {{ form.equip_oil_used }}
                   </div>
                 </div>
+                {% endfor %}
                 <hr />
+
 
 
                 <h4 class="pt-2 text-center">REPAIRING LOG SHEET</h4>
 
+                {{ equip_serv_formset.management_form }}
+                {% for form in equip_serv_formset %}
                 <div class="row py-3">
                   <div class="col-12">
-                    <label class="form-label select-label">{{ equip_serv_form.equip_serv_name.label }}</label>
-                    {{ equip_serv_form.equip_serv_name }}
+                    <label class="form-label select-label">{{ form.equip_serv_name.label }}</label>
+                    {{ form.equip_serv_name }}
                   </div>
 
                 </div>
@@ -106,42 +114,48 @@
                 <div class="row py-3">
 
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_serv_form.working_hour.label }}</label>
-                    {{ equip_serv_form.working_hour }}
+                    <label class="form-label">{{ form.working_hour.label }}</label>
+                    {{ form.working_hour }}
                   </div>
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_serv_form.avail_hour.label }}</label>
-                    {{ equip_serv_form.avail_hour }}
+                    <label class="form-label">{{ form.avail_hour.label }}</label>
+                    {{ form.avail_hour }}
                   </div>
                   <div class="col col-md-4">
-                    <label class="form-label">{{ equip_serv_form.oil_used.label }}</label>
-                    {{ equip_serv_form.oil_used }}
+                    <label class="form-label">{{ form.oil_used.label }}</label>
+                    {{ form.oil_used }}
                   </div>
 
                 </div>
-
                 <!-- <div class="row"> -->
                 <div class="mb-3 mt-3">
-                  <label for="comment">{{ equip_serv_form.intstructions.label }}</label>
-                  {{ equip_serv_form.intstructions }}
+                  <label for="comment">{{ form.intstructions.label }}</label>
+                  {{ form.intstructions }}
                 </div>
+                {% endfor %}
                 <hr />
+
 
 
                 <h4 class="pt-2 text-center">Rig Down Time</h4>
 
+                {{ down_formset.management_form }}
+                {% for form in down_formset %}
                 <div class="row py-3">
                   <div class="col col-6">
-                    <label for="form-label">{{ down_form.from_hr.label }}</label>
-                    {{ down_form.from_hr }}
+                    <label for="form-label">{{ form.from_hr.label }}</label>
+                    {{ form.from_hr }}
                   </div>
                   <div class="col col-6">
-                    <label for="form-label">{{ down_form.to_hr.label }}</label>
-                    {{ down_form.to_hr }}
+                    <label for="form-label">{{ form.to_hr.label }}</label>
+                    {{ form.to_hr }}
                   </div>
-
                 </div>
+                {% endfor %}
                 <hr />
+
+
+
 
                 <div class="row py-3">
                   <div class="col-12">

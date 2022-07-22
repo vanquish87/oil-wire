@@ -1,54 +1,66 @@
 from django.shortcuts import render, redirect
 
-from .forms import BookFormset, EquipServiceForm, RigDownForm, RigForm, EquipmentForm
-from .models import Book, Rig
+from .forms import EquipServiceForm, EquipServiceFormset, EquipmentFormset, RigDownForm, RigDownFormset, RigForm, EquipmentForm
+from .models import Rig, Equipment, EquipmentService, RigDown
 
 
 # Create your views here.
 def equipmentLog(request):
     form = RigForm()
-    equip_form = EquipmentForm()
-    equip_serv_form = EquipServiceForm()
-    down_form = RigDownForm()
+    equip_formset = EquipmentFormset()
+    equip_serv_formset = EquipServiceFormset()
+    down_formset = RigDownFormset()
 
     if request.method == 'POST':
         form = RigForm(request.POST)
-        rig = form.save(commit=False)
-        rig.slug = str(request.POST['rig_name']) + '-' + \
-                str(request.POST['well']) + '-' + \
-                str(request.POST['date']) + '-' + \
-                str(request.POST['shift'])
-        form.save()
+        if form.is_valid():
+            rig = form.save(commit=False)
+            form.save()
+            rig = Rig.objects.get(id=rig.id)
 
-        rig = Rig.objects.get(id=rig.id)
-        # import pdb; pdb.set_trace()
+        equip_formset = EquipmentFormset(request.POST)
+        if equip_formset.is_valid():
+            for form in equip_formset:
+                equipment = form.save(commit=False)
+                equipment.rig = rig
+                form.save()
 
+        equip_serv_formset = EquipServiceFormset(request.POST)
+        if equip_serv_formset.is_valid():
+            for form in equip_serv_formset:
+                service = form.save(commit=False)
+                service.rig = rig
+                form.save()
 
-        equip_form = EquipmentForm(request.POST)
-        equipment = equip_form.save(commit=False)
-        equipment.rig = rig
-        equip_form.save()
+        down_formset = RigDownFormset(request.POST)
+        if down_formset.is_valid():
+            for form in down_formset:
+                rig_down = form.save(commit=False)
+                rig_down.rig = rig
+                form.save()
 
-        equip_serv_form = EquipServiceForm(request.POST)
-        service = equip_serv_form.save(commit=False)
-        service.rig = rig
-        equip_serv_form.save()
-
-        down_form = RigDownForm(request.POST)
-        rig_down = down_form.save(commit=False)
-        rig_down.rig = rig
-        down_form.save()
-
-        return redirect('index')
+        return redirect('view-equipment-log', rig.id)
 
     context = {
         'form': form,
-        'equip_form': equip_form,
-        'equip_serv_form': equip_serv_form,
-        'down_form': down_form,
+        'equip_formset': equip_formset,
+        'equip_serv_formset': equip_serv_formset,
+        'down_formset': down_formset,
     }
-    return render(request, 'mechanical/equipment-log.html', context)
+    return render(request, 'mechanical/create-equipment-log.html', context)
 
+def viewEquipmentLog(request, rig_id):
+    rig = Rig.objects.get(id=rig_id)
+    equipments = Equipment.objects.filter(rig_id=rig.id).all()
+    services = EquipmentService.objects.filter(rig_id=rig.id).all()
+    rigdowns = RigDown.objects.filter(rig_id=rig.id).all()
+    context = {
+        'rig': rig,
+        'equipments': equipments,
+        'services': services,
+        'rigdowns': rigdowns,
+    }
+    return render(request, 'mechanical/view-equipment-log.html', context)
 
 def electricalLog(request):
     context = {}
@@ -58,25 +70,3 @@ def electricalLog(request):
 def drillLog(request):
     context = {}
     return render(request, 'mechanical/drill-mud.html', context)
-
-
-def create_book_normal(request):
-    template_name = 'mechanical/create_normal.html'
-    heading_message = 'Formset Demo'
-    if request.method == 'GET':
-        formset = BookFormset(request.GET or None)
-    elif request.method == 'POST':
-        formset = BookFormset(request.POST)
-        if formset.is_valid():
-            for form in formset:
-                # extract name from each form and save
-                name = form.cleaned_data.get('name')
-                # save book instance
-                if name:
-                    Book(name=name).save()
-            # once all books are saved, redirect to book list view
-            return redirect('index')
-    return render(request, template_name, {
-        'formset': formset,
-        'heading': heading_message,
-    })

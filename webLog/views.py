@@ -1,12 +1,13 @@
-from django.forms import FileField
 from django.shortcuts import render, redirect
-from numpy import absolute
-import pandas as pd
 import matplotlib.pyplot as plt
 import lasio
 from .forms import LogFileForm
+from .models import Frame, LogFile, LogColumn
+from .utils import delete_files, read_LAS
+from django.contrib import messages
+from dlisio import dlis
+
 import os
-from .models import LogFile, LogColumn
 from django.conf import settings
 
 import base64
@@ -14,42 +15,20 @@ from io import BytesIO
 
 
 # Create your views here.
-
-def viewDlis(request):
-    print(request.POST)
-    context = {}
-    return render(request, 'webLog/dlis.html', context)
-
 def createLas(request):
     # deleting existing files
-    file = LogFile.objects.all()
-    file.delete()
-    if os.path.isdir(settings.SCIENCE_DIR):
-        for f in os.listdir(settings.SCIENCE_DIR):
-            os.remove(os.path.join(settings.SCIENCE_DIR, f))
-
+    delete_files()
     # handling file via ORM
     form = LogFileForm()
     if request.method == 'POST':
         form = LogFileForm(request.POST, request.FILES)
-        if form.is_valid:
+        if form.is_valid and request.FILES['file'].name.endswith(('.LAS', '.las')):
             form.save()
-
-        # reading LAS file n saving its columns
-        las_file = str(request.FILES['file'])
-
-        las = lasio.read(os.path.join(settings.SCIENCE_DIR, las_file))
-        well = las.df()
-
-        for i in well.columns:
-            try:
-                logfile = LogFile.objects.get(file__contains=str(request.FILES['file']))
-                column = LogColumn(logfile=logfile, name=str(i))
-                column.save()
-            except ValueError as e:
-                raise e
-
-        return redirect('view-LAS-image', well.columns[0])
+            # reading LAS file n saving its columns
+            well = read_LAS(request)
+            return redirect('view-LAS-image', well.columns[0])
+        else:
+            messages.error(request, 'No LAS file found')
 
     context = {'form': form}
     return render(request, 'webLog/create-las.html', context)
@@ -68,7 +47,6 @@ def viewLas(request, logcolumn_name):
     las = lasio.read(las_file)
     well = las.df()
     well.plot(y=logcolumn_name)
-    # import pdb; pdb.set_trace()
     # saving png in tmp file style
     tmpfile = BytesIO()
     plt.savefig(tmpfile, format='png')
@@ -77,3 +55,37 @@ def viewLas(request, logcolumn_name):
     context = {'png_file': png_file, 'logcolumns': logcolumns, 'column': column}
 
     return render(request, 'webLog/view-las.html', context)
+
+
+def createDlis(request):
+    # deleting existing files
+    delete_files()
+    # handling file via ORM
+    form = LogFileForm()
+    if request.method == 'POST':
+        form = LogFileForm(request.POST, request.FILES)
+        if form.is_valid and request.FILES['file'].name.endswith(('.DLIS', '.dlis')):
+            form.save()
+            # reading DLIS Files
+            dlis_file = str(request.FILES['file'])
+            # import pdb; pdb.set_trace()
+            with dlis.load(os.path.join(settings.SCIENCE_DIR, dlis_file)) as (f, *tail):
+                for i in f.frames:
+                    try:
+                        logfile = LogFile.objects.get(file__contains=str(request.FILES['file']))
+                        frame = Frame(logfile=logfile, name=str(i))
+                        frame.save()
+                        # get all the frames
+                        frames = Frame.objects.get(logfile=logfile).all()
+                        # import pdb; pdb.set_trace()
+
+
+                    except ValueError as e:
+                        raise e
+                    # frame1 = f.object('FRAME' , '800T')
+
+        else:
+            messages.error(request, 'No DLIS file found')
+
+    context = {'form': form}
+    return render(request, 'webLog/dlis.html', context)

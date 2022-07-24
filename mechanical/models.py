@@ -8,7 +8,7 @@ class Rig(models.Model):
         ('Night Shift', 'Second Shift'),
     )
     # null=True: db can have null value, blank:True, it can be left blank in form
-    rig_name = models.CharField(max_length=255, null=True, blank=True)
+    rig_name = models.CharField(max_length=255, null=True, blank=False)
     well = models.CharField(max_length=255, null=True, blank=True)
     shift = models.CharField(max_length=50, choices=SHIFTS, default='Day', null=True, blank=True)
     date = models.DateTimeField(null=True, blank=True)

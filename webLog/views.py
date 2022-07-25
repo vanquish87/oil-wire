@@ -68,24 +68,95 @@ def createDlis(request):
             form.save()
             # reading DLIS Files
             dlis_file = str(request.FILES['file'])
-            # import pdb; pdb.set_trace()
             with dlis.load(os.path.join(settings.SCIENCE_DIR, dlis_file)) as (f, *tail):
+                # saving all frames
                 for i in f.frames:
                     try:
                         logfile = LogFile.objects.get(file__contains=str(request.FILES['file']))
                         frame = Frame(logfile=logfile, name=str(i))
                         frame.save()
-                        # get all the frames
-                        frames = Frame.objects.get(logfile=logfile).all()
-                        # import pdb; pdb.set_trace()
-
-
                     except ValueError as e:
                         raise e
-                    # frame1 = f.object('FRAME' , '800T')
+                
+                # get all the frames
+                try:
+                    frames = Frame.objects.all().filter(logfile=logfile)
+                    for frame in frames:
+                        # to get - 'FRAME' , '800T'
+                        frame_name = str(frame).split('(', )
+                        frame_num = frame_name[1].split(')')[0]
 
+                        frame1 = f.object(frame_name[0].upper() , frame_num)
+                        # getting curve names
+                        curves = frame1.curves()
+                        d = curves.dtype
+                        for i in d.names:
+                            try:
+                                column = LogColumn(logfile=logfile, frame_id=frame.id, name=str(i))
+                                column.save()
+                            except ValueError as e:
+                                raise e
+                    
+                    columns = LogColumn.objects.all().filter(logfile=logfile, frame_id=frames[0].id)
+                    # import pdb; pdb.set_trace()
+                    return redirect('view-DLIS-image', logfile.id, frames[0].id, columns[3].name )
+                                
+                except ValueError as e:
+                    raise e
+                
         else:
             messages.error(request, 'No DLIS file found')
 
     context = {'form': form}
     return render(request, 'webLog/dlis.html', context)
+
+
+def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
+    column = LogColumn.objects.get(
+        logfile_id=logfile_id, 
+        frame_id=frame_id, 
+        name=logcolumn_name
+        )
+    
+    # creating PNG files out of DLIS uploads
+    logfile = LogFile.objects.get(id=column.logfile_id)
+
+    # absolute path of FileField
+    dlis_file = logfile.file.path
+    with dlis.load(dlis_file) as (f, *tail):
+        # for template purpose frames are called
+        frames = Frame.objects.all().filter(logfile=logfile)
+
+        frame = Frame.objects.get(id=frame_id)
+        # to get - 'FRAME' , '800T'
+        frame_name = str(frame).split('(', )
+        frame_num = frame_name[1].split(')')[0]
+
+        frame1 = f.object(frame_name[0].upper() , frame_num)
+        # getting curve names
+        curves = frame1.curves()
+        d = curves.dtype
+        if 'TDEP' in d.names:
+            depth = curves['TDEP'] * 0.00254
+        elif 'DEPT' in d.names:
+            depth = curves['DEPT'] * 0.00254
+        
+        # to display given column image
+        out_image = curves[column.name]
+        plt.plot(depth, out_image)
+        # plt.show()
+        # import pdb; pdb.set_trace()
+
+        # saving png in tmp file style
+        tmpfile = BytesIO()
+        plt.savefig(tmpfile, format='png')
+        png_file = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
+
+        context = {
+            'png_file': png_file, 
+            'column': column,
+            'logfile': logfile,
+            'frames': frames,
+            }
+
+    return render(request, 'webLog/view-dlis.html', context)

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ column.name }} Chart - DLIS</title>
+{% endblock %}
+
+{% block content %}
+<section id="main" class="bg-white text-dark mt-5 py-5 text-center">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row justify-content-around align-items-center text-center py-5">
+            <h1>{{ column.name }} Chart</h1>
+            <div class="col-md">
+                <img class="img-fluid" src="data:image/png;base64,{{ png_file }}">
+            </div>
+
+        </div>
+
+        <div class="row justify-content-around align-items-center text-center py-5">
+            <h1>DLIS Links</h1>
+            {% for frame in frames %}
+            <h2 class="py-4">{{ frame.name }}</h2>
+                {% for logcolumn in frame.logcolumn_set.all %}
+                    {% if logcolumn.name == column.name %}
+                    <div class="col-md-2 py-2 d-grid gap-2">
+                        <a href="#" class="btn btn-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
+                    </div>
+                    {% else %}
+                    <div class="col-md-2 py-2 d-grid gap-2">
+                        <a href="{% url 'view-DLIS-image' logfile_id=logfile.id frame_id=frame.id logcolumn_name=logcolumn.name %}" class="btn btn-outline-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+<img class="img-fluid" src="{% static 'data/science/' %}{{ png }}"/>
+
+
+<div class="col-md-2 py-2 d-grid gap-2">
+    <a href="{% url 'view-dlis-image' logfile_id=logfile.id frame_id=frame.id logcolumn_name=logcolumn.name %} " class="btn btn-outline-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
+</div>
+

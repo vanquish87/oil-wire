@@ -38,11 +38,3 @@
 </section>
 
 {% endblock %}
-
-<img class="img-fluid" src="{% static 'data/science/' %}{{ png }}"/>
-
-
-<div class="col-md-2 py-2 d-grid gap-2">
-    <a href="{% url 'view-dlis-image' logfile_id=logfile.id frame_id=frame.id logcolumn_name=logcolumn.name %} " class="btn btn-outline-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
-</div>
-

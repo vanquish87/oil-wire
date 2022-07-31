@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 import matplotlib.pyplot as plt
+# RuntimeError: main thread is not in main loop with Matplotlib
+import matplotlib
+matplotlib.use('Agg')
+
 import lasio
 from .forms import LogFileForm
 from .models import Frame, LogFile, LogColumn

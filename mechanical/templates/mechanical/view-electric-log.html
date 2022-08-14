@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Electric Daily Log - ONGC</title>
+{% endblock %}
+
+{% block content %}
+ 
+
+    <!-- SECTION -->
+    <section class="p-5 my-5">
+      <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-12 col-lg-9 col-xl-7">
+            <div
+              class="card shadow-2-strong card-registration bg-light text-dark"
+              style="border-radius: 15px"
+            >
+              <div class="card-body p-4 p-md-5">
+                <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
+                  Electrical Section - Drilling Services
+                </h2>
+
+                <table class="table table-striped">
+                  <tr>
+                    <td>Rig Name</td>
+                    <td>{{rig.doc_no}}</td>
+                  </tr>
+                  <tr>
+                    <td>Well</td>
+                    <td>{{rig.rig_name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Date</td>
+                    <td>{{rig.date}}</td>
+                  </tr>
+                 
+                  <tr>
+                    <td>Location</td>
+                    <td>{{rig.location}}</td>
+                  </tr>
+                  </table>
+                  <td>Previous Day Cumulative Running Hours</td>
+                  {% for e2 in electricalrunninghourss %}
+                  <table class="table table-striped">
+                  <tr>                 
+                   
+                    <td>{{ e2.runninghours }}</td>
+                  </tr>
+                </table>
+                {% endfor %}
+                <h4 class="py-3 text-center">ELECTRICAL LOG SHEET</h4>
+                {% for e2 in electricalShifts %}
+                <table class="table table-striped">
+                  <tr>
+                    <td>Equipment Details & Ratings</td>
+                    <td>{{ e2.equipdetails }}</td>
+                  </tr>
+                  <tr>
+                    <td>Shift</td>
+                    <td>{{ e2.shifttype }}</td>
+                  </tr>
+                  <tr>
+                    <td>Equipment Status</td>
+                    <td>{{ e2.equipstatus }}</td>
+                  </tr>
+                  <tr>
+                    <td>Running Hours During the Shift</td>
+                    <td>{{ e2.runninghours }}</td>
+                  </tr>
+                  <tr>
+                    <td>Break Down Time : From (Hours)</td>
+                    <td>{{ e2.breakfrom }}</td>
+                  </tr>
+                  <tr>
+                    <td>Break Down Time : To (Hours)</td>
+                    <td>{{ e2.breakto }}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Cumulative Running Hours</td>
+                    <td>{{ e2.totalcummulative }}</td>
+                  </tr>
+                </table>
+                {% endfor %}
+                {% for e2 in electricalShifts %}
+                <div
+                  class="pb-5 pt-2"
+                  style="display: flex; flex-direction: column"
+                >
+                  <label for="">Remarks/Requirements from Base:</label>
+                  <textarea name="" id="" cols="60" rows="5">
+                    {{ e2.remarks }}</textarea
+                  >
+                </div>
+               
+                <div
+                  class="pb-5 pt-2"
+                  style="display: flex; flex-direction: column"
+                >
+                  <label for="">Equipment/Material Received/Sent:</label>
+                  <textarea name="" id="" cols="60" rows="5">
+                    {{ e2.equipment }}</textarea
+                  >
+                </div>
+
+                <div
+                  class="pb-5 pt-2"
+                  style="display: flex; flex-direction: column"
+                >
+                  <label for=""
+                    >Job Caring Out During the Shift: Defect/Failure
+                    report:</label
+                  >
+                  <textarea name="" id="" cols="60" rows="5">
+                    {{ e2.job }}</textarea
+                  >
+                </div>
+                {% endfor %}
+                <h4 class="py-3 text-center">
+                  Energy/Meter Reading at 06:00 hrs on:
+                </h4>
+                {% for e2 in electricalShifts %}
+                <table class="table table-striped">
+                  <tr>
+                    <td>DG-1:</td>
+                    <td>{{ e2.energydg1 }}</td>
+                  </tr>
+                  <tr>
+                    <td>DG-2:</td>
+                    <td>{{ e2.energydg2 }}</td>
+                  </tr>
+                  <tr>
+                    <td>DG-3:</td>
+                    <td>{{ e2.energydg3 }}</td>
+                  </tr>
+                  <tr>
+                    <td>DG-4:</td>
+                    <td>{{ e2.energydg4 }}</td>
+                  </tr>
+                </table>
+
+                <div
+                  class="pb-5 pt-2"
+                  style="display: flex; flex-direction: column"
+                >
+                  <label for="">Report on Safety/ Near Miss Accidents:</label>
+                  <textarea name="" id="" cols="60" rows="5">
+                    {{ e2.safetyreport }}</textarea
+                  >
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

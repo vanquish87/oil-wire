@@ -5,495 +5,655 @@
 
 {% block content %}
 
-<!-- SECTION -->
-<section class="p-5">
-    <div class="container py-5 h-100">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-7">
-          <div
-            class="card shadow-2-strong card-registration bg-light text-dark"
-            style="border-radius: 15px"
-          >
-            <div class="card-body p-4 p-md-5">
-              <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">DRILLING MUD REPORT</h2>
-              <hr />
-              <!-- Form Layout -->
-              <form>
-                <div class="row">
-                  <div class="col col-md-12">
-                    <label class="form-label"
-                      >QHSE | DOC. NO.| QHSE/QF/CHEM-DPR/56
-                    </label>
-                  </div>
-                </div>
-                <br />
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label class="form-label">RIG</label>
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label class="form-label">WELL NO.</label>
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label class="form-label">ASSET/BASIN</label>
-                    <input type="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label class="form-label">DATE:</label>
-                    <input type="date" class="form-control" />
-                  </div>
-                </div>
-
-                <!-- Shifts -->
+    <!-- SECTION -->
+    <section class="p-5">
+      <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-12 col-lg-9 col-xl-7">
+            <div
+              class="card shadow-2-strong card-registration bg-light text-dark"
+              style="border-radius: 15px"
+            >
+              <div class="card-body p-4 p-md-5">
+                <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">DRILLING MUD REPORT</h2>
                 <hr />
-                <h4>SHIFTS</h4>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="firstShift"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="firstShift"
-                        >Day Shift</label
-                      >
+                <!-- Form Layout -->
+                <form method="POST" action="{% url 'drill-log' %}" enctype="multipart/form-data">
+                  
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col col-md-12">
+                      <label class="form-label"
+                        >QHSE | DOC. NO.| QHSE/QF/CHEM-DPR/56
+                      </label>
                     </div>
                   </div>
-                  <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="secondShift"
-                        value="option2"
-                      />
-                      <label class="form-check-label" for="secondShift"
-                        >Night Shift</label
-                      >
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label class="form-label">{{form.rig_name.label}}</label>
+                      {{form.rig_name}}
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">WELL NO.</label>
+                      {{ form.well }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label class="form-label">ASSET/BASIN</label>
+                      {{ form.asset }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label class="form-label">DATE:</label>
+                      {{ form.date }}
                     </div>
                   </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label class="form-label">DRILLED FROM</label>
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-6">
-                    <label class="form-label">TO (MTS.)</label>
-                    <input type="text" class="form-control" />
-                  </div>
-                </div>
-                <br />
-                <span>Time</span>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label class="form-label">From</label>
-                    <input type="time" class="form-control" />
-                  </div>
-                  <div class="col col-md-6">
-                    <label class="form-label">To</label>
-                    <input type="time" class="form-control" />
-                  </div>
-                </div>
-                <br />
-                <div class="row">
-                  <div class="col">
-                    <label for="comment" class="form-label">Operation</label>
-                    <textarea
-                      class="form-control"
-                      rows="3"
-                      id="comment"
-                      name="text"
-                    ></textarea>
-                  </div>
-                </div>
-                <br />
-                <div class="row">
-                  <div class="col col-md-3">
-                    <label for="text" class="form-label">Sp. Gr.</label>
-                    <input type="number" class="form-control" />
-                  </div>
-                  <div class="col col-md-3">
-                    <label for="text" class="form-label">Visc(Sec.)</label>
-                    <input type="number" class="form-control" />
-                  </div>
-                  <div class="col col-md-3">
-                    <label for="text" class="form-label">Gel 10</label>
-                    <input type="number" class="form-control" />
-                  </div>
-                  <div class="col col-md-3">
-                    <label for="text" class="form-label">pH</label>
-                    <input type="number" class="form-control" />
-                  </div>
-                </div>
-                <hr />
 
-                <!-- Lab Data -->
-                <h4>Laboratory Data</h4>
+                  <!-- Shifts -->
+                  <hr />
+                  <h4>SHIFTS</h4>
+                  {{ drill_shift_formset.management_form }}
+                {% for form in drill_shift_formset %}
                 <div class="row">
                   <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="firstShift"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="firstShift"
-                        >Sample-I</label
-                      >
+                    {{ form.shifttype.label }}
+                   
+                     {{ form.shifttype }}
+                  </div>
+                </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label class="form-label">DRILLED FROM</label>
+                      {{ form.drillfrom }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label class="form-label">TO (MTS.)</label>
+                      {{ form.drillto }}
                     </div>
                   </div>
-                  <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="secondShift"
-                        value="option2"
-                      />
-                      <label class="form-check-label" for="secondShift"
-                        >Sample-II</label
-                      >
+                  <br />
+                  <span>Time</span>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label class="form-label">From</label>
+                      {{ form.timefrom }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label class="form-label">To</label>
+                      {{ form.timeto }}
                     </div>
                   </div>
-                </div>
-                <br />
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">Time</label>
-                    <input type="text" class="form-control" />
+                  <br />
+                  <div class="row">
+                    <div class="col">
+                      <label for="comment" class="form-label">Operation</label>
+                      {{ form.operation }}
+                    </div>
                   </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">Depth</label>
-                    <input type="text" class="form-control" />
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">Sp. Gr.</label>
+                      {{ form.spgrade }}
+                    </div>
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">Visc(Sec.)</label>
+                      {{ form.visc }}
+                    </div>
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">Gel 10</label>
+                      {{ form.gel }}
+                    </div>
+                    <div class="col col-md-3">
+                      <label for="text" class="form-label">pH</label>
+                      {{ form.ph }}
+                    </div>
                   </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >API Filtration Loss(ml)</label
-                    >
-                    <input type="text" class="form-control" />
+                  <hr />
+                  {% endfor %}
+                  <!-- Lab Data -->
+                  <h4>Laboratory Data</h4>
+                  {{ drill_laboratory_formset.management_form }}
+                
+                  {% for form in drill_laboratory_formset %}
+                  <div class="row">
+                    <div class="col col-md-6">
+                      {{ form.sample.label }}
+                     
+                       {{ form.sample }}
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Cake Thickness(mm)</label
-                    >
-                    <input type="text" class="form-control" />
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Time</label>
+                      {{ form.time }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Depth</label>
+                      {{ form.depth }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >API Filtration Loss(ml)</label
+                      >
+                      {{ form.apifilter }}
+                    </div>
                   </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">pH</label>
-                    <input type="text" class="form-control" />
+                  <br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Cake Thickness(mm)</label
+                      >
+                      {{ form.cakethickness }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">pH</label>
+                      {{ form.ph }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Sand(%v/v)</label>
+                      {{ form.sand }}
+                    </div>
                   </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">Sand(%v/v)</label>
-                    <input type="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Apparent visc.(cp)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Plastic visc.(cp)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Yield Point(Lbs/100ft<sup>2</sup>)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Gel 0(Lbs/100ft<sup>2</sup>)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Gel 10(Lbs/100ft<sup>2</sup>)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Oil Content(%v/v)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                </div>
+                  <br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Apparent visc.(cp)</label
+                      >
+                      {{ form.apparentvisc }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Plastic visc.(cp)</label
+                      >
+                      {{ form.plasticvisc }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Yield Point(Lbs/100ft<sup>2</sup>)</label
+                      >
+                      {{ form.yieldpoint }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Gel 0(Lbs/100ft<sup>2</sup>)</label
+                      >
+                      {{ form.gelzero }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Gel 10(Lbs/100ft<sup>2</sup>)</label
+                      >
+                      {{ form.gelten }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Oil Content(%v/v)</label
+                      >
+                      {{ form.oilcontent }}
+                    </div>
+                  </div><br>
 
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Solid Content(%v/v)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Water Content(%v/v)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">MBC</label>
-                    <input type="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label for="text" class="form-label"
-                      >Filtrate Salinity(gm/ml)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-6">
-                    <label for="text" class="form-label"
-                      >Flow Line Temp(&deg;C)</label
-                    >
-                    <input type="text" class="form-control" />
-                  </div>
-                </div>
-                <hr />
-
-                <!-- Hydraulic Data -->
-                <h4>Hydraulic Data Data</h4>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Pump Liner Size</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">Stroke Length</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">Discharge</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">Stroke/min.</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Stand Pipe Pressure</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >DP Size/Length</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >DC Size/Length</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >No. of Stabilizers</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <br />
-                <div class="row">
-                  <span>Ann Vel.(m/sec)</span>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">(a) OH-DC</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">(b) OH-DP</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">(c) Cas-DP</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Last Casing Size</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Last csg. Length</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Csg. Vol(m<sup>3</sup></label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Mud in Hole(m<sup>3</sup></label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Sand Trap Vol.(m<sup>3</sup></label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Pit Vol. in circ(m<sup>3</sup></label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Total circ. Vol(m<sup>3</sup></label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">Lag Time(min)</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Cycle Time(min)</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label">E.C.D.</label>
-                    <input for="text" class="form-control" />
-                  </div>
-                  <div class="col col-md-4">
-                    <label for="text" class="form-label"
-                      >Ann. Press Losses</label
-                    >
-                    <input for="text" class="form-control" />
-                  </div>
-                </div>
-                <hr />
-
-                <!-- Drilling Data -->
-                <h4>Drilling Data Data</h4>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="firstShift"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="firstShift"
-                        >Sample-I</label
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Solid Content(%v/v)</label
                       >
+                      {{ form.solidcontent }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Water Content(%v/v)</label
+                      >
+                      {{ form.watercontent }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">MBC</label>
+                      {{ form.mbc }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label for="text" class="form-label"
+                        >Filtrate Salinity(gm/ml)</label
+                      >
+                      {{ form.filtersalinity }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label for="text" class="form-label"
+                        >Flow Line Temp(&deg;C)</label
+                      >
+                      {{ form.flowlinetemp }}
                     </div>
                   </div>
-                  <div class="col col-md-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="secondShift"
-                        value="option2"
-                      />
-                      <label class="form-check-label" for="secondShift"
-                        >Sample-II</label
+                  <hr />
+                  {% endfor %}
+                  <!-- Hydraulic Data -->
+                  <h4>Hydraulic Data</h4>
+                  {{ hydraulic_data_formset.management_form }}
+                
+                {% for form in hydraulic_data_formset %}
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Pump Liner Size</label
                       >
+                      {{ form.pumplinersize }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Stroke Length</label>
+                      {{ form.strokelength }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Discharge</label>
+                      {{ form.discharge }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Stroke/min.</label>
+                      {{ form.stroke }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Stand Pipe Pressure</label
+                      >
+                      {{ form.standpipepressure }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >DP Size/Length</label
+                      >
+                      {{ form.dpsize }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >DC Size/Length</label
+                      >
+                      {{ form.dcsize }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >No. of Stabilizers</label
+                      >
+                      {{ form.stabilizers }}
                     </div>
                   </div>
-                </div>
-                <br />
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label type="text" class="form=label"
-                      >Bit Size(Inches)</label
-                    >
-                    <input type="number" class="form-control" />
+                  <br />
+                  <div class="row">
+                    <span>Ann Vel.(m/sec)</span>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">(a) OH-DC</label>
+                      {{ form.ohdc }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">(b) OH-DP</label>
+                      {{ form.ohdp }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">(c) Cas-DP</label>
+                      {{ form.casdp }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Last Casing Size</label
+                      >
+                      {{ form.lastcasingsize }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Last csg. Length</label
+                      >
+                      {{ form.lastlength }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Csg. Vol(m<sup>3</sup>)</label
+                      >
+                      {{ form.csgvol }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Mud in Hole(m<sup>3</sup>)</label
+                      >
+                      {{ form.mudhole }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Sand Trap Vol.(m<sup>3</sup>)</label
+                      >
+                      {{ form.sandtrap }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Pit Vol. in circ(m<sup>3</sup>)</label
+                      >
+                      {{ form.pitvol }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Total circ. Vol(m<sup>3)</sup></label
+                      >
+                      {{ form.totalcirc }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">Lag Time(min)</label>
+                      {{ form.lagtime }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Cycle Time(min)</label
+                      >
+                      {{ form.cycletime }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label">E.C.D.</label>
+                      {{ form.ECD }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label for="text" class="form-label"
+                        >Ann. Press Losses</label
+                      >
+                      {{ form.presslosses }}
+                    </div>
                   </div>
-                  <div class="col col-md-6">
-                    <label type="text" class="form=label"
-                      >Jet Size(Inches)</label
-                    >
-                    <input type="number" class="form-control" />
+                  <hr />
+                  {% endfor %}
+                  <!-- Drilling Data -->
+                  <h4>Drilling Data</h4>
+                  {{ drill_data_formset.management_form }}
+                
+                  {% for form in drill_data_formset %}
+                  <div class="row">
+                    <div class="col col-md-6">
+                      {{ form.sample.label }}
+                     
+                       {{ form.sample }}
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label type="text" class="form=label"
-                      >Wt. on Bit(MT)</label
-                    >
-                    <input type="number" class="form-control" />
+                  <br />
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >Bit Size(Inches)</label
+                      >
+                      {{ form.bitsize }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >Jet Size(Inches)</label
+                      >
+                      {{ form.jetsize }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >Wt. on Bit(MT)</label
+                      >
+                      {{ form.onbit }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label">Rotary RPM</label>
+                      {{ form.rotaryrpm }}
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label"
+                        >BHA Length mts</label
+                      >
+                      {{ form.bhalengths }}
+                    </div>
                   </div>
-                  <div class="col col-md-6">
-                    <label type="text" class="form=label">Rotary RPM</label>
-                    <input type="number" class="form-control" />
+                  <hr />
+                  {% endfor %}
+                  <!-- ----MUD CHEMICAL REPORT----  -->
+                  <h4>Mud Chemical Report</h4>
+                  {{ drill_mud_chemical_formset.management_form }}
+                
+                  {% for form in drill_mud_chemical_formset %}
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label">Chemical</label>
+                      {{ form.chemical }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label type="text" class="form=label">Unit</label>
+                      {{ form.unit }}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="number" class="form=label"
+                        >Opening Balance</label
+                      >
+                      {{ form.opening }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label type="number" class="form=label">Receipt</label>
+                      {{ form.receipt }}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="number" class="form=label"
+                        >Consumption</label
+                      >
+                      {{ form.consumption }}
+                    </div>
+                    <div class="col col-md-6">
+                      <label type="number" class="form=label"
+                        >Closing Balance</label
+                      >
+                      {{ form.closing }}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col col-md-6">
+                      <label type="number" class="form=label"
+                        >Cumulative Consumption</label
+                      >
+                      {{ form.total }}
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label type="text" class="form=label"
-                      >BHA Length mts</label
-                    >
-                    <input type="number" class="form-control" />
-                  </div>
-                </div>
-                <div class="d-grid gap-2 my-4 py-2">
-                  <button class="btn btn-primary" type="button">
-                    Submit
-                  </button>
-                </div>
-              </form>
+                  <hr />
+                  {% endfor %}
+                  <h4>Mud Volume Details</h4>
+                  {{ drill_mud_volume_formset.management_form }}
+                
+                  {% for form in drill_mud_volume_formset %}
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Shale Shaker</label
+                      >
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Vol (m<sup>3</sup>)</label
+                      >
+                      {{ form.shalevole }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label">Sp. Gr.</label>
+                      {{ form.shalespgr }}
+                    </div>
+                  </div><br>
+
+                  
+
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Setting Tank</label
+                      >
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Vol (m<sup>3</sup>)</label
+                      >
+                      {{ form.settingvole }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label">Sp. Gr.</label>
+                      {{ form.settingspgr }}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Intermediate Tank</label
+                      >
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Vol (m<sup>3</sup>)</label
+                      >
+                      {{ form.intervole }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label">Sp. Gr.</label>
+                      {{ form.interspgr }}
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Suction Tank</label
+                      >
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Vol (m<sup>3</sup>)</label
+                      >
+                      {{ form.suctionvole }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label">Sp. Gr.</label>
+                      {{ form.suctionvole }}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Reserve Tank-1</label
+                      >
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Vol (m<sup>3</sup>)</label
+                      >
+                      {{ form.tank1vole }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label">Sp. Gr.</label>
+                      {{ form.tank1spgr }}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Reserve Tank-2</label
+                      >
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Vol (m<sup>3</sup>)</label
+                      >
+                      {{ form.tank2vole }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label">Sp. Gr.</label>
+                      {{ form.tank2spgr }}
+                    </div>
+                  </div><br>
+                  {% endfor %}
+<hr>
+
+                  <h4>Solid Control Equipments Running Hrs.</h4>
+                  {{ drill_solid_control_formset.management_form }}
+                
+                  {% for form in drill_solid_control_formset %}
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Shale Shaker</label
+                      >
+                      {{ form.shaleshaker }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Desander</label
+                      >
+                      {{ form.desander }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label">Desilter</label>
+                      {{ form.desilter }}
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Degasser</label
+                      >
+                      {{ form.degasser }}
+                    </div>
+                    <div class="col col-md-4">
+                      <label type="number" class="form=label"
+                        >Mud Cleaner</label
+                      >
+                      {{ form.mudlcleaner }}
+                    </div>
+
+<div class="mb-3 mt-3">
+  <label for="comment"
+    >Remarks</label
+  >
+  {{ form.remarks }}
+</div>
+<br>
+{% endfor %}
+
+
+<div class="d-grid gap-2 my-4 py-2">
+  <input class="btn btn-primary" type="submit" value="Submit" />
+
+</div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
+    </section>
+   
 
 {% endblock %}

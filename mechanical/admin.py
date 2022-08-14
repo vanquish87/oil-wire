@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.http import HttpResponse
 import csv, datetime
-from mechanical.models import Equipment, EquipmentService, Rig, RigDown
+from mechanical.models import Equipment, EquipmentService, Rig, RigDown, DrillRig, DrillShift, DrillLaboratory, HydraulicData, Drilldata, ElectricalRig, Electricalrunninghours, ElectricalShift,DrillSolidControl,DrillMudVolume,DrillMudChemicalReport 
 
 
 # Register your models here.
@@ -36,3 +36,17 @@ admin.site.register(Rig, CsvAdmin)
 admin.site.register(Equipment, CsvAdmin)
 admin.site.register(EquipmentService, CsvAdmin)
 admin.site.register(RigDown, CsvAdmin)
+
+admin.site.register(DrillRig, CsvAdmin)
+admin.site.register(DrillShift, CsvAdmin)
+admin.site.register(DrillLaboratory, CsvAdmin)
+admin.site.register(HydraulicData, CsvAdmin)
+admin.site.register(DrillMudChemicalReport, CsvAdmin)
+admin.site.register(DrillMudVolume, CsvAdmin)
+admin.site.register(DrillSolidControl, CsvAdmin)
+
+admin.site.register(Drilldata, CsvAdmin)
+admin.site.register(ElectricalRig, CsvAdmin)
+admin.site.register(Electricalrunninghours, CsvAdmin)
+admin.site.register(ElectricalShift, CsvAdmin)
+

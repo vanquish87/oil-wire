@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-   
+
 
     <!-- SECTION -->
     <section class="p-5 my-5">
@@ -40,7 +40,7 @@
                 </table>
                 {% for drillshift in drillshifts %}
                 <table class="table table-striped">
-                  
+
                   <tr>
                     <td>Shift</td>
                     <td>{{ drillshift.shifttype }}</td>
@@ -66,20 +66,19 @@
                     <td>{{ drillshift.timeto }}</td>
                   </tr>
                 </table>
-                
+
                 {% endfor %}
                 {% for drillshift in drillshifts %}
                 <div
                   class="pb-5 pt-2"
                   style="display: flex; flex-direction: column"
                 >
-                
+
                   <label for="">Operation</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ drillshift.operation }}</textarea
-                  >
+                    {{ drillshift.operation }}
+                    <hr>
                 </div>
-{% endfor %}
+                {% endfor %}
                 <!-- <h4 class="py-3 text-center">ELECTRICAL LOG SHEET</h4> -->
                 {% for drillshift in drillshifts %}
                 <table class="table table-striped">
@@ -100,7 +99,7 @@
                     <td>{{ drillshift.ph }}</td>
                   </tr>
                 </table>
-{% endfor %}
+                {% endfor %}
                 <h4 class="py-3 text-center">LABORATORY DATA</h4>
                 {% for drill in drilllaboratorys %}
                 <table class="table table-striped">
@@ -177,7 +176,7 @@
                     <td>{{ drill.flowlinetemp }}</td>
                   </tr>
                 </table>
-{% endfor %}
+                {% endfor %}
                 <h4 class="py-3 text-center">HYDRAULIC DATA</h4>
                 {% for hydraulic in hydraulicdatas %}
                 <table class="table table-striped">
@@ -214,7 +213,7 @@
                     <td>{{ hydraulic.stabilizers }}</td>
                   </tr>
                 </table>
-{% endfor %}
+                {% endfor %}
 
                 <span>Ann Vel.(m/sec)</span>
                 {% for hydraulic in hydraulicdatas %}
@@ -276,7 +275,7 @@
                     <td>{{ hydraulic.presslosses }}</td>
                   </tr>
                 </table>
-{% endfor %}
+                {% endfor %}
                 <h4 class="py-3 text-center">DRILLING DATA</h4>
                 {% for drilldate in drilldatas %}
                 <table class="table table-striped">
@@ -338,7 +337,7 @@
                     <td>{{ mudchemical.total }}</td>
                   </tr>
                 </table>
-{% endfor %}
+                {% endfor %}
                 <h4 class="py-3 text-center">MUD VOLUME DETAILS</h4>
                 {% for drillvolume in drillvolumes %}
                 <span>Shale Shaker</span>
@@ -452,9 +451,8 @@
                   style="display: flex; flex-direction: column"
                 >
                   <label for="">Remarks</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ drillsolid.remarks }}</textarea
-                  >
+                    {{ drillsolid.remarks }}
+                    <hr>
                 </div>
                 {% endfor %}
               </div>

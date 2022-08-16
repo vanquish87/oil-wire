@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
- 
+
 
     <!-- SECTION -->
     <section class="p-5 my-5">
@@ -33,7 +33,7 @@
                     <td>Date</td>
                     <td>{{rig.date}}</td>
                   </tr>
-                 
+
                   <tr>
                     <td>Location</td>
                     <td>{{rig.location}}</td>
@@ -42,8 +42,8 @@
                   <td>Previous Day Cumulative Running Hours</td>
                   {% for e2 in electricalrunninghourss %}
                   <table class="table table-striped">
-                  <tr>                 
-                   
+                  <tr>
+
                     <td>{{ e2.runninghours }}</td>
                   </tr>
                 </table>
@@ -87,32 +87,26 @@
                   style="display: flex; flex-direction: column"
                 >
                   <label for="">Remarks/Requirements from Base:</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ e2.remarks }}</textarea
-                  >
-                </div>
-               
-                <div
-                  class="pb-5 pt-2"
-                  style="display: flex; flex-direction: column"
-                >
-                  <label for="">Equipment/Material Received/Sent:</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ e2.equipment }}</textarea
-                  >
+                    {{ e2.remarks }}
+                    <hr>
                 </div>
 
                 <div
                   class="pb-5 pt-2"
                   style="display: flex; flex-direction: column"
                 >
-                  <label for=""
-                    >Job Caring Out During the Shift: Defect/Failure
-                    report:</label
-                  >
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ e2.job }}</textarea
-                  >
+                  <label for="">Equipment/Material Received/Sent:</label>
+                    {{ e2.equipment }}
+                    <hr>
+                </div>
+
+                <div
+                  class="pb-5 pt-2"
+                  style="display: flex; flex-direction: column"
+                >
+                  <label for="">Job Caring Out During the Shift: Defect/Failure
+                    report:</label>
+                 {{ e2.job }}
                 </div>
                 {% endfor %}
                 <h4 class="py-3 text-center">
@@ -143,9 +137,8 @@
                   style="display: flex; flex-direction: column"
                 >
                   <label for="">Report on Safety/ Near Miss Accidents:</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ e2.safetyreport }}</textarea
-                  >
+                    {{ e2.safetyreport }}
+                    <hr>
                 </div>
                 {% endfor %}
               </div>

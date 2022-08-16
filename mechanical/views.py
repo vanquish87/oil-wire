@@ -62,11 +62,11 @@ def viewEquipmentLog(request, rig_id):
     }
     return render(request, 'mechanical/view-equipment-log.html', context)
 
+
 def electricalLog(request):
     form = ElectricalRigForm()
     electrical_running_hours_formset = ElectricalrunninghoursFormset()
     electrical_shift_formset = ElectricalShiftFormset()
-    
 
     if request.method == 'POST':
         form = ElectricalRigForm(request.POST)
@@ -89,14 +89,13 @@ def electricalLog(request):
                 eshift.rig = rig
                 form.save()
 
-       
         return redirect('view-electric-log', rig.id)
 
     context = {
         'form': form,
         'electrical_running_hours_formset': electrical_running_hours_formset,
         'electrical_shift_formset': electrical_shift_formset,
-        
+
     }
     return render(request, 'mechanical/electric-log.html', context)
 
@@ -104,12 +103,12 @@ def viewElecticLog(request,rig_id):
     rig = ElectricalRig.objects.get(id=rig_id)
     electricalrunninghourss = Electricalrunninghours.objects.filter(rig_id=rig.id).all()
     electricalShifts = ElectricalShift.objects.filter(rig_id=rig.id).all()
-    
+
     context = {
         'rig': rig,
         'electricalrunninghourss': electricalrunninghourss,
         'electricalShifts': electricalShifts,
-        
+
 
     }
     return render(request, 'mechanical/view-electric-log.html', context)
@@ -138,9 +137,9 @@ def drillLog(request):
                 drillshift = form.save(commit=False)
                 drillshift.rig = rig
                 form.save()
-        
-        
-        drill_laboratory_formset = DrillLaboratoryFormset(request.POST)        
+
+
+        drill_laboratory_formset = DrillLaboratoryFormset(request.POST)
         if drill_laboratory_formset.is_valid():
             for form in drill_laboratory_formset:
                 drilllab = form.save(commit=False)
@@ -183,8 +182,6 @@ def drillLog(request):
                 drillsolid.rig = rig
                 form.save()
 
-        
-
         return redirect('view-drill-log', rig.id)
 
     context = {
@@ -195,8 +192,9 @@ def drillLog(request):
         'drill_data_formset':drill_data_formset,
         'drill_mud_chemical_formset':drill_mud_chemical_formset,
         'drill_mud_volume_formset':drill_mud_volume_formset,
-        'drill_solid_control_formset':drill_solid_control_formset, 
+        'drill_solid_control_formset':drill_solid_control_formset,
     }
+
     return render(request, 'mechanical/drill-mud.html', context)
 
 
@@ -219,12 +217,8 @@ def viewDrillLog(request, rig_id):
         'drillchemicals':drillchemicals,
         'drillvolumes':drillvolumes,
         'drillsolids':drillsolids,
-
-
-
     }
-    
- 
+
     return render(request, 'mechanical/view-drill-log.html', context)
 
 

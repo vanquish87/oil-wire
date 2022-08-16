@@ -71,7 +71,7 @@
                   </tr>
                 </table>
                 {% endfor %}
-               
+
                 <h4 class="py-3 text-center">REPAIRING LOG SHEET</h4>
                 {% for service in services %}
                 <table class="table table-striped">
@@ -98,13 +98,12 @@
                   style="display: flex; flex-direction: column"
                 >
                   <label for="">Instructions</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ service.intstructions }}</textarea
-                  >
+                    {{ service.intstructions }}
+                    <hr>
                 </div>
                 {% endfor %}
-                
-             
+
+
 
                 <h4 class="py-3 text-center">Rig Down Time</h4>
                 {% for rigdown in rigdowns %}
@@ -119,20 +118,18 @@
                   </tr>
                 </table>
                 {% endfor %}
-                
+
 
                 <div class="py-3" style="display: flex; flex-direction: column">
                   <label for="" class="pb-2">Requirements</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ rig.requirements }}</textarea
-                  >
+                    {{ rig.requirements }}
+                    <hr>
                 </div>
 
                 <div class="py-3" style="display: flex; flex-direction: column">
                   <label for="" class="pb-2">Mechanical Engineer</label>
-                  <textarea name="" id="" cols="60" rows="5">
-                    {{ rig.mech_engineer }}</textarea
-                  >
+                    {{ rig.mech_engineer }}
+                    <hr>
                 </div>
               </div>
             </div>
@@ -140,5 +137,5 @@
         </div>
       </div>
     </section>
-   
+
 {% endblock %}

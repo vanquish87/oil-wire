@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Drill Mud Log - ONGC</title>
+{% endblock %}
+
+{% block content %}
+<!-- showcase -->
+<!-- in bootstrap 5 we can do CSS right into classes n adjust accoordingly -->
+<section id="main" class="bg-light text-dark py-5 text-center">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row justify-content-around align-items-center text-center">
+            <div class="col-md-8">
+                <form class="form" action="{% url 'search' %}" method="get">
+                    {% csrf_token %}
+                    <!-- Input:Text -->
+                    <div class="mb-3">
+                        <input type="text" name="search_query" class="form-control" placeholder="Search ONGC files" value="{{ search_query }}" />
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Search" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ response }}
+
+{% endblock %}

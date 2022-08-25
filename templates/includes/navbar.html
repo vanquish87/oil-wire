@@ -9,6 +9,12 @@
         <h6 class="tagline my-0" style="color: darkred"> Oil and Natural Gas Corporation Limited <p style="font-size: 10px; color: black" class="mb-2"> A Maharatna Company </p>
         </h6>
       </div>
+      
+      <a href="{% url 'search' %}">
+        <img src="{% static 'Assets\search.png' %}" width="40" height="40" alt="" />
+      </a>
+      
+
       <div class="navbeaut">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -35,10 +41,6 @@
           </ul>
         </div>
       </div>
-      <form class="d-flex align-self-end navbeaut-1">
-        <input class="form-control me-2" type="search" placeholder="ElasticSearch" aria-label="Search" />
-        <img src="{% static 'Assets\search.png' %}" width="30" height="30" alt="" />
-      </form>
     </div>
   </nav>
   <hr class="my-0" style="color: maroon; height: 3px; opacity: 1" />

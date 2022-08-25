@@ -25,6 +25,7 @@ urlpatterns = [
     path('about-sas/', views.sas, name='about-sas'),
     path('weblog/', include('webLog.urls')),
     path('mechanical/', include('mechanical.urls')),
+    path('search/', include('search.urls')),
 
 ]
 

@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+<!-- for underscore problem of django -->
+{% load search_extra %}
 {% block title %}
 <title>Drill Mud Log - ONGC</title>
 {% endblock %}
@@ -25,6 +27,33 @@
     </div>
 </section>
 
-{{ response }}
+{% if response != '' %}
+<!-- search results -->
+<hr>
+<section id="main" class="bg-white text-dark py-5">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row">
+            <div class="col-md-8">
+            
+            {% if response.hits.hits %}
+            {% for i in response.hits.hits %}   
+                        
+            <!-- for underscore problem of django -->
+            <h3><a href="#">{{ i | get:"_index" }}</a></h3>
+            <a href="#">{{ i | get:"_ignored" }}</a>
+            <p>{{ i | get:"_source" }}</p>
+            
+            {% endfor %}
+            {% else %}
+            <p>No results found</p>
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endif %}
 
 {% endblock %}

@@ -5,6 +5,7 @@ import matplotlib
 matplotlib.use('Agg')
 
 import lasio
+from las_py import Laspy
 from .forms import LogFileForm
 from .models import Frame, LogFile, LogColumn
 from .utils import delete_files, read_LAS
@@ -39,9 +40,10 @@ def createLas(request):
 
 
 def viewLas(request, logcolumn_name):
+    
     column = LogColumn.objects.get(name=logcolumn_name)
     logcolumns = LogColumn.objects.filter(logfile__id__contains=column.logfile_id)
-
+    
     # creating PNG files out of LAS uploads
     logfile = LogFile.objects.get(id=column.logfile_id)
 
@@ -49,12 +51,58 @@ def viewLas(request, logcolumn_name):
     las_file = logfile.file.path
 
     las = lasio.read(las_file)
+    
+
     well = las.df()
-    well.plot(y=logcolumn_name)
+    print(well.columns.values)
+
+    print(logcolumn_name)
+    print(las.curves[logcolumn_name].unit)
+    
+    
+    #for expanding the chartsize
+    f,ax=plt.subplots(nrows=1,ncols=6,figsize=(12,8))
+    #ax[0].plot(well[logcolumn_name],logs.Depth,color='green')
+  
+    # Ist Solution
+
+    #df = las.df()
+    #df['DEPTH'] = df.index
+    #df.plot(x=logcolumn_name, y='DEPTH', c='black', lw=0.5, legend=False, figsize=(7,10))
+
+    #plt.fill_betweenx(df['DEPTH'], df[logcolumn_name], 0, facecolor='green')
+    #plt.ylim(4500, 3500)
+    #plt.xlim(0,150)
+    #plt.title('Plot With a Single Colour Fill to Y-Axis')
+
+    # 3rd solution
+    df = las.df()
+    df['DEPTH'] = df.index
+   # print(df['DEPTH'])
+    well=well.reset_index()
+    plt.clf()
+    #plt.plot(well[logcolumn_name], well.DEPT,lw=.5)
+    #plt.plot(well[logcolumn_name], well.DEPT,lw=.5)
+    
+    plt.plot(df[logcolumn_name], df['DEPTH'],lw=.9)
+    plt.fill_betweenx(df['DEPTH'], df[logcolumn_name], 0, facecolor='yellow')
+
+
+    # Old Solution
+    #well.plot(y=logcolumn_name)
+    
+    #for setting the x & y label
+    plt.xlabel(logcolumn_name+" ("+las.curves[logcolumn_name].unit+")", size=20); plt.ylabel("Depth (m)", size=20)
+    #plt.title("LAS chart for - " + logcolumn_name, size=20)
+    
+    plt.grid(True)
+    
+    
     # saving png in tmp file style
     tmpfile = BytesIO()
     plt.savefig(tmpfile, format='png')
     png_file = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
+
 
     context = {'png_file': png_file, 'logcolumns': logcolumns, 'column': column}
 
@@ -121,13 +169,21 @@ def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
         frame_id=frame_id, 
         name=logcolumn_name
         )
-    
+
+    graphunit=""
     # creating PNG files out of DLIS uploads
     logfile = LogFile.objects.get(id=column.logfile_id)
 
     # absolute path of FileField
     dlis_file = logfile.file.path
     with dlis.load(dlis_file) as (f, *tail):
+  
+        for channel in f.channels:
+           if logcolumn_name==channel.name:
+            graphunit= channel.units
+            
+   
+       
         # for template purpose frames are called
         frames = Frame.objects.all().filter(logfile=logfile)
 
@@ -139,7 +195,12 @@ def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
         frame1 = f.object(frame_name[0].upper() , frame_num)
         # getting curve names
         curves = frame1.curves()
+        
+        #xlabelg=f.object('CHANNEL', logcolumn_name)
+        
         d = curves.dtype
+        #print({d.names}.units)
+        
         if 'TDEP' in d.names:
             depth = curves['TDEP'] * 0.00254
         elif 'DEPT' in d.names:
@@ -147,7 +208,14 @@ def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
         
         # to display given column image
         out_image = curves[column.name]
-        plt.plot(depth, out_image)
+        print(out_image)
+        plt.clf()
+        f,ax=plt.subplots(nrows=1,ncols=1,figsize=(12,8))
+        plt.plot(out_image,depth)
+        plt.xlabel(str(logcolumn_name)+" ("+graphunit+")", size=20); plt.ylabel("Depth (m)", size=20)
+        #plt.title("LAS chart for - " + logcolumn_name, size=20)
+        plt.fill_betweenx(depth,out_image, 0, facecolor='cyan')
+        plt.grid(True)
         # plt.show()
         # import pdb; pdb.set_trace()
 

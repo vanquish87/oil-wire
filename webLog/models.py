@@ -20,6 +20,7 @@ class LogColumn(models.Model):
     logfile = models.ForeignKey(LogFile, null=True, blank=True, on_delete=models.CASCADE)
     frame = models.ForeignKey(Frame, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
+    
 
     def __str__(self):
         return self.name

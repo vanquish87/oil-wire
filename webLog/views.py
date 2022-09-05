@@ -5,7 +5,6 @@ import matplotlib
 matplotlib.use('Agg')
 
 import lasio
-from las_py import Laspy
 from .forms import LogFileForm
 from .models import Frame, LogFile, LogColumn
 from .utils import delete_files, read_LAS

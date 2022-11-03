@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'webLog.apps.WeblogConfig',
     'mechanical.apps.MechanicalConfig',
     'search.apps.SearchConfig',
+    'ocrFile.apps.OcrfileConfig',
 
 ]
 

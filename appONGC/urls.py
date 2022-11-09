@@ -26,6 +26,7 @@ urlpatterns = [
     path('weblog/', include('webLog.urls')),
     path('mechanical/', include('mechanical.urls')),
     path('search/', include('search.urls')),
+    path('ocrfiles/', include('ocrFile.urls')),
 
 ]
 

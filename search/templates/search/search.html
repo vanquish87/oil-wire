@@ -27,7 +27,7 @@
     </div>
 </section>
 
-{% if response != '' %}
+{% if results != '' %}
 <!-- search results -->
 <hr>
 <section id="main" class="bg-white text-dark py-5">
@@ -35,19 +35,13 @@
     <div class="container-sm">
         <div class="row">
             <div class="col-md-8">
-            
-            {% if response.hits.hits %}
-            {% for i in response.hits.hits %}   
-                        
-            <!-- for underscore problem of django -->
-            <h3><a href="#">{{ i | get:"_index" }}</a></h3>
-            <a href="#">{{ i | get:"_ignored" }}</a>
-            <!-- <p>{{ i | get:"_source" }}</p> -->
-            
+
+            {% for i in results %}
+            <h3><a href="#">{{ i.filename }}</a></h3>
+            <h3><a href="{% url 'view-pdf' ocrfilepath=i.ocrfilepath %}" target="_blank">{{ i.ocrfilepath }}</a></h3>
+
             {% endfor %}
-            {% else %}
-            <p>No results found</p>
-            {% endif %}
+
 
             </div>
         </div>
@@ -57,3 +51,22 @@
 {% endif %}
 
 {% endblock %}
+
+
+
+{% if response.hits.hits %}
+{% for i in response.hits.hits %}
+
+{{ i }}
+
+<!-- for underscore problem of django -->
+<h3><a href="#">{{ i | get:"_index" }}</a></h3>
+<a href="#">{{ i | get:"_ignored" }}</a>
+<p>{{ i | get:"_source['ocrfilepath']" }}</p>
+
+{% endfor %}
+{% else %}
+<p>No results found</p>
+{% endif %}
+
+

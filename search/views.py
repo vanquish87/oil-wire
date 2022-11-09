@@ -40,7 +40,7 @@ def search(request):
             for i in response['hits']['hits']:
                 hit = {}
                 hit['filename'] = i['_source']['filename']
-                hit['ocrfilepath'] = i['_source']['ocrfilepath']
+                hit['ocr_url'] = 'http://' + i['_source']['ip'] + ':9000' + '/ocrfiles/view-pdf/' + i['_source']['ocrfilepath']
                 results.append(hit)
 
         options = ('cegdis', 'epinet', 'user-upload', 'edt', 'idt')

@@ -37,10 +37,10 @@
             <div class="col-md-8">
 
             {% for i in results %}
-            <h3><a href="#">{{ i.filename }}</a></h3>
-            <h3><a href="{% url 'view-pdf' ocrfilepath=i.ocrfilepath %}" target="_blank">{{ i.ocrfilepath }}</a></h3>
+            <h3 class="m-4"><a href="{{ i.ocr_url }}" target="_blank">{{ i.filename }}</a></h3>
 
             {% endfor %}
+
 
 
             </div>

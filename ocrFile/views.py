@@ -28,7 +28,7 @@ def upload(request):
 
 
 def pdfView(request, ocrfilepath):
-    with open(r"C:\Jimmy\Codeholic\ongc-wire\static\data\ocr\ra-rules.pdf", 'rb') as pdf:
+    with open(ocrfilepath, 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=mypdf.pdf'
         return response

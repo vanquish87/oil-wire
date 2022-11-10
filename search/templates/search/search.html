@@ -34,14 +34,14 @@
     <!-- for symmetry from top to bottom on page I am using a container -->
     <div class="container-sm">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
 
             {% for i in results %}
-            <h3 class="m-4"><a href="{{ i.ocr_url }}" target="_blank">{{ i.filename }}</a></h3>
+            <h3 class="m-4"><a href="{% url 'viewer' ocrfilepath=i.ocr_url %}?&search=LLP" target="_blank">{{ i.filename }}</a></h3>
+            <p>{{ i.snippet }}...</p>
+            <p>{{ i.ocr_url }}</p>
 
             {% endfor %}
-
-
 
             </div>
         </div>

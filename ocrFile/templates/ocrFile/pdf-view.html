@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Upload PDFs</title>
+{% endblock %}
+
+{% block content %}
+<!-- showcase -->
+<!-- in bootstrap 5 we can do CSS right into classes n adjust accoordingly -->
+<section id="main" class="bg-light text-dark mt-5 py-5 text-center">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row justify-content-around align-items-center text-center">
+            <p>{{ ocrfilepath }}</p>
+            <div class="col-md-12 pt-2">
+
+                <iframe src="{{ ocrfilepath }}#page=3" width="100%" height="1000px"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+<iframe src="{% url 'pdfView' ocrfilepath=ocrfilepath %}#page=3" width="100%" height="1000px"></iframe>

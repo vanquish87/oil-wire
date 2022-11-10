@@ -40,7 +40,17 @@ def search(request):
             for i in response['hits']['hits']:
                 hit = {}
                 hit['filename'] = i['_source']['filename']
-                hit['ocr_url'] = 'http://' + i['_source']['ip'] + ':9000' + '/ocrfiles/view-pdf/' + i['_source']['ocrfilepath']
+                hit['ocr_url'] = 'http://' + i['_source']['ip'] + ':9000' + '/ocrfiles/view-pdf/' + i['_source']['ocrfilepath'] + '\\' + i['_source']['filename']
+
+                # creating snippet containing search_query
+                full_text = i['_source']['attachment']['content'].lower()
+                if search_query in full_text:
+                    query_location = full_text.index(search_query)
+                try:
+                    hit['snippet'] = full_text[query_location:query_location+150]
+                except:
+                    hit['snippet'] = None
+
                 results.append(hit)
 
         options = ('cegdis', 'epinet', 'user-upload', 'edt', 'idt')

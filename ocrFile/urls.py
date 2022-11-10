@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.upload, name='upload'),
-    path('view-pdf/<str:ocrfilepath>/', views.pdfView, name='view-pdf'),
+    path('view-pdf/<path:ocrfilepath>/', views.pdfView, name='pdfView'),
+    path('viewer/<path:ocrfilepath>/', views.viewer, name='viewer'),
 ]

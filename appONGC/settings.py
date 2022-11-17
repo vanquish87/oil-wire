@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mechanical.apps.MechanicalConfig',
     'search.apps.SearchConfig',
     'ocrFile.apps.OcrfileConfig',
+    'account.apps.AccountConfig',
 
 ]
 

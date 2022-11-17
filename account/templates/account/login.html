@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Login Page</title>
+{% endblock %}
+
+{% block content %}
+<!-- showcase -->
+<!-- in bootstrap 5 we can do CSS right into classes n adjust accoordingly -->
+<section id="main" class="bg-light text-dark mt-5 py-5 text-center">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row justify-content-around align-items-center text-center">
+            <div class="col-md-8 pt-5">
+                <h3>Account Login</h3>
+                <p>Hello ONGCian, Welcome Back!</p>
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                      <div class="form-group my-2">
+                         <input type="email" class="form-control" placeholder="Email Address" name="email">
+                      </div> <!-- form-group// -->
+                      <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+                      </div> <!-- form-group// -->
+            
+                      <div class="form-group my-2">
+                          <a href="#" class="float-right">Forgot password?</a>
+            
+                      </div> <!-- form-group form-check .// -->
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-primary btn-block">Login</button>
+                      </div> <!-- form-group// -->
+                  </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

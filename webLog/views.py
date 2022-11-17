@@ -16,9 +16,11 @@ from django.conf import settings
 
 import base64
 from io import BytesIO
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url='login')
 def createLas(request):
     # deleting existing files
     delete_files()
@@ -38,6 +40,7 @@ def createLas(request):
     return render(request, 'webLog/create-las.html', context)
 
 
+@login_required(login_url='login')
 def viewLas(request, logcolumn_name):
     
     column = LogColumn.objects.get(name=logcolumn_name)
@@ -108,6 +111,7 @@ def viewLas(request, logcolumn_name):
     return render(request, 'webLog/view-las.html', context)
 
 
+@login_required(login_url='login')
 def createDlis(request):
     # deleting existing files
     delete_files()
@@ -162,6 +166,7 @@ def createDlis(request):
     return render(request, 'webLog/dlis.html', context)
 
 
+@login_required(login_url='login')
 def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
     column = LogColumn.objects.get(
         logfile_id=logfile_id, 

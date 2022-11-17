@@ -4,9 +4,11 @@ from .models import Upload
 from django.contrib import messages
 from django.http import  HttpResponse
 from django.http import FileResponse, Http404
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url='login')
 def upload(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
@@ -41,9 +43,10 @@ def upload(request):
 #     return render(request, 'ocrFile/pdf-view.html', context)
 
 
+@login_required(login_url='login')
 def pdfView(request, ocrfilepath):
     # testing
-    # ocrfilepath = r'C:\Jimmy\Codeholic\ongc-wire\static\sebi-ra.pdf'
+    ocrfilepath = r'C:\Jimmy\aa.pdf'
 
     with open(ocrfilepath, 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
@@ -51,6 +54,7 @@ def pdfView(request, ocrfilepath):
         return response
 
 
+@login_required(login_url='login')
 def viewer(request, ocrfilepath):
     context = {'ocrfilepath': ocrfilepath}
     return render(request, 'ocrFile/pdf-view.html', context)

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from .forms import EquipServiceForm, EquipServiceFormset, EquipmentFormset, RigDownForm, RigDownFormset, RigForm, EquipmentForm, DrillRigForm, DrillLaboratoryForm, HydraulicDataForm, DrilldataForm, DrillShiftForm,DrillShiftFormset,DrillLaboratoryFormset,DrillDataFormset, HydraulicDataFormset,ElectricalRigForm,ElectricalrunninghoursForm,ElectricalShiftForm,ElectricalrunninghoursFormset,ElectricalShiftFormset,DrillMudChemicalReportForm,DrillMudVolumeForm,DrillSolidControlForm,DrillMudChemicalReportFormset,DrillMudVolumeFormset, DrillSolidControlFormset
 from .models import Rig, Equipment, EquipmentService, RigDown, DrillRig, DrillLaboratory, HydraulicData, Drilldata, DrillShift, ElectricalRig, ElectricalShift,Electricalrunninghours, DrillMudChemicalReport,DrillMudVolume,DrillSolidControl
 
 
 # Create your views here.
+@login_required(login_url='login')
 def equipmentLog(request):
     form = RigForm()
     equip_formset = EquipmentFormset()
@@ -49,6 +51,8 @@ def equipmentLog(request):
     }
     return render(request, 'mechanical/create-equipment-log.html', context)
 
+
+@login_required(login_url='login')
 def viewEquipmentLog(request, rig_id):
     rig = Rig.objects.get(id=rig_id)
     equipments = Equipment.objects.filter(rig_id=rig.id).all()
@@ -63,6 +67,7 @@ def viewEquipmentLog(request, rig_id):
     return render(request, 'mechanical/view-equipment-log.html', context)
 
 
+@login_required(login_url='login')
 def electricalLog(request):
     form = ElectricalRigForm()
     electrical_running_hours_formset = ElectricalrunninghoursFormset()
@@ -99,6 +104,8 @@ def electricalLog(request):
     }
     return render(request, 'mechanical/electric-log.html', context)
 
+
+@login_required(login_url='login')
 def viewElecticLog(request,rig_id):
     rig = ElectricalRig.objects.get(id=rig_id)
     electricalrunninghourss = Electricalrunninghours.objects.filter(rig_id=rig.id).all()
@@ -114,6 +121,7 @@ def viewElecticLog(request,rig_id):
     return render(request, 'mechanical/view-electric-log.html', context)
 
 
+@login_required(login_url='login')
 def drillLog(request):
     form = DrillRigForm()
     drill_shift_formset = DrillShiftFormset()
@@ -198,6 +206,7 @@ def drillLog(request):
     return render(request, 'mechanical/drill-mud.html', context)
 
 
+@login_required(login_url='login')
 def viewDrillLog(request, rig_id):
     rig = DrillRig.objects.get(id=rig_id)
     drillshifts = DrillShift.objects.filter(rig_id=rig.id).all()

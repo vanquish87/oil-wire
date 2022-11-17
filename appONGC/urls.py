@@ -27,6 +27,7 @@ urlpatterns = [
     path('mechanical/', include('mechanical.urls')),
     path('search/', include('search.urls')),
     path('ocrfiles/', include('ocrFile.urls')),
+    path('account/', include('account.urls')),
 
 ]
 

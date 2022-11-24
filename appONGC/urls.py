@@ -28,6 +28,7 @@ urlpatterns = [
     path('search/', include('search.urls')),
     path('ocrfiles/', include('ocrFile.urls')),
     path('account/', include('account.urls')),
+    path('sql/', include('sqlsearch.urls')),
 
 ]
 

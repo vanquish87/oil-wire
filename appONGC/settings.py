@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'search.apps.SearchConfig',
     'ocrFile.apps.OcrfileConfig',
     'account.apps.AccountConfig',
+    'sqlsearch.apps.SqlsearchConfig',
 
 ]
 
@@ -152,3 +153,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # for embedded pdf viewer
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+# message tags - many of them already incuded in django -- read django docs
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.WARNING: 'warning',
+    messages.SUCCESS: 'success',
+    messages.INFO: 'info',
+    messages.ERROR: 'danger',
+}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import UploadForm
 from .models import Upload
 from django.contrib import messages
@@ -10,52 +10,45 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='login')
 def upload(request):
-    if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
-        print(request.FILES)
-        files = request.FILES.getlist('pdf')
+    if request.user.email == 'dehra-ongc@ongc.co.in':
+        if request.method == 'POST':
+            form = UploadForm(request.POST, request.FILES)
+            files = request.FILES.getlist('pdf')
 
-        if form.is_valid():
-            for f in files:
-                file_instance = Upload(pdf=f)
-                file_instance.save()
-                messages.success(request, 'PDF are uploaded succesfully!')
+            if form.is_valid():
+                for f in files:
+                    file_instance = Upload(pdf=f)
+                    file_instance.save()
+                    messages.success(request, 'PDF are uploaded succesfully!')
+            else:
+                messages.error(request, 'Upload only PDFs')
         else:
-            messages.error(request, 'Upload only PDFs')
+            form = UploadForm()
+
+        context = {'form': form}
+        return render(request, 'ocrFile/upload.html', context)
+    
     else:
-        form = UploadForm()
-
-    context = {'form': form}
-    return render(request, 'ocrFile/upload.html', context)
+        return redirect("http://10.205.223.29:9000/ocrfiles/")
 
 
-# def pdfView(request, ocrfilepath):
-#     try:
-#         file_response = FileResponse(open(r'C:\Jimmy\Codeholic\ongc-wire\static\sebi-ra.pdf', 'rb'), content_type='application/pdf')
-#         file_loc = r'C:\Jimmy\Codeholic\ongc-wire\static\sebi-ra.pdf'
-#     except FileNotFoundError:
-#         raise Http404()
 
-#     context = {
-#         'file_response': file_response,
-#         'file_loc': file_loc
-#         }
-#     return render(request, 'ocrFile/pdf-view.html', context)
-
-
-@login_required(login_url='login')
 def pdfView(request, ocrfilepath):
     # testing
-    ocrfilepath = r'C:\Jimmy\aa.pdf'
+    # ocrfilepath = r'C:\Jimmy\aa.pdf'
 
     with open(ocrfilepath, 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=mypdf.pdf'
+        print(ocrfilepath)
         return response
 
 
-@login_required(login_url='login')
+
 def viewer(request, ocrfilepath):
+    print(ocrfilepath)
     context = {'ocrfilepath': ocrfilepath}
+    #print(ocrfilepath)
+    return redirect(pdfView,ocrfilepath)
     return render(request, 'ocrFile/pdf-view.html', context)
 

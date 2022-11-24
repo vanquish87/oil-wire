@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Search - Other</title>
+{% endblock %}
+
+{% block content %}
+<!-- showcase -->
+<!-- in bootstrap 5 we can do CSS right into classes n adjust accoordingly -->
+<section id="main" class="bg-light text-dark mt-5 py-5 text-center">
+    <!-- for symmetry from top to bottom on page I am using a container -->
+    <div class="container-sm">
+        <div class="row justify-content-around align-items-center text-center">
+            <div class="col-md-12 pt-2">
+                
+                <div>
+                    <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        
+                        <tr>
+                        <th>{{ hit.Key_1 }}</th>
+                        <th>{{ hit.Key_2 }}</th>
+                        <th>{{ hit.Key_3 }}</th>
+                        <th>{{ hit.Key_4 }}</th>
+                        <th>{{ hit.Key_5 }}</th>
+                        <th>{{ hit.Key_6 }}</th>
+                        <th>{{ hit.Key_7 }}</th>
+                        <th>{{ hit.Key_8 }}</th>
+                        <th>{{ hit.Key_9 }}</th>
+                        {% if hit.table_name == 'EPINET_GTO_NOB_AQC' %}
+                        <th>{{ hit.Key_10 }}</th>
+                        <th>{{ hit.Key_11 }}</th>
+                        <th>{{ hit.Key_12 }}</th>
+                        {% endif %}
+                        </tr>
+                        
+                        {% for key, value in rows.items %}
+                        <tr>
+                            {% for k,v in value.items %}
+                            <td>{{v}}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

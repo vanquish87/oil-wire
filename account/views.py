@@ -8,22 +8,23 @@ from django.contrib.auth import login, authenticate, logout
 def loginUser(request):
     if request.method == 'POST':
         # request.method is a dictionary of all the data in POST
-        email = request.POST['email'].lower()
+        username = request.POST['username'].lower()
         password = request.POST['password']
 
         # to check if user exist in database
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(username=username)
         except:
             # for flashing messages
             messages.error(request, 'Email doesnt exist')
 
         # this check password against username in database
-        user = authenticate(request, username='jimmy', password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             # sets session for user
             login(request, user)
+            messages.info(request, 'You are logged in!')
             # if next in the url value so redirect there else to account page
             return redirect(request.GET['next'] if 'next' in request.GET else 'index')
         else:

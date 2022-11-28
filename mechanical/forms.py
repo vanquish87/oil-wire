@@ -1,5 +1,3 @@
-# forms.py :: part 1
-
 from django import forms
 from django.forms import formset_factory
 from .models import EquipmentService, Rig, Equipment, RigDown, DrillRig, DrillShift, DrillLaboratory, HydraulicData, Drilldata,ElectricalRig,ElectricalShift,Electricalrunninghours, DrillMudChemicalReport, DrillMudVolume, DrillSolidControl
@@ -122,7 +120,6 @@ RigDownFormset = formset_factory(RigDownForm, extra=3)
 
 
 #Drill Models
-
 class DrillRigForm(forms.ModelForm):
     class Meta:
         model = DrillRig
@@ -153,7 +150,6 @@ class DrillShiftForm(forms.ModelForm):
             'timefrom': TimeInput(),
             'timeto': TimeInput(),
             'operation':forms.Textarea(attrs={'rows':6}),
-
             }
 
         labels = {
@@ -167,7 +163,6 @@ class DrillShiftForm(forms.ModelForm):
             'visc':'Visc(Sec.)',
             'gel': 'Gel 10',
             'ph': 'pH',
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -176,9 +171,6 @@ class DrillShiftForm(forms.ModelForm):
         # to avoid repetition for every field
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
-
-
-
 
 
 class DrillLaboratoryForm(forms.ModelForm):
@@ -190,8 +182,6 @@ class DrillLaboratoryForm(forms.ModelForm):
 
         widgets = {
             'time': TimeInput(),
-            
-
             }
        
         labels = {
@@ -205,16 +195,14 @@ class DrillLaboratoryForm(forms.ModelForm):
             'apparentvisc': 'Apparent Visc.(cp)',
             'plasticvisc': 'Plastic Visc.(cp)',
             'yieldpoint':'Yield Point(Lbs/100ft',
-
-            'gelzero': 'Gel 0(Lbs/100ft',
-            'gelten': 'Gel 10(Lbs/100ft',
+            'gelzero': 'Gel 0(Lbs/100ft)',
+            'gelten': 'Gel 10(Lbs/100ft)',
             'oilcontent': 'Oil Content(%v/v)',
             'solidcontent': 'Solid Content(%v/v)',
             'watercontent': 'Water Content(%v/v)',
             'mbc': 'MBC',
             'filtersalinity':'Filtrate Salinity(gm/ml)',
             'flowlinetemp': 'Flow Line Temp(°C)',
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -244,7 +232,6 @@ class HydraulicDataForm(forms.ModelForm):
             'stabilizers':'No. of Stabilizers',
             'ohdc': '(a) OH-DC',
             'ohdp':'(b) OH-DP',
-
             'casdp': '(c) Cas-DP',
             'lastcasingsize': 'Last Casing Size',
             'lastlength': 'Last csg. Length',
@@ -269,8 +256,6 @@ class HydraulicDataForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-
-
 class DrilldataForm(forms.ModelForm):
     class Meta:
         model = Drilldata
@@ -284,8 +269,6 @@ class DrilldataForm(forms.ModelForm):
             'onbit': 'Wt. on Bit(MT)',
             'rotaryrpm': 'Rotary RPM',
             'bhalengths':'BHA Length(mts)',
-           
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -310,8 +293,6 @@ class DrillMudChemicalReportForm(forms.ModelForm):
             'consumption': 'Consumption',
             'closing':'Closing Balance',
             'total':'Cumulative Consumption',
-           
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -327,21 +308,19 @@ class DrillMudVolumeForm(forms.ModelForm):
         fields = ['shalevole', 'shalespgr', 'settingvole', 'settingspgr',
         'intervole', 'interspgr', 'suctionvole', 'suctionspgr','tank1vole','tank1spgr','tank2vole','tank2spgr']
 
-             
         labels = {
-            'shalevole': 'Vol (m',
+            'shalevole': 'Vol (m)',
             'shalespgr': 'Sp. Gr.',
-            'settingvole': 'Vol (m',
+            'settingvole': 'Vol (m)',
             'settingspgr': 'Sp. Gr.',
-            'intervole': 'Vol (m',
+            'intervole': 'Vol (m)',
             'interspgr': 'Sp. Gr.',
-            'suctionvole':'Vol (m',
+            'suctionvole':'Vol (m)',
             'suctionspgr': 'Sp. Gr.',
-            'tank1vole': 'Vol (m',
+            'tank1vole': 'Vol (m)',
             'tank1spgr':'Sp. Gr.',
-            'tank2vole': 'Vol (m',
+            'tank2vole': 'Vol (m)',
             'tank2spgr':'Sp. Gr.',
-
         }
 
     def __init__(self, *args, **kwargs):
@@ -358,9 +337,7 @@ class DrillSolidControlForm(forms.ModelForm):
         model = DrillSolidControl
         fields = ['shaleshaker', 'desander', 'desilter', 'degasser', 'mudlcleaner','remarks']
         widgets = {
-           
             'remarks':forms.Textarea(attrs={'rows':6}),
-
             }
 
         labels = {
@@ -370,8 +347,6 @@ class DrillSolidControlForm(forms.ModelForm):
             'degasser':'Degasser',
             'mudlcleaner': 'Mud Cleaner',
             'remarks': 'Remarks',
-            
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -382,8 +357,6 @@ class DrillSolidControlForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-
-
 DrillShiftFormset = formset_factory(DrillShiftForm, extra=1)
 DrillLaboratoryFormset = formset_factory(DrillLaboratoryForm, extra=1)
 HydraulicDataFormset = formset_factory(HydraulicDataForm, extra=1)
@@ -391,6 +364,7 @@ DrillDataFormset = formset_factory(DrilldataForm, extra=1)
 DrillMudChemicalReportFormset= formset_factory(DrillMudChemicalReportForm, extra=1)
 DrillMudVolumeFormset=formset_factory(DrillMudVolumeForm, extra=1)
 DrillSolidControlFormset=formset_factory(DrillSolidControlForm, extra=1)
+
 
 #ElectricalShift models
 class ElectricalRigForm(forms.ModelForm):
@@ -403,17 +377,12 @@ class ElectricalRigForm(forms.ModelForm):
             'date': DateInput(),
             
             }
-
-       
         labels = {
             'rig_name': 'Name of RIG',
             'well': 'Well NO.',
             'location': 'Location',
             'date': 'DATE',
             'doc_no': 'QHSE | DOC. NO.',
-            
-           
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -423,17 +392,14 @@ class ElectricalRigForm(forms.ModelForm):
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
 
+
 class ElectricalrunninghoursForm(forms.ModelForm):
     class Meta:
         model = Electricalrunninghours
         fields = ['runninghours']
 
-            
         labels = {
             'runninghours': 'Hours',
-            
-           
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -457,8 +423,6 @@ class ElectricalShiftForm(forms.ModelForm):
             'equipment':forms.Textarea(attrs={'rows':3}),
             'job':forms.Textarea(attrs={'rows':3}),
             'safetyreport':forms.Textarea(attrs={'rows':3}),
-            
-
             }
 
         labels = {
@@ -477,13 +441,6 @@ class ElectricalShiftForm(forms.ModelForm):
             'energydg4':'DG-4 :',
             'safetyreport':'Report on Safety/ Near Miss Accidents:',
             'shifttype':'Shift Type',
-
-
-
-
-
-
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -492,7 +449,6 @@ class ElectricalShiftForm(forms.ModelForm):
         # to avoid repetition for every field
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
-
 
 
 

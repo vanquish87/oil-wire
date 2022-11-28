@@ -15,8 +15,9 @@ def loginUser(request):
         try:
             user = User.objects.get(username=username)
         except:
+            pass
             # for flashing messages
-            messages.error(request, 'Email doesnt exist')
+            # messages.error(request, 'Email doesnt exist')
 
         # this check password against username in database
         user = authenticate(request, username=username, password=password)
@@ -28,7 +29,7 @@ def loginUser(request):
             # if next in the url value so redirect there else to account page
             return redirect(request.GET['next'] if 'next' in request.GET else 'index')
         else:
-            messages.error(request, 'Email or Password is incorrect')
+            messages.error(request, 'Username or Password is incorrect')
 
     context = {}
     return render(request, 'account/login.html', context)

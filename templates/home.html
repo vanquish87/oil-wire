@@ -7,57 +7,9 @@
 
 {% block content %}
 
-
-<!-- Showcase -->
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="1800">
-      <img src="{% static 'Assets\oilrig2.png' %}" class="d-block w-100" alt="..." />
-    </div>
-    <div class="carousel-item" data-bs-interval="2000">
-      <img src="{% static 'Assets\oilrig2.png' %}" class="d-block w-100" alt="..." />
-    </div>
-  </div>
-</div>
 <!-- Boxes -->
 <section class="p-5">
-  <h3 style="text-align: center">Common Analytics Platform</h3>
-  <hr />
-  <strong> An umbrella platform on top of existing domain specific analytical tools and interface with various data sources and applications across ONGC to provide a cross domain integrated data repository available for different aspects of analytics right from ML to descriptive to diagnostic to predictive to prescriptive analytics built-in. </strong>
-  <hr />
-  <div class="card-group border border-2 rounded border-warning">
-    <div class="card align-items-center" style="background-color: lemonchiffon">
-      <img src="{% static 'Assets\analysis.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
-      " />
-      <div class="card-body">
-        <p class="card-text"> Common enterprise analytics framework for the functional and cross functional areas. </p>
-      </div>
-    </div>
-    <div class="card align-items-center" style="background-color: lemonchiffon">
-      <img src="{% static 'Assets\database.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
-      " />
-      <div class="card-body">
-        <p class="card-text"> Data Integration, Data Transformation, Data Storage, Data Quality and Data Visualization. AI & ML model implementation capability. </p>
-      </div>
-    </div>
-    <div class="card align-items-center" style="background-color: lemonchiffon">
-      <img src="{% static 'Assets\driller.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
-      " />
-      <div class="card-body">
-        <p class="card-text"> Use Case I: Data-Driven Top Down Modeling(TDM) of a reservoir <br />
-          <br /> Use Case II: Drilling Data Analytics for optimization of Pan-India Drilling operations of ONGC
-        </p>
-      </div>
-    </div>
-    <div class="card align-items-center" style="background-color: lemonchiffon">
-      <img src="{% static 'Assets\calendar.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
-      " />
-      <div class="card-body">
-        <p class="card-text"> Post warranty OEM support for 6 years, with more use cases. </p>
-      </div>
-    </div>
-  </div>
-  <br />
+
   <div class="card-group border border-2 rounded border-warning">
     <div class="card">
       <div class="card-body text-center" style="background-color: lemonchiffon">
@@ -121,8 +73,62 @@
       </div>
     </div>
   </div>
+
+  
+  <h3 class="pt-5" style="text-align: center">Common Analytics Platform</h3>
+  <hr />
+  <strong> An umbrella platform on top of existing domain specific analytical tools and interface with various data sources and applications across ONGC to provide a cross domain integrated data repository available for different aspects of analytics right from ML to descriptive to diagnostic to predictive to prescriptive analytics built-in. </strong>
+  <hr />
+  <div class="card-group border border-2 rounded border-warning">
+    <div class="card align-items-center" style="background-color: lemonchiffon">
+      <img src="{% static 'Assets\analysis.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
+      " />
+      <div class="card-body">
+        <p class="card-text"> Common enterprise analytics framework for the functional and cross functional areas. </p>
+      </div>
+    </div>
+    <div class="card align-items-center" style="background-color: lemonchiffon">
+      <img src="{% static 'Assets\database.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
+      " />
+      <div class="card-body">
+        <p class="card-text"> Data Integration, Data Transformation, Data Storage, Data Quality and Data Visualization. AI & ML model implementation capability. </p>
+      </div>
+    </div>
+    <div class="card align-items-center" style="background-color: lemonchiffon">
+      <img src="{% static 'Assets\driller.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
+      " />
+      <div class="card-body">
+        <p class="card-text"> Use Case I: Data-Driven Top Down Modeling(TDM) of a reservoir <br />
+          <br /> Use Case II: Drilling Data Analytics for optimization of Pan-India Drilling operations of ONGC
+        </p>
+      </div>
+    </div>
+    <div class="card align-items-center" style="background-color: lemonchiffon">
+      <img src="{% static 'Assets\calendar.png' %}" class="card-img-fluid" alt="..." style="height: 80px; margin-top: 10px" width="80
+      " />
+      <div class="card-body">
+        <p class="card-text"> Post warranty OEM support for 6 years, with more use cases. </p>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  
 </section>
 
 
 
 {% endblock %}
+
+
+<!-- Showcase -->
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="1800">
+      <img src="{% static 'Assets\oilrig2.png' %}" class="d-block w-100" alt="..." />
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="{% static 'Assets\oilrig2.png' %}" class="d-block w-100" alt="..." />
+    </div>
+  </div>
+</div>

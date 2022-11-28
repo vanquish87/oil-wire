@@ -82,9 +82,15 @@ def column_rows_other(table_name, search_query):
             substring=i.lower()
             mask = x.applymap(lambda x: substring in x.lower() if isinstance(x,str) else False).to_numpy()
             y=y.append(x.loc[mask],ignore_index=True)
+
+            
+    # username_ds_or_nob.csv
+    file_name = 'C:\inetpub\wwwroot\ongc\static\data\sas-csv' + '\\' + 'jimmy' + '_' + table_name.split('_')[2] + '.csv'
+
+    y.to_csv(file_name, index=False)
     
     y = y.transpose()
-    
+
     rows = y.to_dict()
     # pprint(rows)
     rows = dict(itertools.islice(rows.items(), 0 ,20))

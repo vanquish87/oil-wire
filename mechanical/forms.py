@@ -42,8 +42,8 @@ class EquipmentForm(forms.ModelForm):
         fields = ['equip_name', 'water_temp', 'oil_temp', 'oil_pressure', 'equip_working_hour', 'equip_avail_hour', 'equip_oil_used']
 
         widgets = {
-            'equip_working_hour': TimeInput(),
-            'equip_avail_hour': TimeInput(),
+            'equip_working_hour': forms.NumberInput(attrs={'max':24}),
+            'equip_avail_hour': forms.NumberInput(attrs={'max':24}),
             }
 
         labels = {
@@ -70,8 +70,8 @@ class EquipServiceForm(forms.ModelForm):
         fields = ['equip_serv_name', 'working_hour', 'avail_hour', 'oil_used', 'intstructions']
 
         widgets = {
-            'working_hour': TimeInput(),
-            'avail_hour': TimeInput(),
+            'working_hour': forms.NumberInput(attrs={'max':24}),
+            'avail_hour': forms.NumberInput(attrs={'max':24}),
             'intstructions': forms.Textarea(attrs={'rows':4}),
             }
 

@@ -78,7 +78,6 @@ def electricalLog(request):
         if form.is_valid():
             rig = form.save(commit=False)
             form.save()
-            rig = ElectricalRig.objects.get(id=rig.id)
 
         electrical_running_hours_formset = ElectricalrunninghoursFormset(request.POST)
         if electrical_running_hours_formset.is_valid():

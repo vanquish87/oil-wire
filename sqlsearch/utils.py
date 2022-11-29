@@ -1,6 +1,7 @@
 import requests
 import pymssql, itertools
 import pandas as pd
+from django.conf import settings
 
 
 # getting column names via ES
@@ -84,8 +85,8 @@ def column_rows_other(table_name, search_query):
             y=y.append(x.loc[mask],ignore_index=True)
 
             
-    # username_ds_or_nob.csv
-    file_name = 'C:\inetpub\wwwroot\ongc\static\data\sas-csv' + '\\' + 'jimmy' + '_' + table_name.split('_')[2] + '.csv'
+    # username_ds_or_nob.csv in location via settings.py
+    file_name = str(settings.SAS_CSV) + '\\' + 'jimmy' + '_' + table_name.split('_')[2] + '.csv'
 
     y.to_csv(file_name, index=False)
     

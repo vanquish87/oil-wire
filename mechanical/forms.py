@@ -417,7 +417,7 @@ class ElectricalShiftForm(forms.ModelForm):
         'remarks','equipment','job','energydg1','energydg2','energydg3','energydg4','safetyreport','shifttype']
         widgets = {
             'breakfrom': TimeInput(),
-            'totalcummulative':TimeInput(),
+            'runninghours': forms.NumberInput(attrs={'max':24}),
             'breakto': TimeInput(),
             'remarks':forms.Textarea(attrs={'rows':3}),
             'equipment':forms.Textarea(attrs={'rows':3}),
@@ -449,7 +449,6 @@ class ElectricalShiftForm(forms.ModelForm):
         # to avoid repetition for every field
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
-
 
 
 ElectricalrunninghoursFormset = formset_factory(ElectricalrunninghoursForm, extra=1)

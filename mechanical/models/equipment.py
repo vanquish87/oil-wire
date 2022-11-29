@@ -1,5 +1,6 @@
 from django.db import models
 from mechanical.equip_list import EQUIP_NAME
+from django.core.validators import MaxValueValidator
 
 
 # Create your models here.
@@ -25,8 +26,8 @@ class Equipment(models.Model):
 	water_temp = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 	oil_temp = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 	oil_pressure = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
-	equip_working_hour = models.TimeField(null=True, blank=True)
-	equip_avail_hour = models.TimeField(null=True, blank=True)
+	equip_working_hour = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MaxValueValidator(24)])
+	equip_avail_hour = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MaxValueValidator(24)])
 	equip_oil_used = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
 	# many to one relationship
 	rig = models.ForeignKey(Rig, null=True, blank=True, on_delete=models.SET_NULL)
@@ -37,8 +38,8 @@ class Equipment(models.Model):
 
 class EquipmentService(models.Model):
 	equip_serv_name = models.CharField(max_length=255, choices=EQUIP_NAME, null=True, blank=True)
-	working_hour = models.TimeField(null=True, blank=True)
-	avail_hour = models.TimeField(null=True, blank=True)
+	working_hour = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MaxValueValidator(24)])
+	avail_hour = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MaxValueValidator(24)])
 	oil_used = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
 	intstructions = models.TextField(null=True, blank=True)
 	# many to one relationship

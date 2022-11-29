@@ -27,8 +27,11 @@ def column_names(table_name):
                 hit['Key_10'] = i['_source']['DATA_TYPE'][0]['Key_10'].split(':')[2]
                 hit['Key_11'] = i['_source']['DATA_TYPE'][0]['Key_11'].split(':')[2]
                 hit['Key_12'] = i['_source']['DATA_TYPE'][0]['Key_12'].split(':')[2]
+
+                return hit
                 
-            else:
+            elif i['_source']['table_name'] == 'EPINET_GTO_DP_AQC' and table_name == 'EPINET_GTO_DP_AQC':
+
                 hit['table_name'] = i['_source']['table_name']
                 hit['Key_1'] = i['_source']['DATA_TYPE'][0]['Key_1'].split(':')[2]
                 hit['Key_2'] = i['_source']['DATA_TYPE'][0]['Key_2'].split(':')[2]
@@ -39,7 +42,8 @@ def column_names(table_name):
                 hit['Key_7'] = i['_source']['DATA_TYPE'][0]['Key_7'].split(':')[2]
                 hit['Key_8'] = i['_source']['DATA_TYPE'][0]['Key_8'].split(':')[2]
                 hit['Key_9'] = i['_source']['DATA_TYPE'][0]['Key_9'].split(':')[2]
-    return hit
+
+                return hit
 
 
 # getting column rows for normal condition

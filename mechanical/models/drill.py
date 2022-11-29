@@ -60,9 +60,6 @@ class DrillLaboratory(models.Model):
 	sample = models.CharField(max_length=50, choices=SAMPLE, default='Sample-I', null=True, blank=True)
 	rig = models.ForeignKey(DrillRig, null=True, blank=True, on_delete=models.SET_NULL)
 	
-	
-	 
-
 	def __str__(self):
 		return self.rig.rig_name
 	
@@ -93,8 +90,6 @@ class HydraulicData(models.Model):
 	ECD = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
 	presslosses = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
 	rig = models.ForeignKey(DrillRig, null=True, blank=True, on_delete=models.SET_NULL)
-	
-	 
 
 	def __str__(self):
 		return self.rig.rig_name
@@ -114,8 +109,6 @@ class Drilldata(models.Model):
 	sample = models.CharField(max_length=50, choices=SAMPLE, default='Sample-I', null=True, blank=True)
 	rig = models.ForeignKey(DrillRig, null=True, blank=True, on_delete=models.SET_NULL)
 	
-	   
-
 	def __str__(self):
 		return self.rig.rig_name
 
@@ -133,6 +126,7 @@ class DrillMudChemicalReport(models.Model):
 
 	def __str__(self):
 		return self.rig.rig_name
+
 
 class DrillMudVolume(models.Model):
 	
@@ -153,7 +147,6 @@ class DrillMudVolume(models.Model):
 
 	tank2vole= models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
 	tank2spgr=models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
-
 
 	rig = models.ForeignKey(DrillRig, null=True, blank=True, on_delete=models.SET_NULL)
 

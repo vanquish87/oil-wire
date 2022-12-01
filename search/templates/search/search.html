@@ -90,6 +90,10 @@
                 
             </div>
         </div>
+        
+        <!-- including variable keys ie queryset -->
+        {% include 'pagination.html' with queryset=results custom_range=custom_range %}
+        
     </div>
 </section>
 

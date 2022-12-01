@@ -1,0 +1,31 @@
+<!-- in case if there is only 1 page then.. paginator will not show up -->
+{% if queryset.has_other_pages %}
+<!-- read django docs for paginator -->
+<nav aria-label="..." class="pt-5">
+    <ul class="pagination">
+
+    {% if queryset.has_previous %}
+    <li><a href="?page={{ queryset.previous_page_number }}" class="btn btn-primary">&#10094; Prev</a></li>
+    {% endif %}
+
+    {% for page in custom_range %}
+    <!-- to highlight current page -->
+    {% if page == queryset.number %}
+    <li class="page-item active">
+        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+    </li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+    {% endif %}
+    {% endfor %}
+    
+    {% if queryset.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ queryset.next_page_number }}">Next &#10095;</a>
+    </li>
+    {% endif %}
+    </ul>
+</nav>
+
+{% endif %}
+

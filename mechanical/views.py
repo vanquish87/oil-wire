@@ -9,6 +9,7 @@ from .models import *
 @login_required(login_url='login')
 def equipmentLog(request):
     form = RigForm()
+    form_hsd = HsdForm()
     equip_formset = EquipmentFormset()
     equip_serv_formset = EquipServiceFormset()
     down_formset = RigDownFormset()
@@ -19,6 +20,12 @@ def equipmentLog(request):
             rig = form.save(commit=False)
             form.save()
             rig = Rig.objects.get(id=rig.id)
+        
+        form_hsd = HsdForm(request.POST)
+        if form_hsd.is_valid():
+            hsd_balance = form_hsd.save(commit=False)
+            hsd_balance.rig = rig
+            form_hsd.save()
 
         equip_formset = EquipmentFormset(request.POST)
         if equip_formset.is_valid():
@@ -45,6 +52,7 @@ def equipmentLog(request):
 
     context = {
         'form': form,
+        'form_hsd': form_hsd,
         'equip_formset': equip_formset,
         'equip_serv_formset': equip_serv_formset,
         'down_formset': down_formset,
@@ -72,6 +80,13 @@ def electricalLog(request):
     form = ElectricalRigForm()
     # electrical_running_hours_formset = ElectricalrunninghoursFormset()
     electrical_shift_formset = ElectricalShiftFormset()
+
+    
+    # # for further dev work for drowpdown menu
+    # # wellid
+    # wellid = [('CR_CW4#MOT16',), ('NJFN',), ('SXAG',), ('SKFJ',), ('NJFM',), ('JRFY',), ('GMBP',), ('SKFL',), ('SK#137A',), ('AKM#1',)]
+    # # rigid
+    # rigid = [('CW-100-I',), ('CW-100-VIII',)]
 
     if request.method == 'POST':
         form = ElectricalRigForm(request.POST)

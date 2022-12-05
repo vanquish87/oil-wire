@@ -17,7 +17,7 @@ class RigForm(forms.ModelForm):
         widgets = {
             'date': DateInput(),
             'requirements': forms.Textarea(attrs={'rows':6}),
-            'mech_engineer': forms.Textarea(attrs={'rows':2}),
+            'mech_engineer': forms.Textarea(attrs={'rows':6}),
             }
 
         labels = {
@@ -39,11 +39,14 @@ class RigForm(forms.ModelForm):
 class EquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
-        fields = ['equip_name', 'water_temp', 'oil_temp', 'oil_pressure', 'equip_working_hour', 'equip_avail_hour', 'equip_oil_used']
+        fields = ['equip_name', 'water_temp', 'oil_temp', 'oil_pressure', 'equip_working_hour', 'equip_avail_hour', 'equip_oil_used', 'oil_grade', 'oil_level']
 
         widgets = {
             'equip_working_hour': forms.NumberInput(attrs={'max':24}),
             'equip_avail_hour': forms.NumberInput(attrs={'max':24}),
+            'equip_oil_used': forms.NumberInput(attrs={'min':0}),
+            'oil_pressure': forms.NumberInput(attrs={'min':0}),
+            'oil_level': forms.NumberInput(attrs={'min':0}),
             }
 
         labels = {
@@ -54,6 +57,8 @@ class EquipmentForm(forms.ModelForm):
             'equip_working_hour': 'Working Hours',
             'equip_avail_hour': 'Equip Avail Hrs.',
             'equip_oil_used': 'Oil Used',
+            'oil_grade': 'Oil Grade',
+            'oil_level': 'Oil Level',
         }
 
     def __init__(self, *args, **kwargs):
@@ -72,6 +77,7 @@ class EquipServiceForm(forms.ModelForm):
         widgets = {
             'working_hour': forms.NumberInput(attrs={'max':24}),
             'avail_hour': forms.NumberInput(attrs={'max':24}),
+            'oil_used': forms.NumberInput(attrs={'min':0}),
             'intstructions': forms.Textarea(attrs={'rows':4}),
             }
 
@@ -114,9 +120,32 @@ class RigDownForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-EquipmentFormset = formset_factory(EquipmentForm, extra=3)
-EquipServiceFormset = formset_factory(EquipServiceForm, extra=3)
-RigDownFormset = formset_factory(RigDownForm, extra=3)
+class HsdForm(forms.ModelForm):
+    class Meta:
+        model = HSD_balance
+        fields = ['tank1', 'tank2']
+
+        widgets = {
+            'tank1': forms.NumberInput(attrs={'min':0}),
+            'tank2': forms.NumberInput(attrs={'min':0}),
+            }
+
+        labels = {
+            'tank1': 'Tank 1',
+            'tank2': 'Tank 2',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(HsdForm, self).__init__(*args, **kwargs)
+
+        # to avoid repetition for every field
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+EquipmentFormset = formset_factory(EquipmentForm, extra=1)
+EquipServiceFormset = formset_factory(EquipServiceForm, extra=1)
+RigDownFormset = formset_factory(RigDownForm, extra=1)
 
 
 #Drill Models
@@ -404,6 +433,10 @@ class ElectricalShiftForm(forms.ModelForm):
             'runninghours': forms.NumberInput(attrs={'max':24}),
             'breakto': TimeInput(),
             'breakfrom': TimeInput(),
+            'energydg1': forms.NumberInput(attrs={'min':0}),
+            'energydg2': forms.NumberInput(attrs={'min':0}),
+            'energydg3': forms.NumberInput(attrs={'min':0}),
+            'energydg4': forms.NumberInput(attrs={'min':0}),
             'remarks':forms.Textarea(attrs={'rows':3}),
             'equipment':forms.Textarea(attrs={'rows':3}),
             'job':forms.Textarea(attrs={'rows':3}),

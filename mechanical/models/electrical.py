@@ -1,13 +1,15 @@
 from django.db import models
 from mechanical.equip_list import ELECTRIC_EQUIP_NAME
 from django.core.validators import MaxValueValidator
+from ocrFile.models import Upload
 
 
 #ELECTRICAL DAILY LOG SHEET
 class ElectricalRig(models.Model):
 	# null=True: db can have null value, blank:True, it can be left blank in form
 	rig_name = models.CharField(max_length=255, null=True, blank=False)
-	well = models.CharField(max_length=255, null=True, blank=True)
+	well=models.ForeignKey(Upload,on_delete=models.CASCADE, null=True, blank=False)
+	# well = models.CharField(max_length=255, null=True, blank=True)
 	location = models.CharField(max_length=255, null=True, blank=False)
 	date = models.DateTimeField(null=True, blank=True)
 	doc_no= models.CharField(max_length=255, null=True, blank=False)

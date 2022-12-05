@@ -1,191 +1,193 @@
 {% extends 'base.html' %}
 {% block title %}
+{% load static %}
 <title>Electric Daily Log - ONGC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
 {% endblock %}
 
 {% block content %}
 <!-- SECTION -->
-<section class="p-5 my-5">
-    <div class="container py-5 h-100">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-7">
-          <div
-            class="card shadow-2-strong card-registration bg-light text-dark"
-            style="border-radius: 15px"
-          >
-            <div class="card-body p-4 p-md-5">
-              <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">
-                ELECTRICAL DAILY LOG SHEET
-              </h2>
-              <hr />
-              <form  method="POST" action="{% url 'electrical-log' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="row">
-                  <div class="col col-md-12">
-                    <label class="form-label">{{form.doc_no.label}}</label>
-                    {{form.doc_no}}
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <br>
-                    <label class="form-label">{{form.rig_name.label}}</label>
-                    {{form.rig_name}}
-                  </div>
-                  <div class="col col-md-6">
-                    <br>
-                    <label class="form-label">{{form.well.label}}</label>
-                    {{form.well}}
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-md-6">
-                    <br>
-                    <label class="form-label">{{form.location.label}}</label>
-                    {{form.location}}
-                  </div>
-                  <div class="col col-md-6">
-                    <br>
-                    <label class="form-label">{{form.date.label}}</label>
-                    {{form.date}}
-                  </div>
-                </div>
-                <hr />
-                {{ electrical_running_hours_formset.management_form }}
-                {% for form in electrical_running_hours_formset %}
-                <div class="row">
-                  <div class="col col-md-6 col-lg-6">
-                    <label class="form-label">
-                      Previous Day Cumulative Running {{ form.runninghours.label }}</label
-                    >
-                    {{ form.runninghours }}
-                  </div>
-                </div>
-               
-                <br />
-                {% endfor %}
-                <hr>
-                <h4>SHIFTS</h4>
-                {{ electrical_shift_formset.management_form }}
-                {% for form in electrical_shift_formset %}
-             
-                <div class="row">
-                  <div class="col col-md-6">
-                    {{ form.shifttype.label }}
-                   
-                     {{ form.shifttype }}
-                  </div>
-                </div>
-                <br />
-                
-                <div class="row">
-                  <div class="col col-12 row-modify4">
-                    <label class="form-label select-label"
-                      >{{ form.equipdetails.label }}</label
-                    >
-                    {{ form.equipdetails }}
-                  </div>
-                </div>
-                <br />
-                <span>{{ form.equipstatus.label }}</span>
-                <div class="row">
-                  <div class="col col-md-6">
-                    
-                      
-                      {{ form.equipstatus }}
-                 
-                  </div>
-                </div>
-                <br />
-                <div class="row">
-                  <div class="col col-6">
-                    <label class="form-label"
-                      >{{ form.runninghours.label }}</label
-                    >
-                    {{ form.runninghours }}
-                  </div>
-                </div>
-                <br />
-                <div class="row row-modify">
-                  <span>Break Down Time</span>
-                  <div class="col col-6">
-                    <label for="clock">{{ form.breakfrom.label }}</label>
-                    {{ form.breakfrom }}
-                  </div>
-                  <div class="col col-6">
-                    <label for="clock">{{ form.breakto.label }}</label>
-                    {{ form.breakto }}
-                  </div>
-                </div>
-            
-                <div class="row">
-                  <div class="col col-md-6">
-                    <br>
-                    <label class="form-label"
-                      >{{ form.totalcummulative.label }}</label
-                    >
-                    <br>
-                    {{ form.totalcummulative }}
-                  </div>
-                </div>
+<section class="p-5">
+  <div class="container">
+     <div class="row justify-content-center align-items-center h-100">
 
-                <div class="mb-3 mt-3">
-                  <label for="comment"
-                    >{{ form.remarks.label }}</label
-                  >
-                  {{ form.remarks }}
-                </div>
-                <div class="mb-3 mt-3">
-                  <label for="comment"
-                    >{{ form.equipment.label }}</label
-                  >
-                  {{ form.equipment }}
-                </div>
-                <div class="mb-3 mt-3">
-                  <label for="comment"
-                    >{{ form.job.label }}</label
-                  >
-                  {{ form.job }}
-                </div>
-                <div class="row row-modify3">
-                  <span>Energy/Meter Reading at 06:00 hrs on:</span>
-                  <div class="col">
-                    <label for="comment">{{ form.energydg1.label }}</label>
-                    {{ form.energydg1 }}
-                  </div>
-                  <div class="col">
-                    <label for="comment">{{ form.energydg2.label }}</label>
-                    {{ form.energydg2}}
-                  </div>
-                  <div class="col">
-                    <label for="comment">{{ form.energydg3.label }}</label>
-                    {{ form.energydg3 }}
-                  </div>
-                  <div class="col">
-                    <label for="comment">{{ form.energydg4.label }}</label>
-                    {{ form.energydg4 }}
-                  </div>
-                </div>
-                <br />
-                <div class="mb-3 mt-3">
-                  <label for="comment"
-                    >{{ form.safetyreport.label }}</label
-                  >
-                  {{ form.safetyreport }}
-                </div>
-                {% endfor %}
-                <div class="d-grid gap-2 my-4 py-2">
-                  <input class="btn btn-primary" type="submit" value="Submit" />
-            
-                 
-                </div>
-              </form>
-            </div>
-          </div>
+        <h2 class="text-center pb-3">
+           ELECTRICAL DAILY LOG SHEET
+        </h2>
+
+        <!-- Form Steps / Progress Bar -->
+        <div class="container">
+           <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+              <!-- Step 1 -->
+              <li class="form-stepper-active text-center form-stepper-list" step="1">
+                 <a class="mx-2 link-light">
+                    <span class="form-stepper-circle">
+                    <span>1</span>
+                    </span>
+                    <div class="label">Rig Details</div>
+                 </a>
+              </li>
+
+              <!-- Step 3 -->
+              <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                 <a class="mx-2 link-light">
+                    <span class="form-stepper-circle text-muted">
+                    <span>2</span>
+                    </span>
+                    <div class="label text-muted">Equipment Details</div>
+                 </a>
+              </li>
+           </ul>
         </div>
-      </div>
-    </div>
-    
-  </section>
+
+
+        <!-- Step Wise Form Content -->
+        <form  method="POST" action="{% url 'electrical-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm">
+           {% csrf_token %}
+
+
+           <!-- Step 1 Content -->
+           <section id="step-1" class="form-step bg-light text-dark">
+              <!-- Step 1 input fields -->
+              <div class="row align-items-start">
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.doc_no.label }}</label>
+                    {{ form.doc_no }}
+                 </div>
+                 <br />
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.well.label }}</label>
+                    {{ form.well }}
+                 </div>
+                 <br />
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.rig_name.label }}</label>
+                    {{ form.rig_name }}
+                 </div>
+                 <br />
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.location.label }}</label>
+                    {{ form.location }}
+                 </div>
+                 <br />
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.date.label }}</label>
+                    {{ form.date }}
+                 </div>
+              </div>
+              <br />
+              <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+           </section>
+
+
+           <!-- Step 3 Content, default hidden on page load. -->
+           <section id="step-2" class="form-step d-none bg-light text-dark">
+              {{ electrical_shift_formset.management_form }}
+              {% for form in electrical_shift_formset %}
+              <!-- Step 3 input fields -->
+              <div class="row align-items-start">
+                 <div class="col-4 offset-4 my-2">
+                    <label class="form-label select-label">{{ form.shifttype.label }}</label>
+                    {{ form.shifttype }}
+                 </div>
+              </div>
+
+
+              <div class="row align-items-start py-2">
+                 <div class="col-6 my-2">
+                    <label class="form-label select-label">{{ form.equipdetails.label }}</label>
+                    {{ form.equipdetails }}
+                 </div>
+                 <div class="col-6 my-2">
+                    <label class="form-label select-label">{{ form.equipstatus.label }}</label>
+                    {{ form.equipstatus }}
+                 </div>
+              </div>
+
+
+              <div class="row align-items-start py-2">
+                 <div class="col-6 my-2">
+                    <label class="form-label">{{ form.runninghours_prev.label }}</label>
+                    {{ form.runninghours_prev }}
+                 </div>
+                 <div class="col-6 my-2">
+                    <label class="form-label">{{ form.runninghours.label }}</label>
+                    {{ form.runninghours }}
+                 </div>
+              </div>
+
+
+              <div class="row align-items-start py-2">
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.breakfrom.label }}</label>
+                    {{ form.breakfrom }}
+                 </div>
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.breakto.label }}</label>
+                    {{ form.breakto }}
+                 </div>
+                 <div class="col-4 my-2">
+                    <label class="form-label">{{ form.totalcummulative.label }}</label>
+                    {{ form.totalcummulative }}
+                 </div>
+              </div>
+
+
+              <div class="row align-items-start py-2">
+                 <div class="col-6 my-2">
+                    <label class="form-label">{{ form.remarks.label }}</label>
+                    {{ form.remarks }}
+                 </div>
+                 <div class="col-6 my-2">
+                    <label class="form-label">{{ form.equipment.label }}</label>
+                    {{ form.equipment }}
+                 </div>
+              </div>
+
+
+              <div class="row align-items-start py-2">
+                 <span>Energy/Meter Reading at 06:00 hrs on:</span>
+                 <div class="col-3 my-2">
+                    <label class="form-label select-label">{{ form.energydg1.label }}</label>
+                    {{ form.energydg1 }}
+                 </div>
+                 <div class="col-3 my-2">
+                    <label class="form-label select-label">{{ form.energydg2.label }}</label>
+                    {{ form.energydg2 }}
+                 </div>
+                 <div class="col-3 my-2">
+                    <label class="form-label select-label">{{ form.energydg3.label }}</label>
+                    {{ form.energydg3 }}
+                 </div>
+                 <div class="col-3 my-2">
+                    <label class="form-label select-label">{{ form.energydg4.label }}</label>
+                    {{ form.energydg4 }}
+                 </div>
+              </div>
+
+
+              <div class="row align-items-start py-2">
+                 <div class="col-6 my-2">
+                    <label class="form-label">{{ form.job.label }}</label>
+                    {{ form.job }}
+                 </div>
+                 <div class="col-6 my-2">
+                    <label class="form-label select-label">{{ form.safetyreport.label }}</label>
+                    {{ form.safetyreport }}
+                 </div>
+              </div>
+
+              
+              {% endfor %}
+
+              <br />
+              <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+              <button class="button submit-btn" type="submit">Save</button>
+
+           </section>
+        </form>
+     </div>
+  </div>
+</section>
 
 {% endblock %}

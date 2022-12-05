@@ -15,14 +15,6 @@ class ElectricalRig(models.Model):
 
 	def __str__(self):
 		return self.rig_name
-
-
-class Electricalrunninghours(models.Model):
-	rig = models.ForeignKey(ElectricalRig, null=True, blank=True, on_delete=models.SET_NULL)
-	runninghours = models.PositiveIntegerField(default=0, null=True, blank=True) 
-		
-	def __str__(self):
-		return self.rig.rig_name
 	
 
 class ElectricalShift(models.Model):
@@ -42,6 +34,7 @@ class ElectricalShift(models.Model):
 	equipdetails= models.CharField(max_length=255, choices=ELECTRIC_EQUIP_NAME, null=True, blank=True)
 	equipstatus = models.CharField(max_length=50, choices=STATUS, default='OK', null=True, blank=True)
 
+	runninghours_prev = models.PositiveIntegerField(default=0, null=True, blank=True) 
 	runninghours = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MaxValueValidator(24)])
 
 	breakfrom = models.TimeField(null=True, blank=True)

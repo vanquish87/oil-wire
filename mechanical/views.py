@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import EquipServiceForm, EquipServiceFormset, EquipmentFormset, RigDownForm, RigDownFormset, RigForm, EquipmentForm, DrillRigForm, DrillLaboratoryForm, HydraulicDataForm, DrilldataForm, DrillShiftForm,DrillShiftFormset,DrillLaboratoryFormset,DrillDataFormset, HydraulicDataFormset,ElectricalRigForm,ElectricalrunninghoursForm,ElectricalShiftForm,ElectricalrunninghoursFormset,ElectricalShiftFormset,DrillMudChemicalReportForm,DrillMudVolumeForm,DrillSolidControlForm,DrillMudChemicalReportFormset,DrillMudVolumeFormset, DrillSolidControlFormset
-from .models import Rig, Equipment, EquipmentService, RigDown, DrillRig, DrillLaboratory, HydraulicData, Drilldata, DrillShift, ElectricalRig, ElectricalShift,Electricalrunninghours, DrillMudChemicalReport,DrillMudVolume,DrillSolidControl
+from .forms import *
+from .models import *
 
 
 # Create your views here.
@@ -70,7 +70,7 @@ def viewEquipmentLog(request, rig_id):
 @login_required(login_url='login')
 def electricalLog(request):
     form = ElectricalRigForm()
-    electrical_running_hours_formset = ElectricalrunninghoursFormset()
+    # electrical_running_hours_formset = ElectricalrunninghoursFormset()
     electrical_shift_formset = ElectricalShiftFormset()
 
     if request.method == 'POST':
@@ -78,13 +78,6 @@ def electricalLog(request):
         if form.is_valid():
             rig = form.save(commit=False)
             form.save()
-
-        electrical_running_hours_formset = ElectricalrunninghoursFormset(request.POST)
-        if electrical_running_hours_formset.is_valid():
-            for form in electrical_running_hours_formset:
-                erunning = form.save(commit=False)
-                erunning.rig = rig
-                form.save()
 
         electrical_shift_formset = ElectricalShiftFormset(request.POST)
         if electrical_shift_formset.is_valid():
@@ -97,7 +90,6 @@ def electricalLog(request):
 
     context = {
         'form': form,
-        'electrical_running_hours_formset': electrical_running_hours_formset,
         'electrical_shift_formset': electrical_shift_formset,
 
     }
@@ -107,12 +99,10 @@ def electricalLog(request):
 @login_required(login_url='login')
 def viewElecticLog(request,rig_id):
     rig = ElectricalRig.objects.get(id=rig_id)
-    electricalrunninghourss = Electricalrunninghours.objects.filter(rig_id=rig.id).all()
     electricalShifts = ElectricalShift.objects.filter(rig_id=rig.id).all()
 
     context = {
         'rig': rig,
-        'electricalrunninghourss': electricalrunninghourss,
         'electricalShifts': electricalShifts,
 
 

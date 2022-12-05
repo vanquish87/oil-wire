@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import formset_factory
-from .models import EquipmentService, Rig, Equipment, RigDown, DrillRig, DrillShift, DrillLaboratory, HydraulicData, Drilldata,ElectricalRig,ElectricalShift,Electricalrunninghours, DrillMudChemicalReport, DrillMudVolume, DrillSolidControl
+from .models import *
 
 
 class DateInput(forms.DateInput):
@@ -393,32 +393,17 @@ class ElectricalRigForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-class ElectricalrunninghoursForm(forms.ModelForm):
-    class Meta:
-        model = Electricalrunninghours
-        fields = ['runninghours']
-
-        labels = {
-            'runninghours': 'Hours',
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(ElectricalrunninghoursForm, self).__init__(*args, **kwargs)
-
-        # to avoid repetition for every field
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
-
 
 class ElectricalShiftForm(forms.ModelForm):
     class Meta:
         model = ElectricalShift
-        fields = ['equipdetails', 'equipstatus', 'runninghours', 'breakfrom', 'breakto','totalcummulative',
+        fields = ['equipdetails', 'equipstatus', 'runninghours_prev', 'runninghours', 'breakfrom', 'breakto','totalcummulative',
         'remarks','equipment','job','energydg1','energydg2','energydg3','energydg4','safetyreport','shifttype']
         widgets = {
             'breakfrom': TimeInput(),
             'runninghours': forms.NumberInput(attrs={'max':24}),
             'breakto': TimeInput(),
+            'breakfrom': TimeInput(),
             'remarks':forms.Textarea(attrs={'rows':3}),
             'equipment':forms.Textarea(attrs={'rows':3}),
             'job':forms.Textarea(attrs={'rows':3}),
@@ -428,6 +413,7 @@ class ElectricalShiftForm(forms.ModelForm):
         labels = {
             'equipdetails': 'Equipment Details & Ratings',
             'equipstatus': 'Equipment Status',
+            'runninghours_prev': 'Previous day Cumulative running hours',
             'runninghours': 'Running Hours during the shift',
             'breakfrom':'From (Hours)',
             'breakto': 'To (Hours)',
@@ -451,5 +437,4 @@ class ElectricalShiftForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-ElectricalrunninghoursFormset = formset_factory(ElectricalrunninghoursForm, extra=1)
 ElectricalShiftFormset = formset_factory(ElectricalShiftForm, extra=1)

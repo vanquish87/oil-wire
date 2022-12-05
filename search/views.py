@@ -18,7 +18,7 @@ def search(request):
         if response:
             results = hit_Json(search_query, indexname, response, results)
 
-    results_num = 5
+    results_num = 50
     custom_range, results = paginationResults(request, results, results_num)
 
     context = {

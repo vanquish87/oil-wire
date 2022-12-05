@@ -36,6 +36,7 @@ admin.site.register(Rig, CsvAdmin)
 admin.site.register(Equipment, CsvAdmin)
 admin.site.register(EquipmentService, CsvAdmin)
 admin.site.register(RigDown, CsvAdmin)
+admin.site.register(HSD_balance, CsvAdmin)
 
 admin.site.register(DrillRig, CsvAdmin)
 admin.site.register(DrillShift, CsvAdmin)

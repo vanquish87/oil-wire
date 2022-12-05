@@ -55,11 +55,6 @@ def column_rows(table_name, search_query):
 
             cur.execute(query1)
             rows = cur.fetchall()
-            # for further dev work for drowpdown menu
-            # wellid
-            wellid = [('CR_CW4#MOT16',), ('NJFN',), ('SXAG',), ('SKFJ',), ('NJFM',), ('JRFY',), ('GMBP',), ('SKFL',), ('SK#137A',), ('AKM#1',)]
-            # rigid
-            rigid = [('CW-100-I',), ('CW-100-VIII',)]
 
     finally:
         conn.close()

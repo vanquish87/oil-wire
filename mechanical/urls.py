@@ -8,4 +8,6 @@ urlpatterns = [
     path('view-electric-log/<int:rig_id>/', views.viewElecticLog, name='view-electric-log'),
     path('electrical-log/', views.electricalLog, name='electrical-log'),
     path('drill-log/', views.drillLog, name='drill-log'),
+
+    path('ajax/load-rigs/', views.load_rigs, name='load-rigs'),
 ]

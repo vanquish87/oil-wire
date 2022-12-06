@@ -29,7 +29,7 @@ export_to_csv.short_description = 'Export to CSV'  #short description
 
 
 class CsvAdmin(admin.ModelAdmin):
-    actions = [export_to_csv] 
+    actions = [export_to_csv]
 
 
 admin.site.register(Rig, CsvAdmin)
@@ -49,4 +49,8 @@ admin.site.register(DrillSolidControl, CsvAdmin)
 admin.site.register(Drilldata, CsvAdmin)
 admin.site.register(ElectricalRig, CsvAdmin)
 admin.site.register(ElectricalShift, CsvAdmin)
+
+
+admin.site.register(SasWellName)
+admin.site.register(SasRigName)
 

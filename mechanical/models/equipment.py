@@ -1,7 +1,7 @@
 from django.db import models
 from mechanical.equip_list import EQUIP_NAME
 from django.core.validators import MaxValueValidator
-from ocrFile.models import Upload
+from mechanical.models.sas_db import SasWellName, SasRigName
 
 
 # Create your models here.
@@ -10,16 +10,17 @@ class Rig(models.Model):
 		('Day Shift', 'Shift-I'),
 		('Night Shift', 'Shift-II'),
 	)
-	# null=True: db can have null value, blank:True, it can be left blank in form
-	rig_name = models.CharField(max_length=255, null=True, blank=False)
-	well=models.ForeignKey(Upload,on_delete=models.CASCADE, null=True, blank=False)
+
+	sasrigname=models.ForeignKey(SasRigName,on_delete=models.CASCADE)
+	saswellname=models.ForeignKey(SasWellName,on_delete=models.CASCADE)
+
 	shift = models.CharField(max_length=50, choices=SHIFTS, default='Day', null=True, blank=True)
 	date = models.DateTimeField(null=True, blank=True)
 	requirements = models.TextField(null=True, blank=True)
 	mech_engineer = models.TextField(null=True, blank=True)
 
 	def __str__(self):
-		return self.rig_name
+		return self.sasrigname.name
 
 
 class Equipment(models.Model):
@@ -30,14 +31,14 @@ class Equipment(models.Model):
 	equip_working_hour = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MaxValueValidator(24)])
 	equip_avail_hour = models.PositiveIntegerField(default=0, null=True, blank=True, validators=[MaxValueValidator(24)])
 	equip_oil_used = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
-	
+
 	oil_grade = models.CharField(max_length=255, null=True, blank=False)
 	oil_level = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
 	# many to one relationship
 	rig = models.ForeignKey(Rig, null=True, blank=True, on_delete=models.SET_NULL)
 
 	def __str__(self):
-		return self.rig.rig_name
+		return self.rig.sasrigname.name
 
 
 class EquipmentService(models.Model):
@@ -50,7 +51,7 @@ class EquipmentService(models.Model):
 	rig = models.ForeignKey(Rig, null=True, blank=True, on_delete=models.SET_NULL)
 
 	def __str__(self):
-		return self.rig.rig_name
+		return self.rig.sasrigname.name
 
 
 class RigDown(models.Model):
@@ -60,7 +61,7 @@ class RigDown(models.Model):
 	rig = models.ForeignKey(Rig, null=True, blank=True, on_delete=models.SET_NULL)
 
 	def __str__(self):
-		return self.rig.rig_name
+		return self.rig.sasrigname.name
 
 
 class HSD_balance(models.Model):
@@ -70,3 +71,5 @@ class HSD_balance(models.Model):
 	# many to one relationship
 	rig = models.ForeignKey(Rig, null=True, blank=True, on_delete=models.SET_NULL)
 
+	def __str__(self):
+		return self.rig.sasrigname.name

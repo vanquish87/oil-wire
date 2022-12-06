@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .forms import *
 from .models import *
 
 
 # Create your views here.
+def load_rigs(request):
+    saswellname_id = request.GET.get('saswellname')
+    sasrignames = SasRigName.objects.filter(saswellname=saswellname_id).order_by('name')
+
+    context = {'sasrignames': sasrignames}
+    return render(request, 'mechanical\well-dropdown.html', context)
+
+
 @login_required(login_url='login')
 def equipmentLog(request):
     form = RigForm()
@@ -20,7 +29,7 @@ def equipmentLog(request):
             rig = form.save(commit=False)
             form.save()
             rig = Rig.objects.get(id=rig.id)
-        
+
         form_hsd = HsdForm(request.POST)
         if form_hsd.is_valid():
             hsd_balance = form_hsd.save(commit=False)
@@ -78,10 +87,8 @@ def viewEquipmentLog(request, rig_id):
 @login_required(login_url='login')
 def electricalLog(request):
     form = ElectricalRigForm()
-    # electrical_running_hours_formset = ElectricalrunninghoursFormset()
     electrical_shift_formset = ElectricalShiftFormset()
 
-    
     # # for further dev work for drowpdown menu
     # # wellid
     # wellid = [('CR_CW4#MOT16',), ('NJFN',), ('SXAG',), ('SKFJ',), ('NJFM',), ('JRFY',), ('GMBP',), ('SKFL',), ('SK#137A',), ('AKM#1',)]
@@ -93,6 +100,8 @@ def electricalLog(request):
         if form.is_valid():
             rig = form.save(commit=False)
             form.save()
+        else:
+            messages.error(request, 'Well or Rig is wrong')
 
         electrical_shift_formset = ElectricalShiftFormset(request.POST)
         if electrical_shift_formset.is_valid():
@@ -100,6 +109,8 @@ def electricalLog(request):
                 eshift = form.save(commit=False)
                 eshift.rig = rig
                 form.save()
+        else:
+            messages.error(request, 'You missed something in the form.')
 
         return redirect('view-electric-log', rig.id)
 

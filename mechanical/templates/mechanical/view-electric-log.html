@@ -24,7 +24,11 @@
                     </tr>
                     <tr>
                        <td>Well</td>
-                       <td>{{rig.rig_name}}</td>
+                       <td>{{rig.saswellname}}</td>
+                    </tr>
+                    <tr>
+                       <td>Rig</td>
+                       <td>{{rig.sasrigname}}</td>
                     </tr>
                     <tr>
                        <td>Date</td>
@@ -35,14 +39,8 @@
                        <td>{{rig.location}}</td>
                     </tr>
                  </table>
-                 <td>Previous Day Cumulative Running Hours</td>
-                 {% for e2 in electricalrunninghourss %}
-                 <table class="table table-striped">
-                    <tr>
-                       <td>{{ e2.runninghours }}</td>
-                    </tr>
-                 </table>
-                 {% endfor %}
+
+
                  <h4 class="py-3 text-center">ELECTRICAL LOG SHEET</h4>
                  {% for e2 in electricalShifts %}
                  <table class="table table-striped">

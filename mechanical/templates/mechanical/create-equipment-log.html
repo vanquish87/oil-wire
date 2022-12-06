@@ -94,7 +94,7 @@
 
 
         <!-- Step Wise Form Content -->
-        <form  method="POST" action="{% url 'equipment-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm">
+        <form  method="POST" action="{% url 'equipment-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm" data-rigs-url="{% url 'load-rigs' %}">
            {% csrf_token %}
 
 
@@ -103,13 +103,13 @@
               <!-- Step 1 input fields -->
               <div class="row align-items-start">
                  <div class="col-4 my-2">
-                    <label class="form-label">{{ form.rig_name.label }}</label>
-                    {{ form.rig_name }}
+                    <label class="form-label">{{ form.saswellname.label }}</label>
+                    {{ form.saswellname }}
                  </div>
                  <br />
                  <div class="col-4 my-2">
-                    <label class="form-label">{{ form.well.label }}</label>
-                    {{ form.well }}
+                    <label class="form-label">{{ form.sasrigname.label }}</label>
+                    {{ form.sasrigname }}
                  </div>
                  <br />
                  <div class="col-4 my-2">

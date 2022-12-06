@@ -13,7 +13,7 @@ class TimeInput(forms.DateInput):
 class RigForm(forms.ModelForm):
     class Meta:
         model = Rig
-        fields = ['rig_name', 'well', 'shift', 'date', 'requirements', 'mech_engineer']
+        fields = ['sasrigname', 'saswellname', 'shift', 'date', 'requirements', 'mech_engineer']
         widgets = {
             'date': DateInput(),
             'requirements': forms.Textarea(attrs={'rows':6}),
@@ -21,13 +21,27 @@ class RigForm(forms.ModelForm):
             }
 
         labels = {
-            'rig_name': 'Rig',
+            'sasrigname': 'Rig',
+            'saswellname': 'Well Name',
             'requirements': 'Requirement & Important Information',
             'mech_engineer': 'Signature, Name & Designation of Rig Mechanical Engineer'
         }
 
     def __init__(self, *args, **kwargs):
         super(RigForm, self).__init__(*args, **kwargs)
+
+        # to create empty list initially
+        self.fields['sasrigname'].queryset = SasRigName.objects.none()
+
+        if 'saswellname' in self.data:
+            try:
+                saswellname_id = int(self.data.get('saswellname'))
+                self.fields['sasrigname'].queryset = SasRigName.objects.filter(saswellname=saswellname_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+
+        elif self.instance.pk:
+            self.fields['sasrigname'].queryset = self.instance.sasrigname.order_by('name')
 
         # to avoid repetition for every field
         for name, field in self.fields.items():
@@ -212,7 +226,7 @@ class DrillLaboratoryForm(forms.ModelForm):
         widgets = {
             'time': TimeInput(),
             }
-       
+
         labels = {
             'sample': 'Sample Type',
             'time': 'Time',
@@ -249,7 +263,7 @@ class HydraulicDataForm(forms.ModelForm):
         'stroke', 'standpipepressure', 'dpsize', 'dcsize', 'stabilizers','ohdc','ohdp',
         'casdp','lastcasingsize','lastlength','csgvol','mudhole','sandtrap','pitvol','totalcirc','lagtime',
         'cycletime','ECD','presslosses']
-       
+
         labels = {
             'pumplinersize': 'Pump Liner Size',
             'strokelength': 'Stroke Length',
@@ -274,7 +288,7 @@ class HydraulicDataForm(forms.ModelForm):
             'cycletime': 'Cycle Time(min)',
             'ECD':'E.C.D.',
             'presslosses': 'Ann. Press Losses',
-            
+
         }
 
     def __init__(self, *args, **kwargs):
@@ -290,7 +304,7 @@ class DrilldataForm(forms.ModelForm):
         model = Drilldata
         fields = ['sample', 'bitsize', 'jetsize',
         'onbit', 'rotaryrpm', 'bhalengths']
-       
+
         labels = {
             'sample': 'Sample Type',
             'bitsize': 'Bit Size(Inches)',
@@ -313,7 +327,7 @@ class DrillMudChemicalReportForm(forms.ModelForm):
         model = DrillMudChemicalReport
         fields = ['chemical', 'unit', 'opening',
         'receipt', 'consumption', 'closing', 'total']
-       
+
         labels = {
             'chemical': 'Chemical',
             'unit': 'Unit',
@@ -399,16 +413,16 @@ DrillSolidControlFormset=formset_factory(DrillSolidControlForm, extra=1)
 class ElectricalRigForm(forms.ModelForm):
     class Meta:
         model = ElectricalRig
-        fields = ['rig_name', 'well', 'location',
+        fields = ['sasrigname', 'saswellname', 'location',
         'date', 'doc_no']
 
         widgets = {
             'date': DateInput(),
-            
             }
+
         labels = {
-            'rig_name': 'Name of RIG',
-            'well': 'Well NO.',
+            'saswellname': 'Well No.',
+            'sasrigname': 'Rig',
             'location': 'Location',
             'date': 'DATE',
             'doc_no': 'QHSE | DOC. NO.',
@@ -416,6 +430,20 @@ class ElectricalRigForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ElectricalRigForm, self).__init__(*args, **kwargs)
+
+        # to create empty list initially
+        self.fields['sasrigname'].queryset = SasRigName.objects.none()
+
+        if 'saswellname' in self.data:
+            try:
+                saswellname_id = int(self.data.get('saswellname'))
+                self.fields['sasrigname'].queryset = SasRigName.objects.filter(saswellname=saswellname_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+
+        elif self.instance.pk:
+            self.fields['sasrigname'].queryset = self.instance.sasrigname.order_by('name')
+
 
         # to avoid repetition for every field
         for name, field in self.fields.items():

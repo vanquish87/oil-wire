@@ -134,6 +134,4 @@ ELECTRIC_EQUIP_NAME = (
         ('600V System','600V System'),
         ('Mobile Welding Set','Mobile Welding Set'),
         ('Welding Rectifier/Transformer','Welding Rectifier/Transformer'),
-        
-         
     )

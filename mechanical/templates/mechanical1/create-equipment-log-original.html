@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% block title %}
+{% load static %}
+<title>Equipment Daily Log - ONGC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="p-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+            <h2 class="text-center pb-3">Equipment Log Sheet</h2>
+
+            <!-- Form Steps / Progress Bar -->
+            <div class="container">
+                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                    <!-- Step 1 -->
+                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle">
+                                <span>1</span>
+                            </span>
+                            <div class="label">Rig Details</div>
+                        </a>
+                    </li>
+                    <!-- Step 2 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>2</span>
+                            </span>
+                            <div class="label text-muted">Equipment Log Sheet</div>
+                        </a>
+                    </li>
+                    <!-- Step 3 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>3</span>
+                            </span>
+                            <div class="label text-muted">H.S.D. Balance</div>
+                        </a>
+                    </li>
+                    <!-- Step 4 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>4</span>
+                            </span>
+                            <div class="label text-muted">Repairing Log Sheet</div>
+                        </a>
+                    </li>
+                    <!-- Step 5 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="5">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>5</span>
+                            </span>
+                            <div class="label text-muted">Rig Down Time</div>
+                        </a>
+                    </li>
+                    <!-- Step 6 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="6">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>6</span>
+                            </span>
+                            <div class="label text-muted">Requirements</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Step Wise Form Content -->
+            <form method="POST" action="{% url 'equipment-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm" data-rigs-url="{% url 'load-rigs' %}">
+                {% csrf_token %}
+
+                <!-- Step 1 Content -->
+                <section id="step-1" class="form-step bg-light text-dark">
+                    <!-- Step 1 input fields -->
+                    <div class="row align-items-start">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.saswellname.label }}</label>
+                            {{ form.saswellname }}
+                        </div>
+                        <br />
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.sasrigname.label }}</label>
+                            {{ form.sasrigname }}
+                        </div>
+                        <br />
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.date.label }}</label>
+                            {{ form.date }}
+                        </div>
+                        <br />
+                        <div class="col-4 offset-4 my-2">
+                            <label class="form-label">{{ form.shift.label }}</label>
+                            {{ form.shift }}
+                        </div>
+                        <br />
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                </section>
+
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step d-none bg-light text-dark">
+                    {{ equip_formset.management_form }} {% for form in equip_formset %}
+                    <!-- Step 2 input fields -->
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-4 my-2">
+                            <label class="form-label select-label">{{ form.equip_name.label }}</label>
+                            {{ form.equip_name }}
+                        </div>
+                    </div>
+                    <div class="row align-items-start py-2">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.water_temp.label }}</label>
+                            {{ form.water_temp }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.oil_temp.label }}</label>
+                            {{ form.oil_temp }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.oil_pressure.label }}</label>
+                            {{ form.oil_pressure }}
+                        </div>
+                    </div>
+                    <div class="row align-items-start py-2">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.equip_working_hour.label }}</label>
+                            {{ form.equip_working_hour }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.equip_avail_hour.label }}</label>
+                            {{ form.equip_avail_hour }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.equip_oil_used.label }}</label>
+                            {{ form.equip_oil_used }}
+                        </div>
+                    </div>
+                    <br />
+                    <h2 class="text-center">POL Consumption</h2>
+                    <div class="row align-items-start py-2">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.oil_grade.label }}</label>
+                            {{ form.oil_grade }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.oil_level.label }}</label>
+                            {{ form.oil_level }}
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 3 Content, default hidden on page load. -->
+                <section id="step-3" class="form-step d-none bg-light text-dark">
+                    <!-- Step 3 input fields -->
+                    <h4 class="text-center">H.S.D. Balance at 06:30 Hrs</h4>
+                    {{ form_hsd_formset.management_form }} 
+                    {% for form in form_hsd_formset %}
+                    <div class="row align-items-start">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.tank.label }}</label>
+                            {{ form.tank }}
+                        </div>
+                        <div class="col-2 my-2">
+                            <label class="form-label">{{ form.opening.label }}</label>
+                            {{ form.opening }}
+                        </div>
+                        <div class="col-2 my-2">
+                            <label class="form-label">{{ form.consumption.label }}</label>
+                            {{ form.consumption }}
+                        </div>
+                        <div class="col-2 my-2">
+                            <label class="form-label">{{ form.received.label }}</label>
+                            {{ form.received }}
+                        </div>
+                        <div class="col-2 my-2">
+                            <label class="form-label">{{ form.closing_bal.label }}</label>
+                            {{ form.closing_bal }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                </section>
+
+                <!-- Section 4 Content -->
+                <section id="step-4" class="form-step d-none bg-light text-dark">
+                    {{ equip_serv_formset.management_form }} {% for form in equip_serv_formset %}
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-4 my-2">
+                            <label class="form-label select-label">{{ form.equip_serv_name.label }}</label>
+                            {{ form.equip_serv_name }}
+                        </div>
+                    </div>
+                    <div class="row align-items-start py-2">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.working_hour.label }}</label>
+                            {{ form.working_hour }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.avail_hour.label }}</label>
+                            {{ form.avail_hour }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.oil_used.label }}</label>
+                            {{ form.oil_used }}
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="col-8 offset-2 my-2">
+                            <label class="form-label select-label">{{ form.intstructions.label }}</label>
+                            {{ form.intstructions }}
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 5 Content -->
+                <section id="step-5" class="form-step d-none bg-light text-dark">
+                    {{ down_formset.management_form }} {% for form in down_formset %}
+                    <div class="row align-items-start py-2">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.from_hr.label }}</label>
+                            {{ form.from_hr }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.to_hr.label }}</label>
+                            {{ form.to_hr }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="6">Next</button>
+                </section>
+
+                <!-- Step 6 Content -->
+                <section id="step-6" class="form-step d-none bg-light text-dark">
+                    <div class="row align-items-start py-2">
+                        <div class="col-6 my-2">
+                            <label class="form-label">{{ form.requirements.label }}</label>
+                            {{ form.requirements }}
+                        </div>
+                        <div class="col-6 my-2">
+                            <label class="form-label">{{ form.mech_engineer.label }}</label>
+                            {{ form.mech_engineer }}
+                        </div>
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Prev</button>
+                    <button class="button submit-btn" type="submit">Save</button>
+                </section>
+                
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

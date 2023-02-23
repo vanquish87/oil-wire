@@ -15,27 +15,20 @@ def delete_files():
 
 
 # reading LAS file n saving its columns
-def read_LAS(request):
-    las_file = str(request.FILES['file'])
+def read_LAS(request, las_file):
+    # las_file = str(request.FILES['file'])
     #print(las_file)
     las = lasio.read(os.path.join(settings.SCIENCE_DIR, las_file))
-   
-    well = las.df()
-   
 
+    well = las.df()
     for i in well.columns:
-    
         try:
-            
-            logfile = LogFile.objects.get(file__contains=str(request.FILES['file']))
-          
+            logfile = LogFile.objects.get(file__contains=las_file)
             column = LogColumn(logfile=logfile, name=str(i))
-           
             column.save()
-       
         except ValueError as e:
             raise e
-    
+
     return well
 
 

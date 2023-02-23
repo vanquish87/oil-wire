@@ -29,10 +29,12 @@ def createLas(request):
     if request.method == 'POST':
         form = LogFileForm(request.POST, request.FILES)
         if form.is_valid and request.FILES['file'].name.endswith(('.LAS', '.las')):
-            form.save()
+            file = form.save(commit=False)
+            file.save()
+            unique_filename = str(file.file).split('/')[1]
             # reading LAS file n saving its columns
-            well = read_LAS(request)
-            return redirect('view-LAS-image', well.columns[0])
+            well = read_LAS(request, unique_filename)
+            return redirect('view-LAS-image', well.columns[0], str(file.file))
         else:
             messages.error(request, 'No LAS file found')
 
@@ -41,11 +43,11 @@ def createLas(request):
 
 
 @login_required(login_url='login')
-def viewLas(request, logcolumn_name):
-    
-    column = LogColumn.objects.get(name=logcolumn_name)
+def viewLas(request, logcolumn_name, unique_filename):
+
+    column = LogColumn.objects.get(name=logcolumn_name, logfile__file=unique_filename)
     logcolumns = LogColumn.objects.filter(logfile__id__contains=column.logfile_id)
-    
+
     # creating PNG files out of LAS uploads
     logfile = LogFile.objects.get(id=column.logfile_id)
 
@@ -53,19 +55,19 @@ def viewLas(request, logcolumn_name):
     las_file = logfile.file.path
 
     las = lasio.read(las_file)
-    
+
 
     well = las.df()
     print(well.columns.values)
 
     print(logcolumn_name)
     print(las.curves[logcolumn_name].unit)
-    
-    
+
+
     #for expanding the chartsize
     f,ax=plt.subplots(nrows=1,ncols=6,figsize=(12,8))
     #ax[0].plot(well[logcolumn_name],logs.Depth,color='green')
-  
+
     # Ist Solution
 
     #df = las.df()
@@ -85,28 +87,33 @@ def viewLas(request, logcolumn_name):
     plt.clf()
     #plt.plot(well[logcolumn_name], well.DEPT,lw=.5)
     #plt.plot(well[logcolumn_name], well.DEPT,lw=.5)
-    
+
     plt.plot(df[logcolumn_name], df['DEPTH'],lw=.9)
     plt.fill_betweenx(df['DEPTH'], df[logcolumn_name], 0, facecolor='yellow')
 
 
     # Old Solution
     #well.plot(y=logcolumn_name)
-    
+
     #for setting the x & y label
     plt.xlabel(logcolumn_name+" ("+las.curves[logcolumn_name].unit+")", size=20); plt.ylabel("Depth (m)", size=20)
     #plt.title("LAS chart for - " + logcolumn_name, size=20)
-    
+
     plt.grid(True)
-    
-    
+
+
     # saving png in tmp file style
     tmpfile = BytesIO()
     plt.savefig(tmpfile, format='png')
     png_file = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
 
 
-    context = {'png_file': png_file, 'logcolumns': logcolumns, 'column': column}
+    context = {
+        'png_file': png_file,
+        'logcolumns': logcolumns,
+        'column': column,
+        'unique_filename': unique_filename,
+        }
 
     return render(request, 'webLog/view-las.html', context)
 
@@ -132,7 +139,7 @@ def createDlis(request):
                         frame.save()
                     except ValueError as e:
                         raise e
-                
+
                 # get all the frames
                 try:
                     frames = Frame.objects.all().filter(logfile=logfile)
@@ -151,14 +158,14 @@ def createDlis(request):
                                 column.save()
                             except ValueError as e:
                                 raise e
-                    
+
                     columns = LogColumn.objects.all().filter(logfile=logfile, frame_id=frames[0].id)
                     # import pdb; pdb.set_trace()
                     return redirect('view-DLIS-image', logfile.id, frames[0].id, columns[3].name )
-                                
+
                 except ValueError as e:
                     raise e
-                
+
         else:
             messages.error(request, 'No DLIS file found')
 
@@ -169,8 +176,8 @@ def createDlis(request):
 @login_required(login_url='login')
 def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
     column = LogColumn.objects.get(
-        logfile_id=logfile_id, 
-        frame_id=frame_id, 
+        logfile_id=logfile_id,
+        frame_id=frame_id,
         name=logcolumn_name
         )
 
@@ -181,13 +188,13 @@ def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
     # absolute path of FileField
     dlis_file = logfile.file.path
     with dlis.load(dlis_file) as (f, *tail):
-  
+
         for channel in f.channels:
            if logcolumn_name==channel.name:
             graphunit= channel.units
-            
-   
-       
+
+
+
         # for template purpose frames are called
         frames = Frame.objects.all().filter(logfile=logfile)
 
@@ -199,17 +206,17 @@ def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
         frame1 = f.object(frame_name[0].upper() , frame_num)
         # getting curve names
         curves = frame1.curves()
-        
+
         #xlabelg=f.object('CHANNEL', logcolumn_name)
-        
+
         d = curves.dtype
         #print({d.names}.units)
-        
+
         if 'TDEP' in d.names:
             depth = curves['TDEP'] * 0.00254
         elif 'DEPT' in d.names:
             depth = curves['DEPT'] * 0.00254
-        
+
         # to display given column image
         out_image = curves[column.name]
         print(out_image)
@@ -229,7 +236,7 @@ def viewDLIS(request, logfile_id, frame_id, logcolumn_name):
         png_file = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
 
         context = {
-            'png_file': png_file, 
+            'png_file': png_file,
             'column': column,
             'logfile': logfile,
             'frames': frames,

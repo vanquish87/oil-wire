@@ -1,0 +1,365 @@
+{% extends 'base.html' %}
+{% block title %}
+{% load static %}
+<title>Equipment Daily Log - ONGC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<section class="p-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+           
+
+            <!-- Form Steps / Progress Bar -->
+            <div class="container">
+                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                    <!-- Step 1 -->
+                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle">
+                                <span>1</span>
+                            </span>
+                            <div class="label">Rig Details</div>
+                        </a>
+                    </li>
+                    <!-- Step 2 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>2</span>
+                            </span>
+                            <div class="label text-muted">Equipment Log Sheet</div>
+                        </a>
+                    </li>
+                    <!-- Step 3 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>3</span>
+                            </span>
+                            <div class="label text-muted">H.S.D. Balance</div>
+                        </a>
+                    </li>
+                    <!-- Step 4 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>4</span>
+                            </span>
+                            <div class="label text-muted">Repairing Log Sheet</div>
+                        </a>
+                    </li>
+                    <!-- Step 5 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="5">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>5</span>
+                            </span>
+                            <div class="label text-muted">Rig Down Time</div>
+                        </a>
+                    </li>
+                    <!-- Step 6 -->
+                    
+                </ul>
+            </div>
+
+            <!-- Step Wise Form Content -->
+            <form action="{% url 'report-equipment' %}" method="POST" >
+              
+                {% csrf_token %}
+              
+                <div><label for="From">From:</label>
+                <input type="date" value={{fromdate|date:'Y-m-d'}} id="From" name="From" />
+
+                <label for="To">To:</label>
+                <input type="date" value={{todate|date:'Y-m-d'}} id="To" name="To" />
+                <input type="submit" name="list" value="List Results" />
+
+                <a id="dlink" style="display:none;"></a>
+                <input type="button" onclick="tablesToEquipment(array3, 'Sheet1', 'Equipment.xls')" value="Single Sheet Export">
+<button  onclick="tablesToExcel(['export_table_to_excel_1','export_table_to_excel_2','export_table_to_excel_3','export_table_to_excel_4','export_table_to_excel_5'], ['Rig Details','Equipment Log Sheet','H.S.D. Balance','Repairing Log Sheet','Rig Down Time'], 'Equipment.xls', 'Excel')">Multiple Sheets Export</button>
+<br>
+</div>
+<br>            
+<!-- Step 1 Content -->
+                <section id="step-1" class="form-step bg-light text-dark">
+                    <!-- Step 1 input fields -->
+                    <div class="row align-items-start">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Rig Details</h4>
+                                <table id="export_table_to_excel_1" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>S.No<id>
+                                        <th>Rigname </th>
+                                        <th>RigWellname </th>
+                                        <th>Shift </th>
+                                        <th>Date </th>
+                                        <th>Requirements </th>
+                                        <th>Mechanical Eng. </th>               
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in rig %}
+                                    <tr>
+                                        <td>{{i.id}}</td>
+                                        <td>{{i.sasrigname}}</td>
+                                        <td>{{i.saswellname}}</td>
+                                        <td>{{i.shift}}</td>
+                                        <td>{{i.date}}</td>
+                                        <td>{{i.requirements}}</td>
+                                        <td>{{i.mech_engineer}}</td>
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                </section>
+                   
+
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step d-none bg-light text-dark">
+                   
+                    <div class="row align-items-start">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankTwo-header">Equipment Log Sheet</h4>
+                              <table id="export_table_to_excel_2" cellspacing="0" class="table">
+                                  <thead class="thead-dark">
+                                  <tr>
+                                      <th>Equip. Name<id>
+                                          <th>Water Temp. </th>
+                                          <th>Oil Temp. </th>
+                                          <th>Oil Pressure </th>
+                                          <th>Equip Working hr </th>
+                                          <th>Equip Avail hrs </th>
+                                          <th>Equip Oil Used </th>
+                                          <th>Oil Grade </th>
+                                          <th>Oil Level </th>               
+                                      
+      
+                                  </tr>
+                                  
+                                    
+                              </thead>
+                              
+                              <tbody>
+                                  {% for equip in equipments %}
+                                     <tr>
+                                          <td>{{equip.equip_name}}</td>
+                                          <td>{{equip.water_temp}}</td>
+                                          <td>{{equip.oil_temp}}</td>
+                                          <td>{{equip.oil_pressure}}</td>
+                                          <td>{{equip.equip_working_hour}}</td>
+                                          <td>{{equip.equip_avail_hour}}</td>
+                                          <td>{{equip.equip_oil_used}}</td>
+                                          <td>{{equip.oil_grade}}</td>
+                                          <td>{{equip.oil_level}}</td>
+                                          
+                                     
+                                      {%endfor%}
+      
+      
+                                 
+                              </tr>
+                              </tbody>
+                              
+                                 
+                             
+                          </table>
+                      </div>
+                  </div>
+                    </div>
+                  
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 3 Content, default hidden on page load. -->
+                <section id="step-3" class="form-step d-none bg-light text-dark">
+                    <!-- Step 3 input fields -->
+                    
+                    <div class="row align-items-start">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankThree-header">H.S.D. Balance</h4>
+                              <table id="export_table_to_excel_3" cellspacing="0" class="table">
+                                  <thead class="thead-dark">
+                                  <tr>
+                                      <th>Tank<id>
+                                          <th>Opening </th>
+                                          <th>Consumption </th>
+                                          <th>Received </th>
+                                          <th>Closing Balance </th>
+                                          
+                                       
+                                                       
+                                      
+                  
+                                  </tr>
+                                  
+                                    
+                              </thead>
+                              
+                              <tbody>
+                                  {% for hsd in hsdbalances %}
+                                     <tr>
+                                          <td>{{hsd.tank}}</td>
+                                          <td>{{hsd.opening}}</td>
+                                          <td>{{hsd.consumption}}</td>
+                                          <td>{{hsd.received}}</td>
+                                          <td>{{hsd.closing_bal}}</td>
+                                          
+                                          
+                                          
+                                     
+                                      {%endfor%}
+                  
+                  
+                                 
+                              </tr>
+                              </tbody>
+                              
+                                 
+                             
+                          </table>
+                      </div>
+                  </div>
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                </section>
+
+                <!-- Section 4 Content -->
+                <section id="step-4" class="form-step d-none bg-light text-dark">
+                   
+                    <div class="row align-items-start">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankFour-header">Repairing Log Sheet</h4>
+                              <table id="export_table_to_excel_4" cellspacing="0" class="table">
+                                  <thead class="thead-dark">
+                                  <tr>
+                                      <th>Euip. Service Name<id>
+                                          <th>Working Hrs</th>
+                                          <th>Available Hrs</th>
+                                          <th>Oil Used</th>
+                                          <th>Instruction</th>
+                                                       
+                                      
+                  
+                                  </tr>
+                                  
+                                    
+                              </thead>
+                              
+                              <tbody>
+                                  {% for service in services %}
+                                     <tr>
+                                          <td>{{service.equip_serv_name}}</td>
+                                          <td>{{service.working_hour}}</td>
+                                          <td>{{service.avail_hour}}</td>
+                                          <td>{{service.oil_used}}</td>
+                                          <td>{{service.intstructions}}</td>
+                                          
+                                          
+                                          
+                                     
+                                      {%endfor%}
+                  
+                  
+                                 
+                              </tr>
+                              </tbody>
+                              
+                                 
+                             
+                          </table>
+                      </div>
+                  </div>
+                    </div>
+                  
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 5 Content -->
+                <section id="step-5" class="form-step d-none bg-light text-dark">
+                  
+                    <div class="row align-items-start py-2">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankFive-header">Rig Down Time</h4>
+                              <table id="export_table_to_excel_5" cellspacing="0" class="table">
+                                  <thead class="thead-dark">
+                                  <tr>
+                                      <th>Rig Down From<id>
+                                          <th>Rig Down To</th>
+                                          
+                                      
+                  
+                                  </tr>
+                                  
+                                    
+                              </thead>
+                              
+                              <tbody>
+                                  {% for rig in rigdowns %}
+                                     <tr>
+                                          <td>{{rig.from_hr}}</td>
+                                          <td>{{rig.to_hr}}</td>
+                                          
+                                          
+                                          
+                                     
+                                      {%endfor%}
+                  
+                  
+                                 
+                              </tr>
+                              </tbody>
+                              
+                                 
+                             
+                          </table>
+                      </div>
+                  </div>
+                    </div>
+                
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
+                  
+                </section>
+
+                <!-- Step 6 Content -->
+               
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,561 @@
+{% extends 'base.html' %}
+{% block title %}
+{% load static %}
+<title>Equipment Daily Log - ONGC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="p-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+            <h2 class="text-center pb-3">Equipment Log Sheet</h2>
+
+            <!-- Form Steps / Progress Bar -->
+            <div class="container">
+                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                    <!-- Step 1 -->
+                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle">
+                                <span>1</span>
+                            </span>
+                            <div class="label">Rig Details</div>
+                        </a>
+                    </li>
+                    <!-- Step 2 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>2</span>
+                            </span>
+                            <div class="label text-muted">Equipment Log Sheet</div>
+                        </a>
+                    </li>
+                    <!-- Step 3 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>3</span>
+                            </span>
+                            <div class="label text-muted">H.S.D. Balance</div>
+                        </a>
+                    </li>
+                    <!-- Step 4 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>4</span>
+                            </span>
+                            <div class="label text-muted">Repairing Log Sheet</div>
+                        </a>
+                    </li>
+                    <!-- Step 5 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="5">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>5</span>
+                            </span>
+                            <div class="label text-muted">Rig Down Time</div>
+                        </a>
+                    </li>
+                    <!-- Step 6 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="6">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>6</span>
+                            </span>
+                            <div class="label text-muted">Requirements</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Step Wise Form Content -->
+            <form method="POST" action="{% url 'equipment-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm" data-rigs-url="{% url 'load-rigs' %}">
+                {% csrf_token %}
+
+                <!-- Step 1 Content -->
+                <section id="step-1" class="form-step bg-light text-dark">
+                    <!-- Step 1 input fields -->
+                    <div class="row align-items-start">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.saswellname.label }}</label>
+                            {{ form.saswellname }}
+                        </div>
+                        <br />
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.sasrigname.label }}</label>
+                            {{ form.sasrigname }}
+                        </div>
+                        <br />
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.date.label }}</label>
+                            {{ form.date }}
+                        </div>
+                        <br />
+                        <div class="col-4 offset-4 my-2">
+                            <label class="form-label">{{ form.shift.label }}</label>
+                            {{ form.shift }}
+                        </div>
+                        <br />
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                </section>
+
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step d-none bg-light text-dark">
+                    <div id="ingredient-form-list">
+                        {{ equip_formset.management_form }} {% for form in equip_formset %}
+                        <input type="hidden" name="equip_form-TOTAL_FORMS" value="1" id="id_equip_form-TOTAL_FORMS">
+                        <input type="hidden" name="equip_form-INITIAL_FORMS" value="0" id="id_equip_form-INITIAL_FORMS">
+                        <input type="hidden" name="equip_form-MIN_NUM_FORMS" value="0" id="id_equip_form-MIN_NUM_FORMS">
+                        <input type="hidden" name="equip_form-MAX_NUM_FORMS" value="1000" id="id_equip_form-MAX_NUM_FORMS">
+
+                        <div class="ingredient-form">
+                            <!-- Step 2 input fields -->
+                            <div class="row align-items-start">
+                                <div class="col-4 offset-4 my-2">
+                                    <label class="form-label select-label">{{ form.equip_name.label }}</label>
+                                    {{ form.equip_name }}
+                                </div>
+                            </div>
+                            <div class="row align-items-start py-2">
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.water_temp.label }}</label>
+                                    {{ form.water_temp }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.oil_temp.label }}</label>
+                                    {{ form.oil_temp }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.oil_pressure.label }}</label>
+                                    {{ form.oil_pressure }}
+                                </div>
+                            </div>
+                            <div class="row align-items-start py-2">
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.equip_working_hour.label }}</label>
+                                    {{ form.equip_working_hour }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.equip_avail_hour.label }}</label>
+                                    {{ form.equip_avail_hour }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.equip_oil_used.label }}</label>
+                                    {{ form.equip_oil_used }}
+                                </div>
+                            </div>
+                            <br />
+                            <h2 class="text-center">POL Consumption</h2>
+                            <div class="row align-items-start py-2">
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.oil_grade.label }}</label>
+                                    {{ form.oil_grade }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.oil_level.label }}</label>
+                                    {{ form.oil_level }}
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="empty-form" style="display: none;">
+                        <!-- Step 2 input fields -->
+                        <div class="row align-items-start">
+                            <div class="col-4 offset-4 my-2">
+                                <label class="form-label select-label">{{ equip_formset.empty_form.equip_name.label }}</label>
+                                {{ equip_formset.empty_form.equip_name }}
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.water_temp.label }}</label>
+                                {{ equip_formset.empty_form.water_temp }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.oil_temp.label }}</label>
+                                {{ equip_formset.empty_form.oil_temp }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.oil_pressure.label }}</label>
+                                {{ equip_formset.empty_form.oil_pressure }}
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.equip_working_hour.label }}</label>
+                                {{ equip_formset.empty_form.equip_working_hour }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.equip_avail_hour.label }}</label>
+                                {{ equip_formset.empty_form.equip_avail_hour }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.equip_oil_used.label }}</label>
+                                {{ equip_formset.empty_form.equip_oil_used }}
+                            </div>
+                        </div>
+                        <br />
+                        <h2 class="text-center">POL Consumption</h2>
+                        <div class="row align-items-start py-2">
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.oil_grade.label }}</label>
+                                {{ equip_formset.empty_form.oil_grade }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_formset.empty_form.oil_level.label }}</label>
+                                {{ equip_formset.empty_form.oil_level }}
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <br />
+                    <button class="button" type="button" id="add-more">Add More</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 3 Content, default hidden on page load. -->
+                <section id="step-3" class="form-step d-none bg-light text-dark">
+                    <!-- Step 3 input fields -->
+                    <h4 class="text-center">H.S.D. Balance at 06:30 Hrs</h4>
+                    <div id="hsd-form-list">
+                        {{ form_hsd_formset.management_form }} {% for form in form_hsd_formset %}
+                        <input type="hidden" name="hsd_form-TOTAL_FORMS" value="1" id="id_hsd_form-TOTAL_FORMS">
+                        <input type="hidden" name="hsd_form-INITIAL_FORMS" value="0" id="id_hsd_form-INITIAL_FORMS">
+                        <input type="hidden" name="hsd_form-MIN_NUM_FORMS" value="0" id="id_hsd_form-MIN_NUM_FORMS">
+                        <input type="hidden" name="hsd_form-MAX_NUM_FORMS" value="1000" id="id_hsd_form-MAX_NUM_FORMS">
+                        <div class="hsd-form">
+                            <div class="row align-items-start">
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.tank.label }}</label>
+                                    {{ form.tank }}
+                                </div>
+                                <div class="col-2 my-2">
+                                    <label class="form-label">{{ form.opening.label }}</label>
+                                    {{ form.opening }}
+                                </div>
+                                <div class="col-2 my-2">
+                                    <label class="form-label">{{ form.consumption.label }}</label>
+                                    {{ form.consumption }}
+                                </div>
+                                <div class="col-2 my-2">
+                                    <label class="form-label">{{ form.received.label }}</label>
+                                    {{ form.received }}
+                                </div>
+                                <div class="col-2 my-2">
+                                    <label class="form-label">{{ form.closing_bal.label }}</label>
+                                    {{ form.closing_bal }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="hsd-empty-form" style="display: none;">
+                        <div class="row align-items-start">
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ form_hsd_formset.empty_form.tank.label }}</label>
+                                {{ form_hsd_formset.empty_form.tank }}
+                            </div>
+                            <div class="col-2 my-2">
+                                <label class="form-label">{{ form_hsd_formset.empty_form.opening.label }}</label>
+                                {{ form_hsd_formset.empty_form.opening }}
+                            </div>
+                            <div class="col-2 my-2">
+                                <label class="form-label">{{ form_hsd_formset.empty_form.consumption.label }}</label>
+                                {{ form_hsd_formset.empty_form.consumption }}
+                            </div>
+                            <div class="col-2 my-2">
+                                <label class="form-label">{{ form_hsd_formset.empty_form.received.label }}</label>
+                                {{ form_hsd_formset.empty_form.received }}
+                            </div>
+                            <div class="col-2 my-2">
+                                <label class="form-label">{{ form_hsd_formset.empty_form.closing_bal.label }}</label>
+                                {{ form_hsd_formset.empty_form.closing_bal }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <button class="button" type="button" id="hsd-add-more">Add More</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                </section>
+
+                <!-- Section 4 Content -->
+                <section id="step-4" class="form-step d-none bg-light text-dark">
+                    <div id="equip_serv-form-list">
+                        {{ equip_serv_formset.management_form }} {% for form in equip_serv_formset %}
+                        <input type="hidden" name="equip_serv-TOTAL_FORMS" value="1" id="id_equip_serv-TOTAL_FORMS">
+                        <input type="hidden" name="equip_serv-INITIAL_FORMS" value="0" id="id_equip_serv-INITIAL_FORMS">
+                        <input type="hidden" name="equip_serv-MIN_NUM_FORMS" value="0" id="id_equip_serv-MIN_NUM_FORMS">
+                        <input type="hidden" name="equip_serv-MAX_NUM_FORMS" value="1000" id="id_equip_serv-MAX_NUM_FORMS">
+                        <div class="equip_serv-form">
+                            <div class="row align-items-start">
+                                <div class="col-4 offset-4 my-2">
+                                    <label class="form-label select-label">{{ form.equip_serv_name.label }}</label>
+                                    {{ form.equip_serv_name }}
+                                </div>
+                            </div>
+                            <div class="row align-items-start py-2">
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.working_hour.label }}</label>
+                                    {{ form.working_hour }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.avail_hour.label }}</label>
+                                    {{ form.avail_hour }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.oil_used.label }}</label>
+                                    {{ form.oil_used }}
+                                </div>
+                            </div>
+                            <div class="row align-items-start">
+                                <div class="col-8 offset-2 my-2">
+                                    <label class="form-label select-label">{{ form.intstructions.label }}</label>
+                                    {{ form.intstructions }}
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="equip_serv-empty-form" style="display: none;">
+                        <div class="row align-items-start">
+                            <div class="col-4 offset-4 my-2">
+                                <label class="form-label select-label">{{ equip_serv_formset.empty_form.equip_serv_name.label }}</label>
+                                {{ equip_serv_formset.empty_form.equip_serv_name }}
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_serv_formset.empty_form.working_hour.label }}</label>
+                                {{ equip_serv_formset.empty_form.working_hour }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_serv_formset.empty_form.avail_hour.label }}</label>
+                                {{ equip_serv_formset.empty_form.avail_hour }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ equip_serv_formset.empty_form.oil_used.label }}</label>
+                                {{ equip_serv_formset.empty_form.oil_used }}
+                            </div>
+                        </div>
+                        <div class="row align-items-start">
+                            <div class="col-8 offset-2 my-2">
+                                <label class="form-label select-label">{{ equip_serv_formset.empty_form.intstructions.label }}</label>
+                                {{ equip_serv_formset.empty_form.intstructions }}
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <br />
+                    <button class="button" type="button" id="equip_serv-add-more">Add More</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 5 Content -->
+                <section id="step-5" class="form-step d-none bg-light text-dark">
+                    <div id="rig_down-form-list">
+                        {{ down_formset.management_form }} {% for form in down_formset %}
+                        <input type="hidden" name="rig_down-TOTAL_FORMS" value="1" id="id_rig_down-TOTAL_FORMS">
+                        <input type="hidden" name="rig_down-INITIAL_FORMS" value="0" id="id_rig_down-INITIAL_FORMS">
+                        <input type="hidden" name="rig_down-MIN_NUM_FORMS" value="0" id="id_rig_down-MIN_NUM_FORMS">
+                        <input type="hidden" name="rig_down-MAX_NUM_FORMS" value="1000" id="id_rig_down-MAX_NUM_FORMS">
+                        <div class="rig_down-form">
+                            <div class="row align-items-start py-2">
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.from_hr.label }}</label>
+                                    {{ form.from_hr }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.to_hr.label }}</label>
+                                    {{ form.to_hr }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="rig_down-empty-form" style="display: none;">
+                        <div class="row align-items-start py-2">
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ down_formset.empty_form.from_hr.label }}</label>
+                                {{ down_formset.empty_form.from_hr }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ down_formset.empty_form.to_hr.label }}</label>
+                                {{ down_formset.empty_form.to_hr }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <button class="button" type="button" id="rig_down-add-more">Add More</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="6">Next</button>
+                </section>
+
+                <!-- Step 6 Content -->
+                <section id="step-6" class="form-step d-none bg-light text-dark">
+                    <div class="row align-items-start py-2">
+                        <div class="col-6 my-2">
+                            <label class="form-label">{{ form.requirements.label }}</label>
+                            {{ form.requirements }}
+                        </div>
+                        <div class="col-6 my-2">
+                            <label class="form-label">{{ form.mech_engineer.label }}</label>
+                            {{ form.mech_engineer }}
+                        </div>
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Prev</button>
+                    <button class="button submit-btn" type="submit">Save</button>
+                </section>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="{% static 'js\jquery-min.js' %}"></script>
+
+<script>
+    const addMoreBtn = document.getElementById("add-more");
+    if (addMoreBtn) {
+        addMoreBtn.addEventListener("click", add_new_form_1);
+    }
+
+    function add_new_form_1(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const totalNewForms = document.getElementById("id_equip_form-TOTAL_FORMS");
+        const currentIngredientForms = document.getElementsByClassName("ingredient-form");
+        const currentFormCount = currentIngredientForms.length; // + 1
+        const formCopyTarget = document.getElementById("ingredient-form-list");
+
+        const copyEmptyFormEl = document.getElementById("empty-form").cloneNode(true);
+        copyEmptyFormEl.setAttribute("class", "ingredient-form");
+        copyEmptyFormEl.setAttribute("style", "");
+
+        copyEmptyFormEl.setAttribute("id", `form-${currentFormCount}`);
+        const regex = new RegExp("__prefix__", "g");
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount);
+        totalNewForms.setAttribute("value", currentFormCount + 1);
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl);
+    }
+</script>
+
+<script>
+    const addMoreBtnHSD = document.getElementById("hsd-add-more");
+    if (addMoreBtnHSD) {
+        addMoreBtnHSD.addEventListener("click", add_new_form_hsd);
+    }
+
+    function add_new_form_hsd(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const totalNewForms = document.getElementById("id_hsd_form-TOTAL_FORMS");
+        const currentIngredientForms = document.getElementsByClassName("hsd-form");
+        const currentFormCount = currentIngredientForms.length; // + 1
+
+        const formCopyTarget = document.getElementById("hsd-form-list");
+
+        const copyEmptyFormEl = document.getElementById("hsd-empty-form").cloneNode(true);
+        copyEmptyFormEl.setAttribute("class", "hsd-form");
+        copyEmptyFormEl.setAttribute("style", "");
+
+        copyEmptyFormEl.setAttribute("id", `form-${currentFormCount}`);
+        const regex = new RegExp("__prefix__", "g");
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount);
+        totalNewForms.setAttribute("value", currentFormCount + 1);
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl);
+    }
+</script>
+
+<script>
+    const addMoreBtn_equip_serv = document.getElementById("equip_serv-add-more");
+    if (addMoreBtn_equip_serv) {
+        addMoreBtn_equip_serv.addEventListener("click", add_new_form_equip);
+    }
+
+    function add_new_form_equip(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const totalNewForms = document.getElementById("id_equip_serv-TOTAL_FORMS");
+        const currentIngredientForms = document.getElementsByClassName("equip_serv-form");
+        const currentFormCount = currentIngredientForms.length; // + 1
+
+        const formCopyTarget = document.getElementById("equip_serv-form-list");
+
+        const copyEmptyFormEl = document.getElementById("equip_serv-empty-form").cloneNode(true);
+        copyEmptyFormEl.setAttribute("class", "equip_serv-form");
+        copyEmptyFormEl.setAttribute("style", "");
+
+        copyEmptyFormEl.setAttribute("id", `form-${currentFormCount}`);
+        const regex = new RegExp("__prefix__", "g");
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount);
+        totalNewForms.setAttribute("value", currentFormCount + 1);
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl);
+    }
+</script>
+
+<script>
+    const addMoreBtn_rig_down = document.getElementById("rig_down-add-more");
+    if (addMoreBtn_rig_down) {
+        addMoreBtn_rig_down.addEventListener("click", add_new_form_rig);
+    }
+
+    function add_new_form_rig(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const totalNewForms = document.getElementById("id_rig_down-TOTAL_FORMS");
+        const currentIngredientForms = document.getElementsByClassName("rig_down-form");
+        const currentFormCount = currentIngredientForms.length; // + 1
+        console.log(totalNewForms);
+        console.log(currentIngredientForms);
+        console.log(currentFormCount);
+
+        const formCopyTarget = document.getElementById("rig_down-form-list");
+
+        const copyEmptyFormEl = document.getElementById("rig_down-empty-form").cloneNode(true);
+        copyEmptyFormEl.setAttribute("class", "rig_down-form");
+        copyEmptyFormEl.setAttribute("style", "");
+
+        copyEmptyFormEl.setAttribute("id", `form-${currentFormCount}`);
+        const regex = new RegExp("__prefix__", "g");
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount);
+        totalNewForms.setAttribute("value", currentFormCount + 1);
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl);
+    }
+</script>
+
+
+
+
+
+{% endblock %}

@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 
 
+
+
+
 # Create your views here.
 def loginUser(request):
     if request.method == 'POST':
@@ -16,6 +19,9 @@ def loginUser(request):
             user = User.objects.get(username=username)
         except:
             pass
+
+
+
             # for flashing messages
             # messages.error(request, 'Email doesnt exist')
 
@@ -31,7 +37,7 @@ def loginUser(request):
         else:
             messages.error(request, 'Username or Password is incorrect')
 
-    context = {}
+    context = {'s': 3, 'b': 4}
     return render(request, 'account/login.html', context)
 
 

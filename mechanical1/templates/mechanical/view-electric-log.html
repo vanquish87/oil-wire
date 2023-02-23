@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Electric Daily Log - ONGC</title>
+{% endblock %}
+
+{% block content %}
+<!-- SECTION -->
+<section class="my-3">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration bg-light text-dark" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
+                            Electrical Section - Drilling Services
+                        </h2>
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Well</td>
+                                <td>{{rig.saswellname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Rig Name</td>
+                                <td>{{rig.sasrigname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>{{ rig.date.date }}</td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td>{{rig.location}}</td>
+                            </tr>
+                            <tr>
+                                <td>Shift</td>
+                                <td>{{rig.shifttype}}</td>
+                            </tr>
+                        </table>
+
+                        <h4 class="pt-3 text-center">ELECTRICAL LOG SHEET</h4>
+
+                        {% for e2 in electricalShifts %}
+                        <p class="py-3 text-center">Equipment No. {{ forloop.counter }}</p>
+                        <table class="table table-striped py-3">
+                            <tr>
+                                <td>Equipment Details & Ratings</td>
+                                <td>{{ e2.equipdetails }}</td>
+                            </tr>
+                            <tr>
+                                <td>Equipment Status</td>
+                                <td>{{ e2.equipstatus }}</td>
+                            </tr>
+                            <tr>
+                                <td>Running Hours During the Shift</td>
+                                <td>{{ e2.runninghours }}</td>
+                            </tr>
+                            <tr>
+                                <td>Break Down Time : From (Hours)</td>
+                                <td>{{ e2.breakfrom }}</td>
+                            </tr>
+                            <tr>
+                                <td>Break Down Time : To (Hours)</td>
+                                <td>{{ e2.breakto }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Cumulative Running Hours</td>
+                                <td>{{ e2.totalcummulative }}</td>
+                            </tr>
+                        </table>
+
+                        <div class="pb-5 pt-2" style="display: flex; flex-direction: column;">
+                            <label for="">Remarks/Requirements from Base:</label>
+                            {{ e2.remarks }}
+                        </div>
+                        <div class="pb-5 pt-2" style="display: flex; flex-direction: column;">
+                            <label for="">Equipment/Material Received/Sent:</label>
+                            {{ e2.equipment }}
+                        </div>
+                        {% if e2.job %}
+                        <div class="pb-5 pt-2" style="display: flex; flex-direction: column;">
+                            <label for="">Job Caring Out During the Shift: Defect/Failure report:</label>
+                            {{ e2.job }}
+                        </div>
+                        {% endif %}
+
+                        {% if e2.safetyreport %}
+                        <div class="pb-5 pt-2" style="display: flex; flex-direction: column;">
+                            <label for="">Report on Safety/ Near Miss Accidents:</label>
+                            {{ e2.safetyreport }}
+                        </div>
+                        {% endif %}
+
+                        <h4 class="text-center">
+                            Energy/Meter Reading at 06:00 hrs on:
+                        </h4>
+                        <table class="table table-striped">
+                            <tr>
+                                <td>DG-1:</td>
+                                <td>{{ e2.energydg1 }} {{ e2.dg1_unit }}</td>
+                            </tr>
+                            <tr>
+                                <td>DG-2:</td>
+                                <td>{{ e2.energydg2 }} {{ e2.dg2_unit }}</td>
+                            </tr>
+                            <tr>
+                                <td>DG-3:</td>
+                                <td>{{ e2.energydg3 }} {{ e2.dg3_unit }}</td>
+                            </tr>
+                            <tr>
+                                <td>DG-4:</td>
+                                <td>{{ e2.energydg4 }} {{ e2.dg4_unit }}</td>
+                            </tr>
+                        </table>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

@@ -1,194 +1,410 @@
-{% extends 'base.html' %}
-{% block title %}
-{% load static %}
+{% extends 'base.html' %} {% block title %} {% load static %}
 <title>Electric Daily Log - ONGC</title>
-<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
-{% endblock %}
-
-{% block content %}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}" />
+{% endblock %} {% block content %}
 <!-- SECTION -->
-<section class="p-5">
-  <div class="container">
-     <div class="row justify-content-center align-items-center h-100">
+<section class="py-5">
+    <div class="container-md d-flex justify-content-center">
+        <div class="row justify-content-center align-items-center h-100">
+            <h2 class="text-center pb-3">ELECTRICAL DAILY LOG SHEET</h2>
 
-        <h2 class="text-center pb-3">
-           ELECTRICAL DAILY LOG SHEET
-        </h2>
+            <!-- Form Steps / Progress Bar -->
+            <div id="hidden-mobile" class="container">
+                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                    <!-- Step 1 -->
+                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle">
+                                <span>1</span>
+                            </span>
+                            <div class="label">Rig Details</div>
+                        </a>
+                    </li>
 
-        <!-- Form Steps / Progress Bar -->
-        <div class="container">
-           <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
-              <!-- Step 1 -->
-              <li class="form-stepper-active text-center form-stepper-list" step="1">
-                 <a class="mx-2 link-light">
-                    <span class="form-stepper-circle">
-                    <span>1</span>
-                    </span>
-                    <div class="label">Rig Details</div>
-                 </a>
-              </li>
+                    <!-- Step 3 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>2</span>
+                            </span>
+                            <div class="label text-muted">Equipment Details</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-              <!-- Step 3 -->
-              <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
-                 <a class="mx-2 link-light">
-                    <span class="form-stepper-circle text-muted">
-                    <span>2</span>
-                    </span>
-                    <div class="label text-muted">Equipment Details</div>
-                 </a>
-              </li>
-           </ul>
+            <!-- Step Wise Form Content -->
+            <form method="POST" action="{% url 'electrical-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm" data-rigs-url="{% url 'load-rigs' %}">
+                {% csrf_token %}
+
+                <!-- Step 1 Content -->
+                <section id="step-1" class="form-step bg-light text-dark">
+                    <!-- Step 1 input fields -->
+                    <div class="row align-items-start">
+                        <div class="col-sm-4 my-2">
+                            <label class="form-label">{{ form.doc_no.label }}</label>
+                            {{ form.doc_no }} {{ form.doc_no.errors }}
+                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                        </div>
+                        <br />
+                        <div class="col-sm-4 my-2">
+                            <label class="form-label">{{ form.saswellname.label }}</label>
+                            {{ form.saswellname }} {{ form.saswellname.errors }}
+                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                        </div>
+                        <br />
+                        <div class="col-sm-4 my-2">
+                            <label class="form-label">{{ form.sasrigname.label }}</label>
+                            {{ form.sasrigname }} {{ form.sasrigname.errors }}
+                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                        </div>
+                        <br />
+                        <div class="col-sm-4 my-2">
+                            <label class="form-label">{{ form.location.label }}</label>
+                            {{ form.location }} {{ form.location.errors }}
+                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                        </div>
+                        <br />
+                        <div class="col-sm-4 my-2">
+                            <label class="form-label">{{ form.date.label }}</label>
+                            {{ form.date }} {{ form.date.errors }}
+                        </div>
+                    </div>
+                    <br />
+                    <!-- <button onclick="validateForm()" class="button btn my-2" type="button">Submit</button> -->
+                    <button class="button btn btn-navigate-form-step my-2" type="button" id="submitButton" disabled step_number="2">Next</button>
+                </section>
+
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step d-none bg-light text-dark">
+                    <div id="ingredient-form-list">
+                        {{ electrical_shift_formset.management_form }} {% for form in electrical_shift_formset %}
+                        <input type="hidden" name="electric_form-TOTAL_FORMS" value="1" id="id_electric_form-TOTAL_FORMS" />
+                        <input type="hidden" name="electric_form-INITIAL_FORMS" value="0" id="id_electric_form-INITIAL_FORMS" />
+                        <input type="hidden" name="electric_form-MIN_NUM_FORMS" value="0" id="id_electric_form-MIN_NUM_FORMS" />
+                        <input type="hidden" name="electric_form-MAX_NUM_FORMS" value="1000" id="id_electric_form-MAX_NUM_FORMS" />
+                        <!-- Step 2 input fields -->
+
+                        <div class="row align-items-start">
+                            <div class="col-sm-4 my-2">
+                                <label class="form-label select-label">{{ form.shifttype.label }}</label>
+                                {{ form.shifttype }} {{ form.shifttype.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                        </div>
+                        <div class="ingredient-form">
+                            <div class="row align-items-start py-2">
+                                <div class="col-sm-6 my-2">
+                                    <label class="form-label select-label">{{ form.equipdetails.label }}</label>
+                                    {{ form.equipdetails }} {{ form.equipdetails.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <label class="form-label select-label">{{ form.equipstatus.label }}</label>
+                                    {{ form.equipstatus }} {{ form.equipstatus.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-start py-2">
+                                <div class="col-sm-6 my-2">
+                                    <label class="form-label">{{ form.runninghours_prev.label }}</label>
+                                    {{ form.runninghours_prev }} {{ form.runninghours_prev.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <label class="form-label">{{ form.runninghours.label }}</label>
+                                    {{ form.runninghours }} {{ form.runninghours.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-start py-2">
+                                <div class="col-sm-4 my-2">
+                                    <label class="form-label">{{ form.breakfrom.label }}</label>
+                                    {{ form.breakfrom }} {{ form.breakfrom.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                                <div class="col-sm-4 my-2">
+                                    <label class="form-label">{{ form.breakto.label }}</label>
+                                    {{ form.breakto }} {{ form.breakto.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                                <div class="col-sm-4 my-2">
+                                    <label class="form-label">{{ form.totalcummulative.label }}</label>
+                                    {{ form.totalcummulative }} {{ form.totalcummulative.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-start py-2">
+                                <div class="col-sm-6 my-2">
+                                    <label class="form-label">{{ form.remarks.label }}</label>
+                                    {{ form.remarks }} {{ form.remarks.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <label class="form-label">{{ form.equipment.label }}</label>
+                                    {{ form.equipment }} {{ form.equipment.errors }}
+                                    <p style="color: blue; font-size: 13px">*Required Field</p>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-start py-2">
+                                <span>Energy/Meter Reading at 06:00 hrs on:</span>
+
+                                <div class="col-sm-6 my-2">
+                                    <div class="row align-items-start">
+                                        <div class="col-sm-8">
+                                            <label class="form-label select-label">{{ form.energydg1.label }}</label>
+                                            {{ form.energydg1 }} {{ form.energydg1.errors }}
+                                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="row align-items-start">
+                                        <div class="col-sm-8">
+                                            <label class="form-label select-label">{{ form.energydg2.label }}</label>
+                                            {{ form.energydg2 }} {{ form.energydg2.errors }}
+                                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 my-2">
+                                    <div class="row align-items-start">
+                                        <div class="col-sm-8">
+                                            <label class="form-label select-label">{{ form.energydg3.label }}</label>
+                                            {{ form.energydg3 }} {{ form.energydg3.errors }}
+                                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="row align-items-start">
+                                        <div class="col-sm-8">
+                                            <label class="form-label select-label">{{ form.energydg4.label }}</label>
+                                            {{ form.energydg4 }} {{ form.energydg4.errors }}
+                                            <p style="color: blue; font-size: 13px">*Required Field</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-start py-2">
+                            <div class="col-sm-6 my-2">
+                                <label class="form-label">{{ form.job.label }}</label>
+                                {{ form.job }} {{ form.job.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                            <div class="col-sm-6 my-2">
+                                <label class="form-label select-label">{{ form.safetyreport.label }}</label>
+                                {{ form.safetyreport }} {{ form.safetyreport.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                        </div>
+                        <hr />
+
+                        {% endfor %}
+                    </div>
+                    <div id="empty-form" style="display: none">
+                        <!-- Step 2 input fields -->
+                        <div class="row align-items-start">
+                            <div class="col-sm-4 offset-4 my-2">
+                                <label class="form-label select-label">{{ electrical_shift_formset.empty_form.equipdetails.label }}</label>
+                                {{ electrical_shift_formset.empty_form.equipdetails }} {{ electrical_shift_formset.empty_form.equipdetails.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <div class="col-sm-4 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.equipstatus.label }}</label>
+                                {{ electrical_shift_formset.empty_form.equipstatus}} {{ electrical_shift_formset.empty_form.equipstatus.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                            <div class="col-sm-4 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.runninghours_prev.label }}</label>
+                                {{ electrical_shift_formset.empty_form.runninghours_prev}} {{ electrical_shift_formset.empty_form.runninghours_prev.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                            <div class="col-sm-4 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.runninghours.label }}</label>
+                                {{ electrical_shift_formset.empty_form.runninghours}} {{ electrical_shift_formset.empty_form.runninghours.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <div class="col-sm-4 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.breakfrom.label }}</label>
+                                {{ electrical_shift_formset.empty_form.breakfrom}} {{ electrical_shift_formset.empty_form.breakfrom.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                            <div class="col-sm-4 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.breakto.label }}</label>
+                                {{ electrical_shift_formset.empty_form.breakto}} {{ electrical_shift_formset.empty_form.breakto.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                            <div class="col-sm-4 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.totalcummulative.label }}</label>
+                                {{ electrical_shift_formset.empty_form.totalcummulative}} {{ electrical_shift_formset.empty_form.totalcummulative.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <div class="col-sm-6 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.remarks.label }}</label>
+                                {{ electrical_shift_formset.empty_form.remarks }} {{ electrical_shift_formset.empty_form.remarks.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                            <div class="col-sm-6 my-2">
+                                <label class="form-label">{{ electrical_shift_formset.empty_form.equipment.label }}</label>
+                                {{ electrical_shift_formset.empty_form.equipment }} {{ electrical_shift_formset.empty_form.equipment.errors }}
+                                <p style="color: blue; font-size: 13px">*Required Field</p>
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <span>Energy/Meter Reading at 06:00 hrs on:</span>
+
+                            <div class="col-sm-6 my-2">
+                                <div class="row align-items-start">
+                                    <div class="col-sm-8">
+                                        <label class="form-label select-label">{{ electrical_shift_formset.empty_form.energydg1.label }}</label>
+                                        {{ electrical_shift_formset.empty_form.energydg1 }} {{ electrical_shift_formset.empty_form.energydg1.errors }}
+                                        <p style="color: blue; font-size: 13px">*Required Field</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 my-2">
+                                <div class="row align-items-start">
+                                    <div class="col-sm-8">
+                                        <label class="form-label select-label">{{ electrical_shift_formset.empty_form.energydg2.label }}</label>
+                                        {{ electrical_shift_formset.empty_form.energydg2 }} {{ electrical_shift_formset.empty_form.energydg2.errors }}
+                                        <p style="color: blue; font-size: 13px">*Required Field</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 my-2">
+                                <div class="row align-items-start">
+                                    <div class="col-sm-8">
+                                        <label class="form-label select-label">{{ electrical_shift_formset.empty_form.energydg3.label }}</label>
+                                        {{ electrical_shift_formset.empty_form.energydg3 }} {{ electrical_shift_formset.empty_form.energydg3.errors }}
+                                        <p style="color: blue; font-size: 13px">*Required Field</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 my-2">
+                                <div class="row align-items-start">
+                                    <div class="col-sm-8">
+                                        <label class="form-label select-label">{{ electrical_shift_formset.empty_form.energydg4.label }}</label>
+                                        {{ electrical_shift_formset.empty_form.energydg4 }} {{ electrical_shift_formset.empty_form.energydg4.errors }}
+                                        <p style="color: blue; font-size: 13px">*Required Field</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    <br />
+                    <button class="button my-2" type="button" id="add-more">Add More</button>
+                    <button class="button my-2 btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                    <button class="button btn submit-btn" id="submitButton" disabled type="submit">Save</button>
+                </section>
+            </form>
         </div>
-
-
-        <!-- Step Wise Form Content -->
-        <form  method="POST" action="{% url 'electrical-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm" data-rigs-url="{% url 'load-rigs' %}">
-           {% csrf_token %}
-
-
-           <!-- Step 1 Content -->
-           <section id="step-1" class="form-step bg-light text-dark">
-              <!-- Step 1 input fields -->
-              <div class="row align-items-start">
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.doc_no.label }}</label>
-                    {{ form.doc_no }}
-                 </div>
-                 <br />
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.saswellname.label }}</label>
-                    {{ form.saswellname }}
-                 </div>
-                 <br />
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.sasrigname.label }}</label>
-                    {{ form.sasrigname }}
-                 </div>
-                 <br />
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.location.label }}</label>
-                    {{ form.location }}
-                 </div>
-                 <br />
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.date.label }}</label>
-                    {{ form.date }}
-                 </div>
-              </div>
-              <br />
-              <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
-           </section>
-
-
-           <!-- Step 3 Content, default hidden on page load. -->
-           <section id="step-2" class="form-step d-none bg-light text-dark">
-              {{ electrical_shift_formset.management_form }}
-              {% for form in electrical_shift_formset %}
-              <!-- Step 3 input fields -->
-              <div class="row align-items-start">
-                 <div class="col-4 offset-4 my-2">
-                    <label class="form-label select-label">{{ form.shifttype.label }}</label>
-                    {{ form.shifttype }}
-                 </div>
-              </div>
-
-
-              <div class="row align-items-start py-2">
-                 <div class="col-6 my-2">
-                    <label class="form-label select-label">{{ form.equipdetails.label }}</label>
-                    {{ form.equipdetails }}
-                 </div>
-                 <div class="col-6 my-2">
-                    <label class="form-label select-label">{{ form.equipstatus.label }}</label>
-                    {{ form.equipstatus }}
-                 </div>
-              </div>
-
-
-              <div class="row align-items-start py-2">
-                 <div class="col-6 my-2">
-                    <label class="form-label">{{ form.runninghours_prev.label }}</label>
-                    {{ form.runninghours_prev }}
-                 </div>
-                 <div class="col-6 my-2">
-                    <label class="form-label">{{ form.runninghours.label }}</label>
-                    {{ form.runninghours }}
-                 </div>
-              </div>
-
-
-              <div class="row align-items-start py-2">
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.breakfrom.label }}</label>
-                    {{ form.breakfrom }}
-                 </div>
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.breakto.label }}</label>
-                    {{ form.breakto }}
-                 </div>
-                 <div class="col-4 my-2">
-                    <label class="form-label">{{ form.totalcummulative.label }}</label>
-                    {{ form.totalcummulative }}
-                 </div>
-              </div>
-
-
-              <div class="row align-items-start py-2">
-                 <div class="col-6 my-2">
-                    <label class="form-label">{{ form.remarks.label }}</label>
-                    {{ form.remarks }}
-                 </div>
-                 <div class="col-6 my-2">
-                    <label class="form-label">{{ form.equipment.label }}</label>
-                    {{ form.equipment }}
-                 </div>
-              </div>
-
-
-              <div class="row align-items-start py-2">
-                 <span>Energy/Meter Reading at 06:00 hrs on:</span>
-                 <div class="col-3 my-2">
-                    <label class="form-label select-label">{{ form.energydg1.label }}</label>
-                    {{ form.energydg1 }}
-                 </div>
-                 <div class="col-3 my-2">
-                    <label class="form-label select-label">{{ form.energydg2.label }}</label>
-                    {{ form.energydg2 }}
-                 </div>
-                 <div class="col-3 my-2">
-                    <label class="form-label select-label">{{ form.energydg3.label }}</label>
-                    {{ form.energydg3 }}
-                 </div>
-                 <div class="col-3 my-2">
-                    <label class="form-label select-label">{{ form.energydg4.label }}</label>
-                    {{ form.energydg4 }}
-                 </div>
-              </div>
-
-
-              <div class="row align-items-start py-2">
-                 <div class="col-6 my-2">
-                    <label class="form-label">{{ form.job.label }}</label>
-                    {{ form.job }}
-                 </div>
-                 <div class="col-6 my-2">
-                    <label class="form-label select-label">{{ form.safetyreport.label }}</label>
-                    {{ form.safetyreport }}
-                 </div>
-              </div>
-
-
-              {% endfor %}
-
-              <br />
-              <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-              <button class="button submit-btn" type="submit">Save</button>
-
-           </section>
-        </form>
-     </div>
-  </div>
+    </div>
 </section>
+<script src="{% static 'js\jquery-min.js' %}"></script>
 
+<script>
+    const addMoreBtn = document.getElementById('add-more');
+    if (addMoreBtn) {
+        addMoreBtn.addEventListener('click', add_new_form_1);
+    }
+
+    function add_new_form_1(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const totalNewForms = document.getElementById('id_electric_form-TOTAL_FORMS');
+        const currentIngredientForms = document.getElementsByClassName('ingredient-form');
+        const currentFormCount = currentIngredientForms.length; // + 1
+        const formCopyTarget = document.getElementById('ingredient-form-list');
+
+        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true);
+        copyEmptyFormEl.setAttribute('class', 'ingredient-form');
+        copyEmptyFormEl.setAttribute('style', '');
+
+        copyEmptyFormEl.setAttribute('id', `form-${currentFormCount}`);
+        const regex = new RegExp('__prefix__', 'g');
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount);
+        totalNewForms.setAttribute('value', currentFormCount + 1);
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl);
+    }
+</script>
+
+<script>
+    function validateForm() {
+        var inputs = document.querySelectorAll('input[required]');
+        var isValid = true;
+
+        for (var i = 0; i < inputs.length; i++) {
+            if (!inputs[i].value) {
+                isValid = false;
+                break;
+            }
+        }
+
+        if (!isValid) {
+            alert('All fields are required. Please fill out the form completely.');
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+<script>
+    function fillRequired(section, innerID) {
+        var form = document.querySelector(section);
+        const submitButton = form.querySelector('#submitButton');
+
+        if (innerID) {
+            var form = document.querySelector(innerID);
+            console.log(innerID)
+        }
+
+        var inputs = form.querySelectorAll('input');
+        var selects = form.querySelectorAll('select');
+
+        form.addEventListener('input', function () {
+            let filled = true;
+            for (const input of inputs) {
+                if (input.nodeName === 'INPUT' && input.value === '') {
+                    filled = false;
+                    break;
+                }
+            }
+            for (const select of selects) {
+                if (select.nodeName === 'SELECT' && select.value === '') {
+                    filled = false;
+                    break;
+                }
+            }
+
+            if (filled) {
+                submitButton.removeAttribute('disabled');
+            } else {
+                submitButton.setAttribute('disabled', 'disabled');
+            }
+        });
+    }
+
+    fillRequired('#step-1');
+    fillRequired('#step-2', '#ingredient-form-list');
+</script>
 
 {% endblock %}

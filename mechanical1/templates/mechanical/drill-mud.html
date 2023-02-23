@@ -1,0 +1,743 @@
+{% extends 'base.html' %}
+{% block title %}
+{% load static %}
+<title>Drill Mud Log - ONGC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- SECTION -->
+<section class="p-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+            <h2 class="text-center pb-3">
+                DRILLING MUD REPORT
+            </h2>
+
+            <!-- Form Steps / Progress Bar -->
+            <div class="container">
+                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                    <!-- Step 1 -->
+                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle">
+                                <span>1</span>
+                            </span>
+                            <div class="label">Rig Details</div>
+                        </a>
+                    </li>
+                    <!-- Step 2 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>2</span>
+                            </span>
+                            <div class="label text-muted">Operations</div>
+                        </a>
+                    </li>
+                    <!-- Step 3 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>3</span>
+                            </span>
+                            <div class="label text-muted">Laboratory Data</div>
+                        </a>
+                    </li>
+                    <!-- Step 4 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>4</span>
+                            </span>
+                            <div class="label text-muted">Hydraulic Data</div>
+                        </a>
+                    </li>
+                    <!-- Step 5 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="5">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>5</span>
+                            </span>
+                            <div class="label text-muted">Drilling Data</div>
+                        </a>
+                    </li>
+                    <!-- Step 6 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="6">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>6</span>
+                            </span>
+                            <div class="label text-muted">Mud Chemical Report</div>
+                        </a>
+                    </li>
+                    <!-- Step 7 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="7">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>7</span>
+                            </span>
+                            <div class="label text-muted">Mud Volume Details</div>
+                        </a>
+                    </li>
+                    <!-- Step 8 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="8">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>8</span>
+                            </span>
+                            <div class="label text-muted">Running Hours</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Step Wise Form Content -->
+            <form method="POST" action="{% url 'drill-log' %}" enctype="multipart/form-data" id="userAccountSetupForm" name="userAccountSetupForm" data-rigs-url="{% url 'load-rigs' %}">
+                {% csrf_token %}
+
+                <!-- Step 1 Content -->
+                <section id="step-1" class="form-step bg-light text-dark">
+                    <h4 class="text-center">QHSE|DOC. NO.|QHSE/QF/CHEM-DPR/56</h4>
+                    <!-- Step 1 input fields -->
+                    <div class="row align-items-start">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.saswellname.label }}</label>
+                            {{ form.saswellname }}
+                        </div>
+                        <br />
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.sasrigname.label }}</label>
+                            {{ form.sasrigname }}
+                        </div>
+                        <br />
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.asset.label }}</label>
+                            {{ form.asset }}
+                        </div>
+                        <br />
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.date.label }}</label>
+                            {{ form.date }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.shifttype.label }}</label>
+                            {{ form.shifttype }}
+                        </div>
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                </section>
+
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step d-none bg-light text-dark">
+                    <div id="ingredient-form-list">
+                        {{ drill_shift_formset.management_form }} {% for form in drill_shift_formset %}
+                        <input type="hidden" name="drill_shift_form-TOTAL_FORMS" value="1" id="id_drill_shift_form-TOTAL_FORMS">
+                        <input type="hidden" name="drill_shift_form-INITIAL_FORMS" value="0" id="id_drill_shift_form-INITIAL_FORMS">
+                        <input type="hidden" name="drill_shift_form-MIN_NUM_FORMS" value="0" id="id_drill_shift_form-MIN_NUM_FORMS">
+                        <input type="hidden" name="drill_shift_form-MAX_NUM_FORMS" value="1000" id="id_drill_shift_form-MAX_NUM_FORMS">
+
+                        <div class="ingredient-form">
+                            <!-- Step 2 input fields -->
+                            <div class="row align-items-start py-2">
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.drillfrom.label }}</label>
+                                    {{ form.drillfrom }}
+                                </div>
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.drillto.label }}</label>
+                                    {{ form.drillto }}
+                                </div>
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.timefrom.label }}</label>
+                                    {{ form.timefrom }}
+                                </div>
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.timeto.label }}</label>
+                                    {{ form.timeto }}
+                                </div>
+                            </div>
+                            <div class="row align-items-start py-2">
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.spgrade.label }}</label>
+                                    {{ form.spgrade }}
+                                </div>
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.visc.label }}</label>
+                                    {{ form.visc }}
+                                </div>
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.gel.label }}</label>
+                                    {{ form.gel }}
+                                </div>
+                                <div class="col-3 my-2">
+                                    <label class="form-label">{{ form.ph.label }}</label>
+                                    {{ form.ph }}
+                                </div>
+                            </div>
+                            <div class="row align-items-start">
+                                <div class="col-6 offset-3 my-2">
+                                    <label class="form-label select-label">{{ form.operation.label }}</label>
+                                    {{ form.operation }}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="empty-form" style="display: none;">
+                        <div class="row align-items-start py-2">
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.drillfrom.label }}</label>
+                                {{ drill_shift_formset.empty_form.drillfrom }}
+                            </div>
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.drillto.label }}</label>
+                                {{ drill_shift_formset.empty_form.drillto }}
+                            </div>
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.timefrom.label }}</label>
+                                {{ drill_shift_formset.empty_form.timefrom }}
+                            </div>
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.timeto.label }}</label>
+                                {{ drill_shift_formset.empty_form.timeto }}
+                            </div>
+                        </div>
+                        <div class="row align-items-start py-2">
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.spgrade.label }}</label>
+                                {{ drill_shift_formset.empty_form.spgrade }}
+                            </div>
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.visc.label }}</label>
+                                {{ drill_shift_formset.empty_form.visc }}
+                            </div>
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.gel.label }}</label>
+                                {{ drill_shift_formset.empty_form.gel }}
+                            </div>
+                            <div class="col-3 my-2">
+                                <label class="form-label">{{ drill_shift_formset.empty_form.ph.label }}</label>
+                                {{ drill_shift_formset.empty_form.ph }}
+                            </div>
+                        </div>
+                        <div class="row align-items-start">
+                            <div class="col-6 offset-3 my-2">
+                                <label class="form-label select-label">{{ drill_shift_formset.empty_form.operation.label }}</label>
+                                {{ drill_shift_formset.empty_form.operation }}
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <br />
+                    <button class="button" type="button" id="add-more">Add More</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 3 Content, default hidden on page load. -->
+                <section id="step-3" class="form-step d-none bg-light text-dark">
+                    {{ drill_laboratory_formset.management_form }} {% for form in drill_laboratory_formset %}
+                    <!-- Step 3 input fields -->
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.sample.label }}</label>
+                            {{ form.sample }}
+                        </div>
+
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.time.label }}</label>
+                            {{ form.time }}
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.depth.label }}</label>
+                            {{ form.depth }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.apifilter.label }}</label>
+                            {{ form.apifilter }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.cakethickness.label }}</label>
+                            {{ form.cakethickness }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.ph.label }}</label>
+                            {{ form.ph }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.sand.label }}</label>
+                            {{ form.sand }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.apparentvisc.label }}</label>
+                            {{ form.apparentvisc }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.plasticvisc.label }}</label>
+                            {{ form.plasticvisc }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.yieldpoint.label }}</label>
+                            {{ form.yieldpoint }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.gelzero.label }}</label>
+                            {{ form.gelzero }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.gelten.label }}</label>
+                            {{ form.gelten }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.oilcontent.label }}</label>
+                            {{ form.oilcontent }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.solidcontent.label }}</label>
+                            {{ form.solidcontent }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.watercontent.label }}</label>
+                            {{ form.watercontent }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.mbc.label }}</label>
+                            {{ form.mbc }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.filtersalinity.label }}</label>
+                            {{ form.filtersalinity }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.flowlinetemp.label }}</label>
+                            {{ form.flowlinetemp }}
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                </section>
+
+                <!-- Section 4 Content -->
+                <section id="step-4" class="form-step d-none bg-light text-dark">
+                    {{ hydraulic_data_formset.management_form }} {% for form in hydraulic_data_formset %}
+                    <div class="row align-items-start py-2">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.pumplinersize.label }}</label>
+                            {{ form.pumplinersize }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.strokelength.label }}</label>
+                            {{ form.strokelength }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.discharge.label }}</label>
+                            {{ form.discharge }}
+                        </div>
+
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.stroke.label }}</label>
+                            {{ form.stroke }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.standpipepressure.label }}</label>
+                            {{ form.standpipepressure }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.dpsize.label }}</label>
+                            {{ form.dpsize }}
+                        </div>
+
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.dcsize.label }}</label>
+                            {{ form.dcsize }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.stabilizers.label }}</label>
+                            {{ form.stabilizers }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.ohdc.label }}</label>
+                            {{ form.ohdc }}
+                        </div>
+
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.ohdp.label }}</label>
+                            {{ form.ohdp }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.casdp.label }}</label>
+                            {{ form.casdp }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.lastcasingsize.label }}</label>
+                            {{ form.lastcasingsize }}
+                        </div>
+
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.lastlength.label }}</label>
+                            {{ form.lastlength }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.csgvol.label }}</label>
+                            {{ form.csgvol }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.mudhole.label }}</label>
+                            {{ form.mudhole }}
+                        </div>
+
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.sandtrap.label }}</label>
+                            {{ form.sandtrap }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.pitvol.label }}</label>
+                            {{ form.pitvol }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.totalcirc.label }}</label>
+                            {{ form.totalcirc }}
+                        </div>
+
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.lagtime.label }}</label>
+                            {{ form.lagtime }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.cycletime.label }}</label>
+                            {{ form.cycletime }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.ECD.label }}</label>
+                            {{ form.ECD }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.presslosses.label }}</label>
+                            {{ form.presslosses }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 5 Content -->
+                <section id="step-5" class="form-step d-none bg-light text-dark">
+                    {{ drill_data_formset.management_form }} {% for form in drill_data_formset %}
+
+                    <div class="row align-items-start py-2">
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.sample.label }}</label>
+                            {{ form.sample }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.bitsize.label }}</label>
+                            {{ form.bitsize }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.jetsize.label }}</label>
+                            {{ form.jetsize }}
+                        </div>
+
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.onbit.label }}</label>
+                            {{ form.onbit }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.rotaryrpm.label }}</label>
+                            {{ form.rotaryrpm }}
+                        </div>
+                        <div class="col-4 my-2">
+                            <label class="form-label">{{ form.bhalengths.label }}</label>
+                            {{ form.bhalengths }}
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="6">Next</button>
+                </section>
+
+                <!-- Step 6 Content -->
+                <section id="step-6" class="form-step d-none bg-light text-dark">
+                    <div id="drill_mud_chemical-form-list">
+                        {{ drill_mud_chemical_formset.management_form }} {% for form in drill_mud_chemical_formset %}
+                        <input type="hidden" name="drill_mud_chemical_form-TOTAL_FORMS" value="1" id="id_drill_mud_chemical_form-TOTAL_FORMS">
+                        <input type="hidden" name="drill_mud_chemical_form-INITIAL_FORMS" value="0" id="id_drill_mud_chemical_form-INITIAL_FORMS">
+                        <input type="hidden" name="drill_mud_chemical_form-MIN_NUM_FORMS" value="0" id="id_drill_mud_chemical_form-MIN_NUM_FORMS">
+                        <input type="hidden" name="drill_mud_chemical_form-MAX_NUM_FORMS" value="1000" id="id_drill_mud_chemical_form-MAX_NUM_FORMS">
+
+                        <div class="drill_mud_chemical-form">
+                            <div class="row align-items-start py-2">
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.chemical.label }}</label>
+                                    {{ form.chemical }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.unit.label }}</label>
+                                    {{ form.unit }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.opening.label }}</label>
+                                    {{ form.opening }}
+                                </div>
+
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.receipt.label }}</label>
+                                    {{ form.receipt }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.consumption.label }}</label>
+                                    {{ form.consumption }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.closing.label }}</label>
+                                    {{ form.closing }}
+                                </div>
+                                <div class="col-4 my-2">
+                                    <label class="form-label">{{ form.total.label }}</label>
+                                    {{ form.total }}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div id="drill_mud_chemical-empty-form" style="display: none;">
+                        <div class="row align-items-start py-2">
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ drill_mud_chemical_formset.empty_form.chemical.label }}</label>
+                                {{ drill_mud_chemical_formset.empty_form.chemical }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ drill_mud_chemical_formset.empty_form.unit.label }}</label>
+                                {{ drill_mud_chemical_formset.empty_form.unit }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ drill_mud_chemical_formset.empty_form.opening.label }}</label>
+                                {{ drill_mud_chemical_formset.empty_form.opening }}
+                            </div>
+
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ drill_mud_chemical_formset.empty_form.receipt.label }}</label>
+                                {{ drill_mud_chemical_formset.empty_form.receipt }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ drill_mud_chemical_formset.empty_form.consumption.label }}</label>
+                                {{ drill_mud_chemical_formset.empty_form.consumption }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ drill_mud_chemical_formset.empty_form.closing.label }}</label>
+                                {{ drill_mud_chemical_formset.empty_form.closing }}
+                            </div>
+                            <div class="col-4 my-2">
+                                <label class="form-label">{{ drill_mud_chemical_formset.empty_form.total.label }}</label>
+                                {{ drill_mud_chemical_formset.empty_form.total }}
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <br />
+                    <button class="button" type="button" id="drill_mud_chemical-add-more">Add More</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="7">Next</button>
+                </section>
+
+                <!-- Step 7 Content -->
+                <section id="step-7" class="form-step d-none bg-light text-dark">
+                    {{ drill_mud_volume_formset.management_form }} {% for form in drill_mud_volume_formset %}
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.shalevole.label }}</label>
+                            {{ form.shalevole }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.shalespgr.label }}</label>
+                            {{ form.shalespgr }}
+                        </div>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.settingvole.label }}</label>
+                            {{ form.settingvole }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.settingspgr.label }}</label>
+                            {{ form.settingspgr }}
+                        </div>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.intervole.label }}</label>
+                            {{ form.intervole }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.interspgr.label }}</label>
+                            {{ form.interspgr }}
+                        </div>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.suctionvole.label }}</label>
+                            {{ form.suctionvole }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.suctionspgr.label }}</label>
+                            {{ form.suctionspgr }}
+                        </div>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.tank1vole.label }}</label>
+                            {{ form.tank1vole }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.tank1spgr.label }}</label>
+                            {{ form.tank1spgr }}
+                        </div>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.tank2vole.label }}</label>
+                            {{ form.tank2vole }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.tank2spgr.label }}</label>
+                            {{ form.tank2spgr }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="6">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="8">Next</button>
+                </section>
+
+                <!-- Step 8 Content -->
+                <section id="step-8" class="form-step d-none bg-light text-dark">
+                    {{ drill_solid_control_formset.management_form }} {% for form in drill_solid_control_formset %}
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.shaleshaker.label }}</label>
+                            {{ form.shaleshaker }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.desander.label }}</label>
+                            {{ form.desander }}
+                        </div>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.desilter.label }}</label>
+                            {{ form.desilter }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.degasser.label }}</label>
+                            {{ form.degasser }}
+                        </div>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label select-label">{{ form.mudlcleaner.label }}</label>
+                            {{ form.mudlcleaner }}
+                        </div>
+                        <div class="col-4 offset-1 my-2">
+                            <label class="form-label">{{ form.remarks.label }}</label>
+                            {{ form.remarks }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="7">Prev</button>
+                    <button class="button submit-btn" type="submit">Save</button>
+                </section>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js\jquery-min.js' %}"></script>
+
+<script>
+    const addMoreBtn = document.getElementById("add-more");
+    if (addMoreBtn) {
+        addMoreBtn.addEventListener("click", add_new_form_1);
+    }
+
+    function add_new_form_1(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const totalNewForms = document.getElementById("id_drill_shift_form-TOTAL_FORMS");
+        const currentIngredientForms = document.getElementsByClassName("ingredient-form");
+        const currentFormCount = currentIngredientForms.length; // + 1
+        const formCopyTarget = document.getElementById("ingredient-form-list");
+
+        const copyEmptyFormEl = document.getElementById("empty-form").cloneNode(true);
+        copyEmptyFormEl.setAttribute("class", "ingredient-form");
+        copyEmptyFormEl.setAttribute("style", "");
+
+        copyEmptyFormEl.setAttribute("id", `form-${currentFormCount}`);
+        const regex = new RegExp("__prefix__", "g");
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount);
+        totalNewForms.setAttribute("value", currentFormCount + 1);
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl);
+    }
+</script>
+
+<script>
+    const addMoreBtn1 = document.getElementById("drill_mud_chemical-add-more");
+    if (addMoreBtn1) {
+        addMoreBtn1.addEventListener("click", add_new_form_1);
+    }
+
+    function add_new_form_1(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const totalNewForms = document.getElementById("id_drill_mud_chemical_form-TOTAL_FORMS");
+        const currentIngredientForms = document.getElementsByClassName("drill_mud_chemical-form");
+        const currentFormCount = currentIngredientForms.length; // + 1
+        const formCopyTarget = document.getElementById("drill_mud_chemical-form-list");
+
+        const copyEmptyFormEl = document.getElementById("drill_mud_chemical-empty-form").cloneNode(true);
+        copyEmptyFormEl.setAttribute("class", "drill_mud_chemical-form");
+        copyEmptyFormEl.setAttribute("style", "");
+
+        copyEmptyFormEl.setAttribute("id", `form-${currentFormCount}`);
+        const regex = new RegExp("__prefix__", "g");
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount);
+        totalNewForms.setAttribute("value", currentFormCount + 1);
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl);
+    }
+</script>
+
+
+
+{% endblock %}

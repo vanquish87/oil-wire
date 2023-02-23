@@ -26,7 +26,7 @@
             </div>
             {% else %}
             <div class="col-md-2 py-2 d-grid gap-2">
-                <a href="{% url 'view-LAS-image' logcolumn.name %} " class="btn btn-outline-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
+                <a href="{% url 'view-LAS-image' logcolumn.name unique_filename %} " class="btn btn-outline-success" role="button" aria-pressed="true">{{ logcolumn.name }}</a>
             </div>
             {% endif %}
             {% endfor %}

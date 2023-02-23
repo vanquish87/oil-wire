@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Equipment Daily Log - ONGC</title>
+{% endblock %}
+
+{% block content %}
+<!-- SECTION -->
+<section class="my-3">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration bg-light text-dark" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
+                            Mechanical Daily DPR
+                        </h2>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Well</td>
+                                <td>{{rig.saswellname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Rig Name</td>
+                                <td>{{rig.sasrigname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>{{ rig.date.date }}</td>
+                            </tr>
+                            <tr>
+                                <td>Shift</td>
+                                <td>{{ rig.shift }}</td>
+                            </tr>
+                        </table>
+
+                        <h4 class="py-3 text-center">EQUIPMENT LOG SHEET</h4>
+                        {% for equipment in equipments %}
+                        <p class="py-3 text-center">Equipment No. {{ forloop.counter }}</p>
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Equipment Name</td>
+                                <td>{{ equipment.equip_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Water Temperature</td>
+                                <td>{{ equipment.water_temp }}</td>
+                            </tr>
+                            <tr>
+                                <td>Oil Temperature</td>
+                                <td>{{ equipment.oil_temp }}</td>
+                            </tr>
+                            <tr>
+                                <td>Oil Pressure</td>
+                                <td>{{ equipment.oil_pressure }}</td>
+                            </tr>
+                            <tr>
+                                <td>Equipment Working Hours</td>
+                                <td>{{ equipment.equip_working_hour }}</td>
+                            </tr>
+                            <tr>
+                                <td>Equipment Available Hours</td>
+                                <td>{{ equipment.equip_avail_hour }}</td>
+                            </tr>
+                            <tr>
+                                <td>Equipment Oil Used</td>
+                                <td>{{ equipment.equip_oil_used }}</td>
+                            </tr>
+                            <tr>
+                                <td>POL Consumption Oil Grade</td>
+                                <td>{{ equipment.oil_grade }}</td>
+                            </tr>
+                            <tr>
+                                <td>POL Consumption Oil Used</td>
+                                <td>{{ equipment.oil_level }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+
+                        <h4 class="pt-3 text-center">H.S.D. Balance at 06:30 Hrs</h4>
+                        {% for hsd in hsd_balances %}
+                        <p class="py-3 text-center">Number {{ forloop.counter }}</p>
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Tank</td>
+                                <td>{{ hsd.tank }}</td>
+                            </tr>
+                            <tr>
+                                <td>Opening</td>
+                                <td>{{ hsd.opening }}</td>
+                            </tr>
+                            <tr>
+                                <td>Consumption</td>
+                                <td>{{ hsd.consumption }}</td>
+                            </tr>
+                            <tr>
+                                <td>Received</td>
+                                <td>{{ hsd.received }}</td>
+                            </tr>
+                            <tr>
+                                <td>Closing Balance</td>
+                                <td>{{ hsd.closing_bal }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+
+                        <h4 class="pt-3 text-center">REPAIRING LOG SHEET</h4>
+                        {% for service in services %}
+                        <p class="py-3 text-center">Equipment No. {{ forloop.counter }}</p>
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Equipment Service Name</td>
+                                <td>{{ service.equip_serv_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Working Hours</td>
+                                <td>{{ service.working_hour }}</td>
+                            </tr>
+                            <tr>
+                                <td>Available Hours</td>
+                                <td>{{ service.avail_hour }}</td>
+                            </tr>
+                            <tr>
+                                <td>Oil used</td>
+                                <td>{{ service.oil_used }}</td>
+                            </tr>
+                        </table>
+
+                        <div class="pb-5 pt-2" style="display: flex; flex-direction: column;">
+                            <label for="">Instructions</label>
+                            {{ service.intstructions }}
+                        </div>
+                        {% endfor %}
+
+                        <h4 class="py-3 text-center">Rig Down Time</h4>
+                        {% for rigdown in rigdowns %}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>From Hours</td>
+                                <td>{{ rigdown.from_hr }}</td>
+                            </tr>
+                            <tr>
+                                <td>To Hours</td>
+                                <td>{{ rigdown.to_hr }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+
+                        <div class="py-3" style="display: flex; flex-direction: column;">
+                            <label for="" class="pb-2">Requirements</label>
+                            {{ rig.requirements }}
+                            <hr />
+                        </div>
+
+                        <div class="py-3" style="display: flex; flex-direction: column;">
+                            <label for="" class="pb-2">Mechanical Engineer</label>
+                            {{ rig.mech_engineer }}
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

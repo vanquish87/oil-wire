@@ -12,7 +12,7 @@
     <!-- for symmetry from top to bottom on page I am using a container -->
     <div class="container-sm">
         <div class="row justify-content-around align-items-center text-center">
-            <div class="col-md-8 pt-5">
+            <div class="col-md-4 pt-5">
                 <h3>Account Login</h3>
                 <p><strong>Hello ONGCian, Welcome Back!</strong></p>
                 <form action="{% url 'login' %}" method="POST">
@@ -23,10 +23,10 @@
                       <div class="form-group">
                         <input type="password" class="form-control" placeholder="Password" name="password">
                       </div> <!-- form-group// -->
-<!--             
+<!--
                       <div class="form-group my-2">
                           <a href="#" class="float-right">Forgot password?</a> -->
-            
+
                       </div> <!-- form-group form-check .// -->
                       <div class="form-group pt-3">
                           <button type="submit" class="btn btn-warning btn-block">Login</button>

@@ -1,0 +1,612 @@
+﻿{% extends 'base.html' %}
+{% block title %}
+{% load static %}
+<title>Drill Mud Log - ONGC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
+
+
+{% endblock %}
+
+{% block content %}
+<!-- SECTION -->
+<section class="p-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+         
+
+            <!-- Form Steps / Progress Bar -->
+            <div class="container">
+                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                    <!-- Step 1 -->
+                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle">
+                                <span>1</span>
+                            </span>
+                            <div class="label">Rig Details</div>
+                        </a>
+                    </li>
+                    <!-- Step 2 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>2</span>
+                            </span>
+                            <div class="label text-muted">Operations</div>
+                        </a>
+                    </li>
+                    <!-- Step 3 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>3</span>
+                            </span>
+                            <div class="label text-muted">Laboratory Data</div>
+                        </a>
+                    </li>
+                    <!-- Step 4 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>4</span>
+                            </span>
+                            <div class="label text-muted">Hydraulic Data</div>
+                        </a>
+                    </li>
+                    <!-- Step 5 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="5">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>5</span>
+                            </span>
+                            <div class="label text-muted">Drilling Data</div>
+                        </a>
+                    </li>
+                    <!-- Step 6 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="6">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>6</span>
+                            </span>
+                            <div class="label text-muted">Mud Chemical Report</div>
+                        </a>
+                    </li>
+                    <!-- Step 7 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="7">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>7</span>
+                            </span>
+                            <div class="label text-muted">Mud Volume Details</div>
+                        </a>
+                    </li>
+                    <!-- Step 8 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="8">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>8</span>
+                            </span>
+                            <div class="label text-muted">Running Hours</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <form action="{% url 'report-drill' %}" method="POST" >
+                {% csrf_token %}
+                
+                <div><label for="From">From:</label>
+                <input type="date" value={{fromdate|date:'Y-m-d'}} id="From_drill" name="From_drill" />
+
+                <label for="To">To:</label>
+                <input type="date" value={{todate|date:'Y-m-d'}} id="To_drill" name="To_drill" />
+                <input type="submit" name="list" value="List Results" />
+
+                <a id="dlink" style="display:none;"></a>
+                <input type="button" onclick="tablesToDrill(array1, 'Sheet1', 'Drill.xls')" value="Single Sheet Export">
+<button  onclick="tablesToExcel(['export_table_to_excel_1','export_table_to_excel_2','export_table_to_excel_3','export_table_to_excel_4','export_table_to_excel_5','export_table_to_excel_6','export_table_to_excel_7','export_table_to_excel_8'], ['Rig Details','Operations','Laboratory Data','Hydraulic Data','Drilling Data','Mud Chemical Report','Mud Volume Details','Running Hours'], 'Drill.xls', 'Excel')">Multiple Sheets Export</button>
+                </div>
+
+                <!-- Step 1 Content -->
+                <section id="step-1" class="form-step bg-light text-dark">
+                    <h4 class="text-center">QHSE|DOC. NO.|QHSE/QF/CHEM-DPR/56</h4>
+                    <!-- Step 1 input fields -->
+                    <div class="row align-items-start" >
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Rig Details</h4>
+                                <table id="export_table_to_excel_1" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>S.No<id>
+                                        <th>Rigname </th>
+                                        <th>RigWellname </th>
+                                        <th>Asset </th>
+                                        <th>Date </th>
+                                      
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in rig %}
+                                    <tr>
+                                        <td>{{i.id}}</td>
+                                        <td>{{i.sasrigname}}</td>
+                                        <td>{{i.saswellname}}</td>
+                                        <td>{{i.asset}}</td>
+                                        <td>{{i.date}}</td>
+                                      
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                </section>
+
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step d-none bg-light text-dark">
+                    
+                    <!-- Step 2 input fields -->
+                    <div class="row align-items-start"  >
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Operations</h4>
+                                <table id="export_table_to_excel_2" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Shift Type<id>
+                                        <th>Drilled From (mtr) </th>
+                                        <th>To (mtr) </th>
+                                        <th>From (Hours) </th>
+                                        <th>To (Hours) </th>
+                                        <th>Sp. Gr. </th>
+                                        <th>Visc(Sec.) </th>  
+                                        <th>Gel 10 </th>
+                                        <th>pH </th>
+                                        <th>Operation </th>
+                                              
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in drillshift %}
+                                    <tr>
+                                        <td>{{i.shifttype}}</td>
+                                        <td>{{i.drillfrom}}</td>
+                                        <td>{{i.drillto}}</td>
+                                        <td>{{i.timefrom}}</td>
+                                        <td>{{i.timeto}}</td>
+                                        <td>{{i.spgrade}}</td>
+                                        <td>{{i.visc}}</td>
+                                        <td>{{i.gel}}</td>
+                                        <td>{{i.ph}}</td>
+                                        <td>{{i.operation}}</td>
+                                        
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 3 Content, default hidden on page load. -->
+                <section id="step-3" class="form-step d-none bg-light text-dark">
+                    
+                    <!-- Step 3 input fields -->
+                    <div class="row align-items-start" style="overflow-x: scroll;">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Laboratory Data</h4>
+                                <table id="export_table_to_excel_3" cellspacing="0" class="table" style="float: left " >
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Sample Type<id>
+                                        <th>Time </th>
+                                        <th>Depth </th>
+                                        <th>API Filtration </th>
+                                        <th>Cake Thickness </th>
+                                        <th>pH</th>
+                                        <th>Sand </th>  
+                                        <th>Apparent Visc.(cp)</th>
+                                        <th>Plastic Visc.(cp) </th>
+                                        <th>Yield Point(Lbs/100ft) </th>
+                                        <th>Gel 0(Lbs/100ft)<id>
+                                        <th>Gel 10(Lbs/100ft) </th>
+                                        <th>Oil Content(%v/v) </th>
+                                        <th>Solid Content(%v/v) </th>
+                                        <th>Water Content(%v/v) </th>
+                                        <th>MBC </th>
+                                        <th>Filtrate Salinity(gm/ml) </th>  
+                                        <th>Flow Line Temp(°C)</th>
+                                                      
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in drilllaboratory %}
+                                    <tr>
+                                        <td>{{i.sample}}</td>
+                                        <td>{{i.time}}</td>
+                                        <td>{{i.depth}}</td>
+                                        <td>{{i.apifilter}}</td>
+                                        <td>{{i.cakethickness}}</td>
+                                        <td>{{i.ph}}</td>
+                                        <td>{{i.sand}}</td>
+                                        <td>{{i.apparentvisc}}</td>
+                                        <td>{{i.plasticvisc}}</td>
+                                        <td>{{i.yieldpoint}}</td>
+                                        <td>{{i.gelzero}}</td>
+                                        <td>{{i.gelten}}</td>
+                                        <td>{{i.oilcontent}}</td>
+                                        <td>{{i.solidcontent}}</td>
+                                        <td>{{i.watercontent}}</td>
+                                        <td>{{i.mbc}}</td>
+                                        <td>{{i.filtersalinity}}</td>
+                                        <td>{{i.flowlinetemp}}</td>
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                 
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                </section>
+
+                <!-- Section 4 Content -->
+                <section id="step-4" class="form-step d-none bg-light text-dark">
+                    
+                    <div class="row align-items-start" style="overflow-x: scroll;">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Hydraulic Data</h4>
+                                <table id="export_table_to_excel_4" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Pump Liner Size<id>
+                                        <th>Stroke Length </th>
+                                        <th>Discharge </th>
+                                        <th>Stroke/min. </th>
+                                        <th>Stand Pipe Pressure </th>
+                                        <th>DP Size/Length</th>
+                                        <th>DC Size/Length </th>  
+                                        <th>No. of Stabilizers</th>
+                                        <th>(a) OH-DC </th>
+                                        <th>(b) OH-DP </th>
+                                        <th>(c) Cas-DP<id>
+                                        <th>Last Casing Size </th>
+                                        <th>Last csg. Length </th>
+                                        <th>Csg. Vol(m) </th>
+                                        <th>Mud in Hole(m) </th>
+                                        <th>Sand Trap Vol.(m) </th>
+                                        <th>Pit Vol. in circ(m) </th>  
+                                        <th>Total circ. Vol(m)</th>
+                                        <th>Lag Time(min) </th>
+                                        <th>Cycle Time(min) </th>  
+                                        <th>E.C.D.</th>
+                                        <th>Ann. Press Losses</th>
+                                                                        
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in hydraulic %}
+                                    <tr>
+                                        <td>{{i.pumplinersize}}</td>
+                                        <td>{{i.strokelength}}</td>
+                                        <td>{{i.discharge}}</td>
+                                        <td>{{i.stroke}}</td>
+                                        <td>{{i.standpipepressure}}</td>
+                                        <td>{{i.dpsize}}</td>
+                                        <td>{{i.dcsize}}</td>
+                                        <td>{{i.stabilizers}}</td>
+                                        <td>{{i.ohdc}}</td>
+                                        <td>{{i.ohdp}}</td>
+                                        <td>{{i.casdp}}</td>
+                                        <td>{{i.lastcasingsize}}</td>
+                                        <td>{{i.lastlength}}</td>
+                                        <td>{{i.csgvol}}</td>
+                                        <td>{{i.mudhole}}</td>
+                                        <td>{{i.sandtrap}}</td>
+                                        <td>{{i.pitvol}}</td>
+                                        <td>{{i.totalcirc}}</td>
+                                        <td>{{i.lagtime}}</td>
+                                        <td>{{i.cycletime}}</td>
+                                        <td>{{i.ECD}}</td>
+                                        <td>{{i.presslosses}}</td>
+
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+             
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Next</button>
+                    <!-- </div> -->
+                </section>
+
+                <!-- Step 5 Content -->
+                <section id="step-5" class="form-step d-none bg-light text-dark">
+                   
+                    <div class="row align-items-start py-2">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Drilling Data</h4>
+                                <table id="export_table_to_excel_5" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Sample Type<id>
+                                        <th>Bit Size(Inches) </th>
+                                        <th>Jet Size(Inches) </th>
+                                        <th>Wt. on Bit(MT) </th>
+                                        <th>Rotary RPM </th>
+                                        <th>BHA Length(mts)</th>
+                                                
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in drilldata %}
+                                    <tr>
+                                        <td>{{i.sample}}</td>
+                                        <td>{{i.bitsize}}</td>
+                                        <td>{{i.jetsize}}</td>
+                                        <td>{{i.onbit}}</td>
+                                        <td>{{i.rotaryrpm}}</td>
+                                        <td>{{i.bhalengths}}</td>
+                              
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+           
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="6">Next</button>
+                </section>
+
+                <!-- Step 6 Content -->
+                <section id="step-6" class="form-step d-none bg-light text-dark">
+                   
+                    <div class="row align-items-start py-2">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Mud Chemical Report</h4>
+                                <table id="export_table_to_excel_6" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Chemical<id>
+                                        <th>Unit </th>
+                                        <th>Opening Balance </th>
+                                        <th>Receipt </th>
+                                        <th>Consumption </th>
+                                        <th>Closing Balance </th>
+                                        <th>Cumulative Consumption </th>               
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in drillmud %}
+                                    <tr>
+                                        <td>{{i.chemical}}</td>
+                                        <td>{{i.unit}}</td>
+                                        <td>{{i.opening}}</td>
+                                        <td>{{i.receipt}}</td>
+                                        <td>{{i.consumption}}</td>
+                                        <td>{{i.closing}}</td>
+                                        <td>{{i.total}}</td>
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                  
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="5">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="7">Next</button>
+                </section>
+
+                <!-- Step 7 Content -->
+                <section id="step-7" class="form-step d-none bg-light text-dark">
+                   
+                    <div class="row align-items-start">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Mud Volume Details</h4>
+                                <table id="export_table_to_excel_7" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Shale Shaker (Vol (m))<id>
+                                        <th>Sp. Gr. </th>
+                                        <th>Setting Tank (Vol (m)) </th>
+                                        <th>Sp. Gr. </th>
+                                        <th>Intermediate Tank (Vol (m))<id>
+                                        <th>Sp. Gr. </th>
+                                        <th>Suction Tank (Vol (m)) </th>
+                                        <th>Sp. Gr. </th>
+                                        <th>Reserver Tank-1 (Vol (m))<id>
+                                        <th>Sp. Gr. </th>
+                                        <th>Reserver Tank-2 (Vol (m)) </th>
+                                        <th>Sp. Gr. </th>
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in drillvol %}
+                                    <tr>
+                                        <td>{{i.shalevole}}</td>
+                                        <td>{{i.shalespgr}}</td>
+                                        <td>{{i.settingvole}}</td>
+                                        <td>{{i.settingspgr}}</td>
+                                        <td>{{i.intervole}}</td>
+                                        <td>{{i.interspgr}}</td>
+                                        <td>{{i.suctionvole}}</td>
+                                        <td>{{i.suctionspgr}}</td>
+                                        <td>{{i.tank1vole}}</td>
+                                        <td>{{i.tank1spgr}}</td>
+                                        <td>{{i.tank2vole}}</td>
+                                        <td>{{i.tank2spgr}}</td>
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+            
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="6">Prev</button>
+                    <button class="button btn-navigate-form-step" type="button" step_number="8">Next</button>
+                </section>
+
+                <!-- Step 8 Content -->
+                <section id="step-8" class="form-step d-none bg-light text-dark">
+                    
+                    <div class="row align-items-start">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Running Hours</h4>
+                                <table id="export_table_to_excel_8" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Shale Shaker<id>
+                                        <th>Desander </th>
+                                        <th>Desilter </th>
+                                        <th>Degasser </th>
+                                        <th>Mud Cleaner </th>
+                                        <th>Remarks </th>
+                                           
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in drillsolid %}
+                                    <tr>
+                                        <td>{{i.shaleshaker}}</td>
+                                        <td>{{i.desander}}</td>
+                                        <td>{{i.desilter}}</td>
+                                        <td>{{i.degasser}}</td>
+                                        <td>{{i.mudlcleaner}}</td>
+                                        <td>{{i.remarks}}</td>
+                                  
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+               
+                    <br />
+                    <button class="button btn-navigate-form-step" type="button" step_number="7">Prev</button>
+                   
+                </section>
+                
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

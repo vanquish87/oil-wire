@@ -1,494 +1,442 @@
 {% extends 'base.html' %}
 {% block title %}
-<title>View - Drill Mud Log - ONGC</title>
+<title>Drill Mud Log - ONGC</title>
 {% endblock %}
 
 {% block content %}
+<!-- SECTION -->
+<section class="my-3">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration bg-light text-dark" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
+                            DRILLING MUD REPORT
+                        </h2>
 
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Well</td>
+                                <td>{{rig.saswellname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Rig Name</td>
+                                <td>{{rig.sasrigname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>{{rig.date.date}}</td>
+                            </tr>
+                            <tr>
+                                <td>Asset/Basin</td>
+                                <td>{{rig.asset}}</td>
+                            </tr>
+                            <tr>
+                                <td>Shift</td>
+                                <td>{{rig.shifttype}}</td>
+                            </tr>
+                        </table>
+                        {% for drillshift in drillshifts %}
+                        <p class="py-3 text-center">Operations</p>
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Drilled From</td>
+                                <td>{{ drillshift.drillfrom }}</td>
+                            </tr>
+                            <tr>
+                                <td>To (Mts.)</td>
+                                <td>{{ drillshift.drillto }}</td>
+                            </tr>
+                            <tr>
+                                <td>From Time:</td>
+                                <td>{{ drillshift.timefrom |date:"g:i A" }}</td>
+                            </tr>
+                            <tr>
+                                <td>To Time:</td>
+                                <td>{{ drillshift.timeto |date:"g:i A"}}</td>
+                            </tr>
+                            <tr>
+                                <td>Sp. Gr.</td>
+                                <td>{{ drillshift.spgrade }}</td>
+                            </tr>
+                            <tr>
+                                <td>Visc(Sec.)</td>
+                                <td>{{ drillshift.visc }}</td>
+                            </tr>
+                            <tr>
+                                <td>Gel 10</td>
+                                <td>{{ drillshift.gel }}</td>
+                            </tr>
+                            <tr>
+                                <td>pH</td>
+                                <td>{{ drillshift.ph }}</td>
+                            </tr>
+                        </table>
 
-    <!-- SECTION -->
-    <section class="p-5 my-5">
-      <div class="container py-5 h-100">
-        <div class="row justify-content-center align-items-center h-100">
-          <div class="col-12 col-lg-9 col-xl-7">
-            <div
-              class="card shadow-2-strong card-registration bg-light text-dark"
-              style="border-radius: 15px"
-            >
-              <div class="card-body p-4 p-md-5">
-                <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
-                  DRILLING MUD REPORT
-                </h2>
+                        <div class="pb-5 pt-2" style="display: flex; flex-direction: column;">
+                            <label for="">Operation</label>
+                            {{ drillshift.operation }}
+                        </div>
+                        {% endfor %}
 
-                <table class="table table-striped">
-                  <tr>
-                    <td>Rig Name</td>
-                    <td>{{rig.rig_name}}</td>
-                  </tr>
-                  <tr>
-                    <td>Well No.</td>
-                    <td>{{rig.well}}</td>
-                  </tr>
-                  <tr>
-                    <td>Date</td>
-                    <td>{{rig.date}}</td>
-                  </tr>
-                  <tr>
-                    <td>Asset/Basin</td>
-                    <td>{{rig.asset}}</td>
-                  </tr>
-                </table>
-                {% for drillshift in drillshifts %}
-                <table class="table table-striped">
+                        <h4 class="py-3 text-center">LABORATORY DATA</h4>
+                        {% for drill in drilllaboratorys %}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Sample</td>
+                                <td>{{ drill.sample }}</td>
+                            </tr>
+                            <tr>
+                                <td>Time</td>
+                                <td>{{ drill.time |date:"g:i A" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Depth</td>
+                                <td>{{ drill.depth }}</td>
+                            </tr>
+                            <tr>
+                                <td>API Filtration Loss(ml)</td>
+                                <td>{{ drill.apifilter }}</td>
+                            </tr>
+                            <tr>
+                                <td>Cake Thickness(mm)</td>
+                                <td>{{ drill.cakethickness }}</td>
+                            </tr>
+                            <tr>
+                                <td>pH</td>
+                                <td>{{ drill.ph }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sand(%v/v)</td>
+                                <td>{{ drill.sand }}</td>
+                            </tr>
+                            <tr>
+                                <td>Apparent visc.(cp)</td>
+                                <td>{{ drill.apparentvisc }}</td>
+                            </tr>
+                            <tr>
+                                <td>Plastic visc.(cp)</td>
+                                <td>{{ drill.apifilter }}</td>
+                            </tr>
+                            <tr>
+                                <td>Yield Point(Lbs/100ft)</td>
+                                <td>{{ drill.yieldpoint }}</td>
+                            </tr>
+                            <tr>
+                                <td>Gel 0(Lbs/100ft)</td>
+                                <td>{{ drill.gelzero }}</td>
+                            </tr>
+                            <tr>
+                                <td>Gel 10(Lbs/100ft)</td>
+                                <td>{{ drill.gelten }}</td>
+                            </tr>
+                            <tr>
+                                <td>Oil Content(%v/v)</td>
+                                <td>{{ drill.oilcontent }}</td>
+                            </tr>
+                            <tr>
+                                <td>Solid Content(%v/v)</td>
+                                <td>{{ drill.solidcontent }}</td>
+                            </tr>
+                            <tr>
+                                <td>Water Content(%v/v)</td>
+                                <td>{{ drill.watercontent }}</td>
+                            </tr>
+                            <tr>
+                                <td>MBC</td>
+                                <td>{{ drill.mbc }}</td>
+                            </tr>
+                            <tr>
+                                <td>Filtrate Salinity(gm/ml)</td>
+                                <td>{{ drill.filtersalinity }}</td>
+                            </tr>
+                            <tr>
+                                <td>Flow Line Temp(&deg;C)</td>
+                                <td>{{ drill.flowlinetemp }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+                        <h4 class="py-3 text-center">HYDRAULIC DATA</h4>
+                        {% for hydraulic in hydraulicdatas %}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Pump Liner Size</td>
+                                <td>{{ hydraulic.pumplinersize }}</td>
+                            </tr>
+                            <tr>
+                                <td>Stroke Length</td>
+                                <td>{{ hydraulic.strokelength }}</td>
+                            </tr>
+                            <tr>
+                                <td>Discharge</td>
+                                <td>{{ hydraulic.discharge }}</td>
+                            </tr>
+                            <tr>
+                                <td>Stroke/min.</td>
+                                <td>{{ hydraulic.stroke }}</td>
+                            </tr>
+                            <tr>
+                                <td>Stand Pipe Pressure</td>
+                                <td>{{ hydraulic.standpipepressure }}</td>
+                            </tr>
+                            <tr>
+                                <td>DP Size/Length</td>
+                                <td>{{ hydraulic.dpsize }}</td>
+                            </tr>
+                            <tr>
+                                <td>DC Size/Length</td>
+                                <td>{{ hydraulic.dcsize }}</td>
+                            </tr>
+                            <tr>
+                                <td>No. of Stabilizers</td>
+                                <td>{{ hydraulic.stabilizers }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
 
-                  <tr>
-                    <td>Shift</td>
-                    <td>{{ drillshift.shifttype }}</td>
-                  </tr>
-                  <tr>
-                    <td>Asset/Basin</td>
-                    <td>{{ drillshift.asset }}</td>
-                  </tr>
-                  <tr>
-                    <td>Drilled From</td>
-                    <td>{{ drillshift.drillfrom }}</td>
-                  </tr>
-                  <tr>
-                    <td>To (Mts.)</td>
-                    <td>{{ drillshift.drillto }}</td>
-                  </tr>
-                  <tr>
-                    <td>From Time:</td>
-                    <td>{{ drillshift.timefrom }}</td>
-                  </tr>
-                  <tr>
-                    <td>To Time:</td>
-                    <td>{{ drillshift.timeto }}</td>
-                  </tr>
-                </table>
+                        <span>Ann Vel.(m/sec)</span>
+                        {% for hydraulic in hydraulicdatas %}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>(a) OH-DC</td>
+                                <td>{{ hydraulic.ohdc }}</td>
+                            </tr>
+                            <tr>
+                                <td>(b) OH-DP</td>
+                                <td>{{ hydraulic.ohdp }}</td>
+                            </tr>
+                            <tr>
+                                <td>(c) Cas-DP</td>
+                                <td>{{ hydraulic.casdp }}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Casing Size</td>
+                                <td>{{ hydraulic.lastcasingsize }}</td>
+                            </tr>
+                            <tr>
+                                <td>Last csg. Length</td>
+                                <td>{{ hydraulic.lastlength }}</td>
+                            </tr>
+                            <tr>
+                                <td>Csg. Vol(m<sup>3</sup>)</td>
+                                <td>{{ hydraulic.csgvol }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mud in Hole(m<sup>3</sup>)</td>
+                                <td>{{ hydraulic.mudhole }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sand Trap Vol.(m<sup>3</sup>)</td>
+                                <td>{{ hydraulic.sandtrap }}</td>
+                            </tr>
+                            <tr>
+                                <td>Pit Vol. in circ(m<sup>3</sup>)</td>
+                                <td>{{ hydraulic.pitvol }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total circ. Vol(m<sup>3</sup>)</td>
+                                <td>{{ hydraulic.totalcirc }}</td>
+                            </tr>
+                            <tr>
+                                <td>Lag Time(min)</td>
+                                <td>{{ hydraulic.lagtime }}</td>
+                            </tr>
+                            <tr>
+                                <td>Cycle Time(min)</td>
+                                <td>{{ hydraulic.cycletime }}`</td>
+                            </tr>
+                            <tr>
+                                <td>E.C.D.</td>
+                                <td>{{ hydraulic.ECD }}</td>
+                            </tr>
+                            <tr>
+                                <td>Ann. Press Losses</td>
+                                <td>{{ hydraulic.presslosses }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+                        <h4 class="py-3 text-center">DRILLING DATA</h4>
+                        {% for drilldate in drilldatas %}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Sample Type</td>
+                                <td>{{ drilldate.sample }}</td>
+                            </tr>
+                            <tr>
+                                <td>Bit Size(Inches)</td>
+                                <td>{{ drilldate.bitsize }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jet Size(Inches)</td>
+                                <td>{{ drilldate.jetsize }}</td>
+                            </tr>
+                            <tr>
+                                <td>Wt. on Bit(MT)</td>
+                                <td>{{ drilldate.onbit }}</td>
+                            </tr>
+                            <tr>
+                                <td>Rotary RPM</td>
+                                <td>{{ drilldate.rotaryrpm }}</td>
+                            </tr>
+                            <tr>
+                                <td>BHA Length mts</td>
+                                <td>{{ drilldate.bhalengths }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+                        <h4 class="py-3 text-center">MUD CHEMICAL REPORT</h4>
+                        {% for mudchemical in drillchemicals %}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Chemical</td>
+                                <td>{{ mudchemical.chemical }}</td>
+                            </tr>
+                            <tr>
+                                <td>Unit</td>
+                                <td>{{ mudchemical.chemical }}</td>
+                            </tr>
+                            <tr>
+                                <td>Opening Balance</td>
+                                <td>{{ mudchemical.unit }}</td>
+                            </tr>
+                            <tr>
+                                <td>Receipt</td>
+                                <td>{{ mudchemical.receipt }}</td>
+                            </tr>
+                            <tr>
+                                <td>Consumption</td>
+                                <td>{{ mudchemical.consumption }}</td>
+                            </tr>
+                            <tr>
+                                <td>Closing Balance</td>
+                                <td>{{ mudchemical.closing }}</td>
+                            </tr>
+                            <tr>
+                                <td>Cumulative Consumption</td>
+                                <td>{{ mudchemical.total }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+                        <h4 class="py-3 text-center">MUD VOLUME DETAILS</h4>
+                        {% for drillvolume in drillvolumes %}
+                        <span>Shale Shaker</span>
 
-                {% endfor %}
-                {% for drillshift in drillshifts %}
-                <div
-                  class="pb-5 pt-2"
-                  style="display: flex; flex-direction: column"
-                >
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Vol (m<sup>3</sup>)</td>
+                                <td>{{ drillvolume.shalevole }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sp. Gr.</td>
+                                <td>{{ drillvolume.shalespgr }}</td>
+                            </tr>
+                        </table>
 
-                  <label for="">Operation</label>
-                    {{ drillshift.operation }}
-                    <hr>
+                        <span>Setting Tank</span>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Vol (m<sup>3</sup>)</td>
+                                <td>{{ drillvolume.settingvole }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sp. Gr.</td>
+                                <td>{{ drillvolume.settingspgr }}</td>
+                            </tr>
+                        </table>
+
+                        <span>Intermediate Tank</span>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Vol (m<sup>3</sup>)</td>
+                                <td>{{ drillvolume.intervole }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sp. Gr.</td>
+                                <td>{{ drillvolume.interspgr }}</td>
+                            </tr>
+                        </table>
+
+                        <span>Suction Tank</span>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Vol (m<sup>3</sup>)</td>
+                                <td>{{ drillvolume.suctionvole }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sp. Gr.</td>
+                                <td>{{ drillvolume.suctionspgr }}</td>
+                            </tr>
+                        </table>
+
+                        <span>Reserve Tank-1</span>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Vol (m<sup>3</sup>)</td>
+                                <td>{{ drillvolume.tank1vole }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sp. Gr.</td>
+                                <td>{{ drillvolume.tank1spgr }}</td>
+                            </tr>
+                        </table>
+
+                        <span>Reserve Tank-2</span>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Vol (m<sup>3</sup>)</td>
+                                <td>{{ drillvolume.tank2vole }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sp. Gr.</td>
+                                <td>{{ drillvolume.tank2spgr }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %}
+                        <h4 class="py-3 text-center">
+                            SOLID CONTROL EQUIPMENTS RUNNING HOURS
+                        </h4>
+                        {% for drillsolid in drillsolids %}
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Shale Shaker</td>
+                                <td>{{ drillsolid.shaleshaker }}</td>
+                            </tr>
+                            <tr>
+                                <td>Desander</td>
+                                <td>{{ drillsolid.desander }}</td>
+                            </tr>
+                            <tr>
+                                <td>Desilter</td>
+                                <td>{{ drillsolid.desilter }}</td>
+                            </tr>
+                            <tr>
+                                <td>Degasser</td>
+                                <td>{{ drillsolid.degasser }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mud Cleaner</td>
+                                <td>{{ drillsolid.mudlcleaner }}</td>
+                            </tr>
+                        </table>
+                        {% endfor %} {% for drillsolid in drillsolids %}
+                        <div class="pb-5 pt-2" style="display: flex; flex-direction: column;">
+                            <label for="">Remarks</label>
+                            {{ drillsolid.remarks }}
+                            <hr />
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                {% endfor %}
-                <!-- <h4 class="py-3 text-center">ELECTRICAL LOG SHEET</h4> -->
-                {% for drillshift in drillshifts %}
-                <table class="table table-striped">
-                  <tr>
-                    <td>Sp. Gr.</td>
-                    <td>{{ drillshift.spgrade }}</td>
-                  </tr>
-                  <tr>
-                    <td>Visc(Sec.)</td>
-                    <td>{{ drillshift.visc }}</td>
-                  </tr>
-                  <tr>
-                    <td>Gel 10</td>
-                    <td>{{ drillshift.gel }}</td>
-                  </tr>
-                  <tr>
-                    <td>pH</td>
-                    <td>{{ drillshift.ph }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-                <h4 class="py-3 text-center">LABORATORY DATA</h4>
-                {% for drill in drilllaboratorys %}
-                <table class="table table-striped">
-                  <tr>
-                    <td>Sample</td>
-                    <td>{{ drill.sample }}</td>
-                  </tr>
-                  <tr>
-                    <td>Time</td>
-                    <td>{{ drill.time }}</td>
-                  </tr>
-                  <tr>
-                    <td>Depth</td>
-                    <td>{{ drill.depth }}</td>
-                  </tr>
-                  <tr>
-                    <td>API Filtration Loss(ml)</td>
-                    <td>{{ drill.apifilter }}</td>
-                  </tr>
-                  <tr>
-                    <td>Cake Thickness(mm)</td>
-                    <td>{{ drill.cakethickness }}</td>
-                  </tr>
-                  <tr>
-                    <td>pH</td>
-                    <td>{{ drill.ph }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sand(%v/v)</td>
-                    <td>{{ drill.sand }}</td>
-                  </tr>
-                  <tr>
-                    <td>Apparent visc.(cp)</td>
-                    <td>{{ drill.apparentvisc }}</td>
-                  </tr>
-                  <tr>
-                    <td>Plastic visc.(cp)</td>
-                    <td>{{ drill.apifilter }}</td>
-                  </tr>
-                  <tr>
-                    <td>Yield Point(Lbs/100ft)</td>
-                    <td>{{ drill.yieldpoint }}</td>
-                  </tr>
-                  <tr>
-                    <td>Gel 0(Lbs/100ft)</td>
-                    <td>{{ drill.gelzero }}</td>
-                  </tr>
-                  <tr>
-                    <td>Gel 10(Lbs/100ft)</td>
-                    <td>{{ drill.gelten }}</td>
-                  </tr>
-                  <tr>
-                    <td>Oil Content(%v/v)</td>
-                    <td>{{ drill.oilcontent }}</td>
-                  </tr>
-                  <tr>
-                    <td>Solid Content(%v/v)</td>
-                    <td>{{ drill.solidcontent }}</td>
-                  </tr>
-                  <tr>
-                    <td>Water Content(%v/v)</td>
-                    <td>{{ drill.watercontent }}</td>
-                  </tr>
-                  <tr>
-                    <td>MBC</td>
-                    <td>{{ drill.mbc }}</td>
-                  </tr>
-                  <tr>
-                    <td>Filtrate Salinity(gm/ml)</td>
-                    <td>{{ drill.filtersalinity }}</td>
-                  </tr>
-                  <tr>
-                    <td>Flow Line Temp(&deg;C)</td>
-                    <td>{{ drill.flowlinetemp }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-                <h4 class="py-3 text-center">HYDRAULIC DATA</h4>
-                {% for hydraulic in hydraulicdatas %}
-                <table class="table table-striped">
-                  <tr>
-                    <td>Pump Liner Size</td>
-                    <td>{{ hydraulic.pumplinersize }}</td>
-                  </tr>
-                  <tr>
-                    <td>Stroke Length</td>
-                    <td>{{ hydraulic.strokelength }}</td>
-                  </tr>
-                  <tr>
-                    <td>Discharge</td>
-                    <td>{{ hydraulic.discharge }}</td>
-                  </tr>
-                  <tr>
-                    <td>Stroke/min.</td>
-                    <td>{{ hydraulic.stroke }}</td>
-                  </tr>
-                  <tr>
-                    <td>Stand Pipe Pressure</td>
-                    <td>{{ hydraulic.standpipepressure }}</td>
-                  </tr>
-                  <tr>
-                    <td>DP Size/Length</td>
-                    <td>{{ hydraulic.dpsize }}</td>
-                  </tr>
-                  <tr>
-                    <td>DC Size/Length</td>
-                    <td>{{ hydraulic.dcsize }}</td>
-                  </tr>
-                  <tr>
-                    <td>No. of Stabilizers</td>
-                    <td>{{ hydraulic.stabilizers }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-
-                <span>Ann Vel.(m/sec)</span>
-                {% for hydraulic in hydraulicdatas %}
-                <table class="table table-striped">
-                  <tr>
-                    <td>(a) OH-DC</td>
-                    <td>{{ hydraulic.ohdc }}</td>
-                  </tr>
-                  <tr>
-                    <td>(b) OH-DP</td>
-                    <td>{{ hydraulic.ohdp }}</td>
-                  </tr>
-                  <tr>
-                    <td>(c) Cas-DP</td>
-                    <td>{{ hydraulic.casdp }}</td>
-                  </tr>
-                  <tr>
-                    <td>Last Casing Size</td>
-                    <td>{{ hydraulic.lastcasingsize }}</td>
-                  </tr>
-                  <tr>
-                    <td>Last csg. Length</td>
-                    <td>{{ hydraulic.lastlength }}</td>
-                  </tr>
-                  <tr>
-                    <td>Csg. Vol(m<sup>3</sup>)</td>
-                    <td>{{ hydraulic.csgvol }}</td>
-                  </tr>
-                  <tr>
-                    <td>Mud in Hole(m<sup>3</sup>)</td>
-                    <td>{{ hydraulic.mudhole }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sand Trap Vol.(m<sup>3</sup>)</td>
-                    <td>{{ hydraulic.sandtrap }}</td>
-                  </tr>
-                  <tr>
-                    <td>Pit Vol. in circ(m<sup>3</sup>)</td>
-                    <td>{{ hydraulic.pitvol }}</td>
-                  </tr>
-                  <tr>
-                    <td>Total circ. Vol(m<sup>3</sup>)</td>
-                    <td>{{ hydraulic.totalcirc }}</td>
-                  </tr>
-                  <tr>
-                    <td>Lag Time(min)</td>
-                    <td>{{ hydraulic.lagtime }}</td>
-                  </tr>
-                  <tr>
-                    <td>Cycle Time(min)</td>
-                    <td>{{ hydraulic.cycletime }}`</td>
-                  </tr>
-                  <tr>
-                    <td>E.C.D.</td>
-                    <td>{{ hydraulic.ECD }}</td>
-                  </tr>
-                  <tr>
-                    <td>Ann. Press Losses</td>
-                    <td>{{ hydraulic.presslosses }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-                <h4 class="py-3 text-center">DRILLING DATA</h4>
-                {% for drilldate in drilldatas %}
-                <table class="table table-striped">
-                  <tr>
-                    <td>Sample Type</td>
-                    <td>{{ drilldate.sample }}</td>
-                  </tr>
-                  <tr>
-                    <td>Bit Size(Inches)</td>
-                    <td>{{ drilldate.bitsize }}</td>
-                  </tr>
-                  <tr>
-                    <td>Jet Size(Inches)</td>
-                    <td>{{ drilldate.jetsize }}</td>
-                  </tr>
-                  <tr>
-                    <td>Wt. on Bit(MT)</td>
-                    <td>{{ drilldate.onbit }}</td>
-                  </tr>
-                  <tr>
-                    <td>Rotary RPM</td>
-                    <td>{{ drilldate.rotaryrpm }}</td>
-                  </tr>
-                  <tr>
-                    <td>BHA Length mts</td>
-                    <td>{{ drilldate.bhalengths }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-                <h4 class="py-3 text-center">MUD CHEMICAL REPORT</h4>
-                {% for mudchemical in drillchemicals %}
-                <table class="table table-striped">
-                  <tr>
-                    <td>Chemical</td>
-                    <td>{{ mudchemical.chemical }}</td>
-                  </tr>
-                  <tr>
-                    <td>Unit</td>
-                    <td>{{ mudchemical.chemical }}</td>
-                  </tr>
-                  <tr>
-                    <td>Opening Balance</td>
-                    <td>{{ mudchemical.unit }}</td>
-                  </tr>
-                  <tr>
-                    <td>Receipt</td>
-                    <td>{{ mudchemical.receipt }}</td>
-                  </tr>
-                  <tr>
-                    <td>Consumption</td>
-                    <td>{{ mudchemical.consumption }}</td>
-                  </tr>
-                  <tr>
-                    <td>Closing Balance</td>
-                    <td>{{ mudchemical.closing }}</td>
-                  </tr>
-                  <tr>
-                    <td>Cumulative Consumption</td>
-                    <td>{{ mudchemical.total }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-                <h4 class="py-3 text-center">MUD VOLUME DETAILS</h4>
-                {% for drillvolume in drillvolumes %}
-                <span>Shale Shaker</span>
-
-                <table class="table table-striped">
-                  <tr>
-                    <td>Vol (m<sup>3</sup>)</td>
-                    <td>{{ drillvolume.shalevole }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sp. Gr.</td>
-                    <td>{{ drillvolume.shalespgr }}</td>
-                  </tr>
-                </table>
-
-                <span>Setting Tank</span>
-
-                <table class="table table-striped">
-                  <tr>
-                    <td>Vol (m<sup>3</sup>)</td>
-                    <td>{{ drillvolume.settingvole }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sp. Gr.</td>
-                    <td>{{ drillvolume.settingspgr }}</td>
-                  </tr>
-                </table>
-
-                <span>Intermediate Tank</span>
-
-                <table class="table table-striped">
-                  <tr>
-                    <td>Vol (m<sup>3</sup>)</td>
-                    <td>{{ drillvolume.intervole }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sp. Gr.</td>
-                    <td>{{ drillvolume.interspgr }}</td>
-                  </tr>
-                </table>
-
-                <span>Suction Tank</span>
-
-                <table class="table table-striped">
-                  <tr>
-                    <td>Vol (m<sup>3</sup>)</td>
-                    <td>{{ drillvolume.suctionvole }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sp. Gr.</td>
-                    <td>{{ drillvolume.suctionspgr }}</td>
-                  </tr>
-                </table>
-
-                <span>Reserve Tank-1</span>
-
-                <table class="table table-striped">
-                  <tr>
-                    <td>Vol (m<sup>3</sup>)</td>
-                    <td>{{ drillvolume.tank1vole }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sp. Gr.</td>
-                    <td>{{ drillvolume.tank1spgr }}</td>
-                  </tr>
-                </table>
-
-                <span>Reserve Tank-2</span>
-
-                <table class="table table-striped">
-                  <tr>
-                    <td>Vol (m<sup>3</sup>)</td>
-                    <td>{{ drillvolume.tank2vole }}</td>
-                  </tr>
-                  <tr>
-                    <td>Sp. Gr.</td>
-                    <td>{{ drillvolume.tank2spgr }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-                <h4 class="py-3 text-center">
-                  SOLID CONTROL EQUIPMENTS RUNNING HOURS
-                </h4>
-                {% for drillsolid in drillsolids %}
-                <table class="table table-striped">
-                  <tr>
-                    <td>Shale Shaker</td>
-                    <td>{{ drillsolid.shaleshaker }}</td>
-                  </tr>
-                  <tr>
-                    <td>Desander</td>
-                    <td>{{ drillsolid.desander }}</td>
-                  </tr>
-                  <tr>
-                    <td>Desilter</td>
-                    <td>{{ drillsolid.desilter }}</td>
-                  </tr>
-                  <tr>
-                    <td>Degasser</td>
-                    <td>{{ drillsolid.degasser }}</td>
-                  </tr>
-                  <tr>
-                    <td>Mud Cleaner</td>
-                    <td>{{ drillsolid.mudlcleaner }}</td>
-                  </tr>
-                </table>
-                {% endfor %}
-                {% for drillsolid in drillsolids %}
-                <div
-                  class="pb-5 pt-2"
-                  style="display: flex; flex-direction: column"
-                >
-                  <label for="">Remarks</label>
-                    {{ drillsolid.remarks }}
-                    <hr>
-                </div>
-                {% endfor %}
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-    <!-- Footer -->
-    <footer class="bg-light text-dark text-center">
-      <ul class="nav nav-tabs" style="background-color: #bc987e">
-        <li class="nav-item">
-          <a class="nav-link footer_links" href="#">Sitemap</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link footer_links" href="#">Privacy Policy</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link footer_links" href="#">Terms of Use</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link footer_links" href="">Disclaimer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="color: black" href=""
-            >Copyright © Oil and Natural Gas Corporation Limited, All Rights
-            Reserved.</a
-          >
-        </li>
-      </ul>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"
-      ></script>
-    </footer>
-  </body>
-</html>
+    </div>
+</section>
+
+
 {% endblock %}

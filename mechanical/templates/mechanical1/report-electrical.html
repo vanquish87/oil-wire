@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block title %}
+{% load static %}
+<title>Electric Daily Log - ONGC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'Styles\electrical_multi_step.css' %}">
+
+
+
+{% endblock %}
+
+{% block content %}
+<!-- SECTION -->
+<section class="p-3">
+    <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+           
+
+            <!-- Form Steps / Progress Bar -->
+            <div class="container">
+                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                    <!-- Step 1 -->
+                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle">
+                                <span>1</span>
+                            </span>
+                            <div class="label">Rig Details</div>
+                        </a>
+                    </li>
+
+                    <!-- Step 3 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                        <a class="mx-2 link-light">
+                            <span class="form-stepper-circle text-muted">
+                                <span>2</span>
+                            </span>
+                            <div class="label text-muted">Equipment Details</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Step Wise Form Content -->
+            <form action="{% url 'report-electrical' %}" method="POST" >
+                {% csrf_token %}
+                <div><label for="From">From:</label>
+                <input type="date" value={{fromdate|date:'Y-m-d'}} id="From_electric" name="From_electric" />
+
+                <label for="To">To:</label>
+                <input type="date" value={{todate|date:'Y-m-d'}} id="To_electric" name="To_electric" />
+                <input type="submit" name="list" value="List Results" />
+
+                <a id="dlink" style="display:none;"></a>
+                <input type="button" onclick="tablesToElectrical(array2, 'Sheet2', 'electrical.xls')" value="Single Sheet Export ">
+<button  onclick="tablesToExcel(['export_table_to_excel_1','export_table_to_excel_2'], ['Rig Details','Equipment Details'], 'Electrical.xls', 'Excel')">Multiple Sheets Export</button>
+                </div><br>
+                <!-- Step 1 Content -->
+                <section id="step-1" class="form-step bg-light text-dark">
+                    <!-- Step 1 input fields -->
+                    <div class="row align-items-start">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Rig Details</h4>
+                                <table id="export_table_to_excel_1" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>S.No<id>
+                                        <th>Rigname </th>
+                                        <th>RigWellname </th>
+                                        <th>QHSE | DOC. NO. </th>
+                                        
+                                        <th>Location </th>
+                                        <th>Date </th>
+                                                  
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in rig %}
+                                    <tr>
+                                        <td>{{i.id}}</td>
+                                        <td>{{i.sasrigname}}</td>
+                                        <td>{{i.saswellname}}</td>
+                                        <td>{{i.doc_no}}</td>
+                                        <td>{{i.location}}</td>
+                                        <td>{{i.date}}</td>
+                                       
+                                        
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+                    <br />
+                    </div>
+                    <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                </section>
+
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step d-none bg-light text-dark">
+                    
+                    <div class="row align-items-start" style="overflow-x: scroll;">
+                        <div class="row">
+                            <div class ="col-md-12">
+                                <h4 id="bankOne-header">Equipment Details</h4>
+                                <table id="export_table_to_excel_2" cellspacing="0" class="table" style="float: left">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Shift Type<id>
+                                        <th>Equipment Details </th>
+                                        <th>Equipment Status </th>
+                                        <th>Previous day Cumulative running hours </th>
+                                        <th>Running Hours during the shift </th>
+                                        <th>From (Hours) </th>
+                                        <th>To (Hours) </th> 
+                                        <th>Total Cumulative Running Hours<id>
+                                        <th>Remarks </th>
+                                        <th>Equipment Sent </th>
+                                        <th>DG-1 </th>
+                                       
+                                        <th>DG-2 </th>
+                                       
+                                        <th>DG-3 </th>
+                                       
+                                        <th>DG-4 </th>
+                                     
+                                        <th>Failure Reports </th>
+                                        <th>Safety reports </th>                          
+                                        
+    
+                                    </tr>
+                                    
+                                      
+                                </thead>
+                                
+                                <tbody>
+                                    {% for i in electric_s %}
+                                    <tr>
+                                        <td>{{i.shifttype}}</td>
+                                        <td>{{i.equipdetails}}</td>
+                                        <td>{{i.equipstatus}}</td>
+                                        <td>{{i.runninghours_prev}}</td>
+                                        <td>{{i.runninghours}}</td>
+                                        <td>{{i.breakfrom}}</td>
+                                        <td>{{i.breakto}}</td>
+                                        <td>{{i.totalcummulative}}</td>
+                                        <td>{{i.remarks}}</td>
+                                        <td>{{i.equipment}}</td>
+                                        <td>{{i.energydg1}}</td>
+                                       
+                                        <td>{{i.energydg2}}</td>
+                                       
+                                        <td>{{i.energydg3}}</td>
+                                        
+                                        <td>{{i.energydg4}}</td>
+                                       
+                                        <td>{{i.job}}</td>
+                                        <td>{{i.safetyreport}}</td>
+                                    
+                                    {%endfor%}
+                                   
+                                </tr>
+                                </tbody>
+                                
+                                   
+                               
+                            </table>
+                        </div>
+                        </div>
+
+                    <br />
+                    </div>
+                    <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                
+                  
+                    </div>
+                </section>
+                
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
